@@ -1,0 +1,14 @@
+{% extends 'base/base.html'%}
+
+{% block title %}INDEX VIEW {% endblock title %}
+
+{% block content %}
+
+    <h1>CUENTA</h1>
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Log out</button>
+    </form>
+    
+
+{% endblock content %}
