@@ -44,6 +44,7 @@ LOCAL_APPS = [
     'home',
     'api',
     'core',
+    'users',
 ]
 
 THIRD_APPS = [
@@ -82,8 +83,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ADSAP.wsgi.application'
-
-# LOGIN_REDIRECT_URL = reverse_lazy('home')
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
@@ -146,5 +145,20 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = 'users.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',  
+    'users.backend.EmailBackend',  
+]
+
+#SMTP Configuration
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'adsap.management4@gmail.com'
+EMAIL_HOST_PASSWORD = 'csip tvjx lvhx flid'
+
 LOGIN_REDIRECT_URL = reverse_lazy('home:home')
-LOGOUT_REDIRECT_URL = reverse_lazy('home:login')
+LOGOUT_REDIRECT_URL = reverse_lazy('users:login')

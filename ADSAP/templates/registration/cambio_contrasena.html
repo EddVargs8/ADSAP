@@ -1,0 +1,11 @@
+<h2> CAMBIO DE CONTRASEÑA</h2>
+
+<p>Ingrese su correo electronico, enviaremos un correo con
+    instrucciones para cambiar su contraseña.</p>
+</p>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" name="Send email">
+</form>
