@@ -1,5 +1,7 @@
 from django.db import models
 from users.models import CustomUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -118,6 +120,14 @@ class PREGUNTAS(models.Model):
     class Meta:
         db_table = "core_pregunta"
         verbose_name_plural = "Preguntas"
+
+    
+        
+@receiver(post_save, sender=PREGUNTAS)
+async def pregunta_agregada(sender, instance, **kwargs):
+    print("Pregunta agregada")
+    
+
 
 ESTADO = (
     ("Aceptado", "Aceptado"),
