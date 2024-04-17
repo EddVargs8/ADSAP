@@ -1,52 +1,129 @@
 {% extends 'base/base.html'%}
 
-{% block title %}INDEX VIEW {% endblock title %}
-
+{% block title %}INICIO{% endblock title %}
 {% block content %}
 <style>
-  .container.marketing .col-lg-4 .bd-placeholder-img {
+  body{
+    background-color: #d9d9d9;
+  }
+  .bd-radius {
+    border-radius: 15px;
+  }
+  h2{
+    text-align: center;
+  }
+  .col-lg-4 {
+  flex: 0 0 auto;
+  width: 33.333333%;
+}
+  .row {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4rem; /* Aumenta el valor de gap para tener más separación */
+  }
+  @media (max-width: 767px) {
+  .col-md-6 {
+    flex: 0 0 auto;
+    width: 50%;
+  }
+}
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: auto; /* Establece el ancho automático para que los botones tengan el mismo tamaño */
+  }
+  .btn{
+    margin-top: 20px; /* Aumenta el margen superior */
+    margin-bottom: 20px; /* Aumenta el margen inferior */
+    background-color: #adadad;
+  }
+  .btn-image {
+    display: inline-block;
+    padding: 0;
+    width: 300px;
+    height: 210px;
+    text-align: center;
+    color: black;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
     border-radius: 15px;
   }
 
-  .btn{
-    margin-top: 10px;
+  .btn-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain; /* Para mantener el aspecto de la imagen */
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+
+  .btn-image span {
+    display: block;
+    margin-top: 10px; /* Espacio entre la imagen y el texto */
   }
 </style>
-<br> 
 
-<h2>BIENVENIDO A ADSAP</h2>
-<div class="container marketing">
+<body>
+  <h2 style="font-size: 50px; margin-top: 6rem; margin-bottom: 3rem;">¡Bienvenido a ADSAP!</h2>
+  <div class="container marketing">
     <div class="row">
       <div class="col-lg-4">
-        <svg class="bd-placeholder-img" width="170" height="170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        <p><a class="btn btn-secondary" href="#">Datos Personales &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/YX3luYV.png" alt="Datos Personales">
+            <span style="margin-top: -2px; font-size: 20px;">Datos Personales</span>
+          </a>
+        </p>
+      </div>
       <div class="col-lg-4">
-        <svg class="bd-placeholder-img" width="170" height="170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        
-        <p><a class="btn btn-secondary" href="#">Vacaciones &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/9RVEEy5.png" alt="Vacaciones">
+            <span style="margin-top: -2px; font-size: 20px;">Vacaciones</span>
+          </a>
+        </p>
+      </div>
       <div class="col-lg-4">
-        <svg class="bd-placeholder-img" width="170" height="170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        
-        <p><a class="btn btn-secondary" href="#">Permisos &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/TWnwaqE.png" alt="Permisos">
+            <span style="margin-top: -2px; font-size: 20px;">Permisos</span>
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
       <div class="col-lg-4">
-        <svg class="bd-placeholder-img" width="170" height="170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        
-        <p><a class="btn btn-secondary" href="#">Incapacidades &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/PweRflT.png" alt="Incapacidades">
+            <span style="margin-top: -2px; font-size: 20px;">Incapacidades</span>
+          </a>
+        </p>
+      </div>
       <div class="col-lg-4">
-        <svg class="bd-placeholder-img" width="170" height="170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        
-        <p><a class="btn btn-secondary" href="#">Noticias &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/tAW9xDC.png" alt="Noticias">
+            <span style="margin-top: -2px; font-size: 20px;">Noticias</span>
+          </a>
+        </p>
+      </div>
       <div class="col-lg-4">
-        <svg class="bd-placeholder-img" width="170" height="170" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="var(--bs-secondary-color)"/></svg>
-        
-        <p><a class="btn btn-secondary" href="#">Nomina &raquo;</a></p>
-      </div><!-- /.col-lg-4 -->
-    </div><!-- /.row --> 
-</div>
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/crxqpmu.png" alt="Nomina">
+            <span style="margin-top: -2px; font-size: 20px;">Nomina</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
+
 {% endblock content %}
 
