@@ -100,7 +100,7 @@ class NOTICIAS(models.Model):
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
     fecha_publicacion = models.DateField()
-    id_area = models.ForeignKey(AREA, on_delete=models.CASCADE)
+    id_area = models.ForeignKey(AREA, on_delete=models.CASCADE, null=True, blank=True)
     imagen = models.ImageField(null=True, blank=True); 
 
     def __str__(self):

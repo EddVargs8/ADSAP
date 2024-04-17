@@ -68,8 +68,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'ADSAP.urls'
 
 #MEDIA CONFIG
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media', 'database')
-MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media' / 'database'
+MEDIA_URL = 'media/database/'
 
 TEMPLATES = [
     {
@@ -82,6 +82,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.datos_empleado',
             ],
         },
     },
