@@ -7,6 +7,17 @@ from django.utils.decorators import method_decorator
 from django.db.models import Q
 
 @method_decorator(login_required, name='dispatch')
+class Home(generic.View):
+    template_name = "index.html"
+    context = {}
+
+    def get(self, request):
+        self.context = {
+            "noticia": NOTICIAS.objects.all()
+        }
+        return render(request, self.template_name, self.context)
+
+@method_decorator(login_required, name='dispatch')
 class Preguntas(generic.View):
     template_name = "faq.html"
     context = {}
