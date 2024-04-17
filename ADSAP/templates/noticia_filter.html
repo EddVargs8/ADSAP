@@ -1,14 +1,16 @@
 {% extends 'base/base.html'%}
 
-{% block title %}FAQ VIEW {% endblock title %}
+{% block title %}NOTICIAS{% endblock title %}
 
 {% block content %}
 
+
   <br>
+
 
 <form action="filtro" method="get"> 
   <div class="input-group">
-    <input type="text" class="form-control" placeholder="Buscar" name="busqueda">
+    <input type="text" class="form-control" placeholder="Buscar" name="busquedaNoticia">
     <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
       <i class="fas fa-search"></i>
       <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -19,27 +21,27 @@
 </form>
 
   <br>
-  
-{% for pregunta in preguntas %}
-<div class="accordion" id="accordionExample">
+  {% for noticia in noticiasAB %}
+  <div class="accordion" id="accordionExample">
     <div class="accordion-item">
       <h2 class="accordion-header" id="heading{{ forloop.counter }}">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseThree">
-            {{ pregunta.pregunta }}
+            {{ noticia.titulo }}
         </button>
       </h2>
       <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-            {{ pregunta.respuesta }}
+            {{ noticia.contenido }}
         </div>
       </div>
     </div>
   </div>
-    
-    
-{% endfor %}
+  {% endfor %}
+  
+  <br>
+  
 
-
+  <a href="{% url 'core:noticias' %}"> Volver </a>
 
 
 {% endblock content %}

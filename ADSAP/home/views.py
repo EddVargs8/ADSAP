@@ -28,14 +28,6 @@ class Cuenta(generic.View):
         }
         return render(request, self.template_name, self.context)
     
-@method_decorator(login_required, name='dispatch')
-class Faq(generic.View):
-    template_name = "faq.html"
-    context = {}
 
-    def get(self, request):
-        self.context = {
 
-        }
-        return render(request, self.template_name, self.context)
 

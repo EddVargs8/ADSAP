@@ -6,5 +6,5 @@ app_name = "home"
 urlpatterns = [
     path('home/', views.Home.as_view(), name="home"),
     path('cuenta/', views.Cuenta.as_view(), name="cuenta"),
-    path('faq/', views.Faq.as_view(), name="faq"),
+
 ]

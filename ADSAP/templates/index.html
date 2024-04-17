@@ -1,10 +1,125 @@
 {% extends 'base/base.html'%}
 
-{% block title %}INDEX VIEW {% endblock title %}
-
+{% block title %}INICIO{% endblock title %}
 {% block content %}
+<style>
+  body{
+    background-color: #d9d9d9;
+  }
+  .bd-radius {
+    border-radius: 15px;
+  }
+  h2{
+    text-align: center;
+  }
+  .col-lg-4 {
+  flex: 0 0 auto;
+  width: 33.333333%;
+}
+  .row {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4rem; /* Aumenta el valor de gap para tener más separación */
+  }
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: auto;
+  }
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: auto; /* Establece el ancho automático para que los botones tengan el mismo tamaño */
+  }
+  .btn{
+    margin-top: 20px; /* Aumenta el margen superior */
+    margin-bottom: 20px; /* Aumenta el margen inferior */
+    background-color: #adadad;
+  }
+  .btn-image {
+    display: inline-block;
+    padding: 0;
+    width: 300px;
+    height: 210px;
+    text-align: center;
+    color: black;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    border-radius: 15px;
+  }
 
-    <h1>HOME</h1>
+  .btn-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain; /* Para mantener el aspecto de la imagen */
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+
+  .btn-image span {
+    display: block;
+    margin-top: 10px; /* Espacio entre la imagen y el texto */
+  }
+</style>
+
+<body>
+  <h2 style="font-size: 50px; margin-top: 6rem; margin-bottom: 3rem;">¡Bienvenido a ADSAP!</h2>
+  <div class="container marketing">
+    <div class="row">
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/A7sePgG.png" alt="Datos Personales">
+            <span style="margin-top: -2px; font-size: 20px;">Datos Personales</span>
+          </a>
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/9RVEEy5.png" alt="Vacaciones">
+            <span style="margin-top: -2px; font-size: 20px;">Vacaciones</span>
+          </a>
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/TWnwaqE.png" alt="Permisos">
+            <span style="margin-top: -2px; font-size: 20px;">Permisos</span>
+          </a>
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/PweRflT.png" alt="Incapacidades">
+            <span style="margin-top: -2px; font-size: 20px;">Incapacidades</span>
+          </a>
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image" href="{% url 'core:noticias' %}">
+            <img src="https://imgur.com/tAW9xDC.png" alt="Noticias">
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/KTbJv7A.png" alt="Noticias">
+            <span style="margin-top: -2px; font-size: 20px;">Noticias</span>
+          </a>
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image" href="#">
+            <img src="https://imgur.com/crxqpmu.png" alt="Nomina">
+            <span style="margin-top: -2px; font-size: 20px;">Nomina</span>
+          </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</body>
 
 {% endblock content %}
 

@@ -1,5 +1,7 @@
 from django.db import models
 from users.models import CustomUser
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 # Create your models here.
 
@@ -98,7 +100,7 @@ class NOTICIAS(models.Model):
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
     fecha_publicacion = models.DateField()
-    id_area = models.ForeignKey(AREA, on_delete=models.CASCADE)
+    id_area = models.ForeignKey(AREA, on_delete=models.CASCADE, null=True, blank=True)
     imagen = models.ImageField(null=True, blank=True); 
 
     def __str__(self):
@@ -118,6 +120,14 @@ class PREGUNTAS(models.Model):
     class Meta:
         db_table = "core_pregunta"
         verbose_name_plural = "Preguntas"
+
+    
+        
+@receiver(post_save, sender=PREGUNTAS)
+async def pregunta_agregada(sender, instance, **kwargs):
+    print("Pregunta agregada")
+    
+
 
 ESTADO = (
     ("Aceptado", "Aceptado"),
