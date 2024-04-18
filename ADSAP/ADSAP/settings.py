@@ -96,8 +96,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'ADSAP',
-        'USER': 'plaesem_user',
-        'PASSWORD': '123',
+        'USER': 'eddvargs8',
+        'PASSWORD': 'Pokedex123',
         'HOST': 'localhost',
         'PORT': '5432',
     }
