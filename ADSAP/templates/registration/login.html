@@ -1,144 +1,150 @@
 {% load static %}
 <!doctype html>
 <html lang="en">
-  <head>
 
-    <meta charset = "utf-8">
-    <meta name = "viewport" content = "width=device-width, initial-scale=1">
-    <meta name = "description" content = "">
-    
-  <link href = "{% static 'css/bootstrap.min.css' %} " rel = "stylesheet" integrity = "sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin = "anonymous">
+<head>
 
-    <style> 
-      .BackGround
-      {
-        background-color: #003366;
-      }
-      .Contenedor 
-      {
-        background-color: #fff;
-        padding-top: 70px;
-        padding-left: 25px;
-        padding-right: 25px;
-        height: 600px;
-        width: 500px;
-        border-radius: 20px;
-        position: absolute; 
-        left: 1250px;
-        margin-top: 150px;
-      }
-      .TittleADSAP
-      {
-        font-size: 7em;
-        color: #fff;
-        font-family: 'ZCOOL QingKe HuangYou';
-        font-weight: bold;
-        position: absolute; 
-        margin-top: 160px;
-        margin-left: 400px; 
-      }
-      img {
-        margin-top: 300px;
-        margin-left: 400px; 
-        height: 400px;
-        width: 400px;
-        position: absolute; 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <title>Inicio de sesión</title>
+
+  <link href="{% static 'css/bootstrap.min.css' %} " rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  <style>
+    .BackGround {
+      background-color: #003366;
     }
-      .Titulo
-      {
-        text-align: center;
-        font-size: 2em;
-        font-family: 'ZCOOL QingKe HuangYou';
-        font-weight: bold;
-        margin-bottom: 5px;
-      }
-      .Sub
-      {
-        text-align: center;
-        font-size: 1.2em;
-        font-family: 'ZCOOL QingKe HuangYou';
-        margin-bottom: 40px;
-      }
-      .Email
-      {
-        font-size: 1em;
-        font-family: 'ZCOOL QingKe HuangYou';
-        margin-bottom: 5px;
-      }
-      .Password
-      {
-        font-size: 1em;
-        font-family: 'ZCOOL QingKe HuangYou';
-        margin-bottom: 5px;
-        margin-top: 20px;
-      }
-      .Box
-      {
-        margin-bottom: 20px;
-      }
-      .Aviso
-      {
-        font-size: 1em;
-        color: #808080;
-        font-family: 'ZCOOL QingKe HuangYou';
-        margin-bottom: 20px;
-      }
-      .Olvido {
-        display: flex;
-        margin-top: 30px;
-        justify-content: center;
+
+    .Contenedor {
+      background-color: #fff;
+      padding-top: 70px;
+      padding-left: 25px;
+      padding-right: 25px;
+      height: 600px;
+      width: 500px;
+      border-radius: 20px;
+      position: absolute;
+      left: 1250px;
+      margin-top: 150px;
     }
-      .Footer 
-      {
-        color: #fff; 
-        padding: 20px; 
-        text-align: center; 
-        position: fixed; 
-        bottom: 0; 
-        width: 100%;
-      }
-    </style>
 
-    <body class="BackGround"> <!-- BackGround -->
-      <body>
-        <p class = "TittleADSAP">ADSAP</p>
-        <img src="https://cdn-icons-png.flaticon.com/256/3321/3321706.png">
+    .TittleADSAP {
+      font-size: 7em;
+      color: #fff;
+      font-family: 'ZCOOL QingKe HuangYou';
+      font-weight: bold;
+      position: absolute;
+      margin-top: 160px;
+      margin-left: 400px;
+    }
 
-        <div class = "Contenedor"> <!-- Contenedor de Login-->
-          <p class = "Titulo">Accede a tu cuenta</p>
-          <p class = "Sub">Inicia sesión con tu cuenta de ADSAP</p>
+    img {
+      margin-top: 300px;
+      margin-left: 400px;
+      height: 400px;
+      width: 400px;
+      position: absolute;
+    }
 
-          <form action="" method="post" class="form">
-            {% csrf_token %}
+    .Titulo {
+      text-align: center;
+      font-size: 2em;
+      font-family: 'ZCOOL QingKe HuangYou';
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
 
-            <p class = "Email">Correo Electrónico</p>
-            <div class="Box">
-              <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Email / Usuario">
-            </div>
+    .Sub {
+      text-align: center;
+      font-size: 1.2em;
+      font-family: 'ZCOOL QingKe HuangYou';
+      margin-bottom: 40px;
+    }
 
-            <p class = "Password">Contraseña</p>
-            <div class="Box">
-              <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Contraseña">
-            </div>
+    .Email {
+      font-size: 1em;
+      font-family: 'ZCOOL QingKe HuangYou';
+      margin-bottom: 5px;
+    }
 
-            <button class="btn btn-primary w-100 py-2" type="submit">Iniciar Sesión</button>
+    .Password {
+      font-size: 1em;
+      font-family: 'ZCOOL QingKe HuangYou';
+      margin-bottom: 5px;
+      margin-top: 20px;
+    }
 
-            {% if messages %}
-              <ul class="messages">
-                {% for message in messages %}
-                  <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                {% endfor %}
-              </ul>
-            {% endif %}
+    .Box {
+      margin-bottom: 20px;
+    }
 
-            <div class="Olvido">
-              <a class="Centro" href="{% url 'users:reset_password' %}">¿Olvidaste tu contraseña?</a>
-            </div>
-          </form>
+    .Aviso {
+      font-size: 1em;
+      color: #808080;
+      font-family: 'ZCOOL QingKe HuangYou';
+      margin-bottom: 20px;
+    }
+
+    .Olvido {
+      display: flex;
+      margin-top: 30px;
+      justify-content: center;
+    }
+
+    .Footer {
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
+
+<body class="BackGround"> <!-- BackGround -->
+
+  <body>
+    <p class="TittleADSAP">ADSAP</p>
+    <img src="https://cdn-icons-png.flaticon.com/256/3321/3321706.png">
+
+    <div class="Contenedor"> <!-- Contenedor de Login-->
+      <p class="Titulo">Accede a tu cuenta</p>
+      <p class="Sub">Inicia sesión con tu cuenta de ADSAP</p>
+
+      <form action="" method="post" class="form">
+        {% csrf_token %}
+
+        <p class="Email">Correo Electrónico</p>
+        <div class="Box">
+          <input type="text" class="form-control" name="username" id="floatingInput" placeholder="Email / Usuario">
         </div>
-      </body>
-      <p class = "Footer"> @ADSAP.2024</p>
-    </body>
-    <link href = "{% static 'css/sign-in.css' %}" rel="stylesheet">
-  </head>
+
+        <p class="Password">Contraseña</p>
+        <div class="Box">
+          <input type="password" class="form-control" name="password" id="floatingPassword" placeholder="Contraseña">
+        </div>
+
+        <button class="btn btn-primary w-100 py-2" type="submit">Iniciar Sesión</button>
+
+        {% if messages %}
+        <ul class="messages">
+          {% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div class="Olvido">
+          <a class="Centro" href="{% url 'users:reset_password' %}">¿Olvidaste tu contraseña?</a>
+        </div>
+      </form>
+    </div>
+  </body>
+  <p class="Footer"> @ADSAP.2024</p>
+</body>
+<link href="{% static 'css/sign-in.css' %}" rel="stylesheet">
+</head>
+
 </html>
