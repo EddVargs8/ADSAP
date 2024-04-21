@@ -1,11 +1,109 @@
-<h2> CAMBIO DE CONTRASEÑA</h2>
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
 
-<p>Ingrese su correo electronico, enviaremos un correo con
-    instrucciones para cambiar su contraseña.</p>
-</p>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reecuperar contraseña</title>
+  <link href="{% static 'css/bootstrap.min.css' %} " rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" name="Send email">
-</form>
+  <style>
+    .background {
+      background-color: #dadada;
+      margin: 0;
+    }
+
+    .Contenedor {
+      background-color: #fff;
+      padding-top: 10px;
+      padding-left: 25px;
+      padding-right: 25px;
+      height: 500px;
+      width: 600px;
+      border-radius: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    header {
+      background-color: #003366;
+      padding: 20px;
+      will-change: 100%;
+      text-align: left;
+      margin-bottom: 85px;
+    }
+
+    .Logo {
+      color: #fff;
+      font-size: 30px;
+      font-weight: bold;
+      font-family: 'ZCOOL QingKe HuangYou';
+      position: absolute;
+    }
+
+    .Tittle {
+      font-size: 2em;
+      font-weight: bold;
+      font-family: 'ZCOOL QingKe HuangYou';
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .Btn {
+      margin-top: 25px;
+      background-color: #004e9c;
+      border-color: #004e9c;
+    }
+
+    .Btn1 {
+      background-color: #004e9c;
+      border-color: #004e9c;
+      position: relative;
+      margin-left: 1650px;
+    }
+
+    .Instrucciones {
+      font-size: 1.2em;
+      font-family: 'ZCOOL QingKe HuangYou';
+      text-align: justify;
+    }
+
+    img {
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 200px;
+      width: 200px;
+      display: block;
+      padding-bottom: 10px;
+    }
+  </style>
+
+
+<body class=background>
+  <header>
+    <div class="Logo">ADSAP</div> 
+    <a class="btn btn-primary py-2 Btn1" type="submit" href="{% url 'users:login' %}">Volver al inicio de sesión</a>
+    
+  </header>
+  <div class=Contenedor>
+    <img src="https://cdn-icons-png.flaticon.com/256/6357/6357059.png">
+    <p class="Tittle">Recupera tu contraseña</p>
+    <p class="Instrucciones">Ingrese su correo electronico, enviaremos un correo con instrucciones para cambiar su
+      contraseña.</p>
+    <form method="post">
+      {% csrf_token %}
+      <input id="id_email" type="email" name="email" autocomplete="email" maxlength="254" required=""
+        class="form-control" placeholder="Correo electrónico de recuperación">
+
+      <button class="btn btn-primary w-100 py-2 Btn" type="submit" name="Send email">Enviar correo de
+        recuperación</button>
+    </form>
+  </div>
+</body>
+</head>
+
+</html>

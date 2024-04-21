@@ -90,6 +90,7 @@
       }
       .col-lg-2 {
         position: fixed;
+        width: 310px;
         left: 0;
         top: 0;
         bottom: 0;
@@ -98,7 +99,12 @@
       } 
       .col-lg-9 {
         margin-left: 300px; /* ajusta el margen izquierdo según el ancho del sidebar */
-      }     
+      }    
+      .empleado {
+        white-space: nowrap;
+        overflow-wrap: normal;
+      }
+
     </style>
 
     <link href="{% static 'css/sidebars.css' %}" rel="stylesheet">
@@ -145,9 +151,11 @@
                 <p class="text-white " style="font-size: large; margin-bottom: 0px;"> <b>Nombre de la empresa:</b> </p>
                 <p class="text-white"> {{ empleado.id_empresa.nombre }} </p>
                 <p class="text-white" style="font-size: large; margin-bottom: 0px;"><b>Nombre del empleado:</b> </p>
-                <span class="text-white">{{ empleado.nombre }}</span>
-                <span class="text-white">{{ empleado.apellido_paterno }}</span> 
-                <span class="text-white">{{ empleado.apellido_materno }}</span>
+                <div class="empleado">
+                  <span class="text-white">{{ empleado.nombre }}</span>
+                  <span class="text-white">{{ empleado.apellido_paterno }}</span> 
+                  <span class="text-white">{{ empleado.apellido_materno }}</span>
+                </div>
                 <hr style="color: white;">
                   <ul class="nav nav-pills flex-column mb-auto">
                     <li class="nav-item">
