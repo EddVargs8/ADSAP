@@ -14,7 +14,7 @@ class Home(generic.View):
 
     def get(self, request):
         self.context = {
-            "empleado" : EMPLEADO.objects.get(usuario=request.user)
+            
         }
         return render(request, self.template_name, self.context)
     

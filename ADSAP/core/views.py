@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from core.models import PREGUNTAS
 from core.models import NOTICIAS
+from core.models import EMPLEADO
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -60,3 +61,15 @@ def searchNoticias(request, *args, **kwargs):
         else:
             noticiasAB = None
         return render(request, "noticia_filter.html", {"noticiasAB": noticiasAB})
+    
+@method_decorator(login_required, name='dispatch')
+class DATOS_PERSONALES(generic.View):
+    template_name = "datos_personales.html"
+    context = {}
+
+    def get(self, request):
+        self.context = {
+            "empleado": EMPLEADO.objects.get(usuario=request.user)
+        }
+
+        return render(request, self.template_name, self.context)

@@ -10,4 +10,5 @@ urlpatterns = [
     path('faq/filtro', views.searchPreguntas, name="faq_filter"),
     path('noticias/', views.Noticias.as_view(), name="noticias"),
     path('noticias/filtro', views.searchNoticias, name="noticias_filter"),
+    path('datos_personales', views.DATOS_PERSONALES.as_view(), name="datos_personales")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

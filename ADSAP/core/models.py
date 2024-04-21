@@ -43,6 +43,7 @@ class EMPLEADO(models.Model):
     fecha_ingreso = models.DateField()
     dias_vacaciones = models.IntegerField()
     puesto = models.CharField(max_length=100)
+    sexo = models.CharField(max_length=20, choices=(("M", "Masculino"), ("F", "Femenino")), default="Masculino")
     area = models.ForeignKey(AREA, on_delete=models.CASCADE)
     usuario = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
     id_empresa = models.ForeignKey(EMPRESA, on_delete=models.CASCADE)
@@ -120,14 +121,6 @@ class PREGUNTAS(models.Model):
     class Meta:
         db_table = "core_pregunta"
         verbose_name_plural = "Preguntas"
-
-    
-        
-@receiver(post_save, sender=PREGUNTAS)
-async def pregunta_agregada(sender, instance, **kwargs):
-    print("Pregunta agregada")
-    
-
 
 ESTADO = (
     ("Aceptado", "Aceptado"),
