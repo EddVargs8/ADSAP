@@ -3,11 +3,11 @@
 {% block content %}
 <style>
   body {
-    background-color: #fff;
+    background-color: #d9d9d9;
   }
 
   .Contenedor {
-    background-color: #fff;
+    background-color: #d9d9d9;
     padding-top: 20px;
     padding-left: 25px;
     padding-right: 25px;
@@ -44,6 +44,7 @@
 
   .accordion-button {
     font-size: 0.8em;
+    background-color: #adadad;
   }
 
   .accordion-body {
@@ -69,7 +70,7 @@
     <div class="Filtro">
       <form action="filtro" method="get">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar pregunta" name="busqueda">
+          <input type="text" class="form-control" placeholder="Buscar pregunta" name="busqueda" style="background-color: #adadad;">
           <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
             <i class="fas fa-search"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
@@ -84,9 +85,9 @@
     <div>
       {% for pregunta in preguntas %}
       <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
+        <div class="accordion-item mb-1">
           <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed mb" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseThree">
               {{ pregunta.pregunta }}
             </button>
