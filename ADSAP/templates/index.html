@@ -3,38 +3,52 @@
 {% block title %}INICIO{% endblock title %}
 {% block content %}
 <style>
-  body{
-    background-color: #d9d9d9;
+  body {
+    background-color: #fff;
   }
+
   .bd-radius {
     border-radius: 15px;
   }
-  h2{
+
+  h2 {
     text-align: center;
   }
+
   .col-lg-4 {
-  flex: 0 0 auto;
-  width: 33.333333%;
-}
+    flex: 0 0 auto;
+    width: 33.333333%;
+  }
+
   .row {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap: 4rem; /* Aumenta el valor de gap para tener más separación */
+    gap: 4rem;
   }
+
   .col-lg-4 {
     flex: 0 0 auto;
     width: auto;
   }
+
   .col-lg-4 {
     flex: 0 0 auto;
-    width: auto; /* Establece el ancho automático para que los botones tengan el mismo tamaño */
+    width: auto;
   }
-  .btn{
-    margin-top: 20px; /* Aumenta el margen superior */
-    margin-bottom: 20px; /* Aumenta el margen inferior */
-    background-color: #adadad;
+
+  .btn {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #004c9759;
+    cursor: pointer;
+    transition: background-color 0.3s;
   }
+
+  .btn:hover {
+    background-color: #004b97b7;
+  }
+
   .btn-image {
     display: inline-block;
     padding: 0;
@@ -50,42 +64,44 @@
   .btn-image img {
     width: 150px;
     height: 150px;
-    object-fit: contain; /* Para mantener el aspecto de la imagen */
+    object-fit: contain;
     margin-top: 15px;
     margin-bottom: 0px;
   }
 
   .btn-image span {
     display: block;
-    margin-top: 10px; /* Espacio entre la imagen y el texto */
+    margin-top: 10px;
   }
 </style>
 
 <body>
-  <h2 style="font-size: 50px; margin-top: 6rem; margin-bottom: 3rem;">¡Bienvenido a ADSAP!</h2>
+  <h2
+    style="font-size: 70px; margin-top: 6rem; margin-bottom: 3rem; color:#003366; font-family: 'ZCOOL QingKe HuangYou'; font-weight: bold;">
+    ¡Bienvenido a ADSAP!</h2>
   <div class="container marketing">
     <div class="row">
       <div class="col-lg-4">
         <p>
           <a class="btn btn-secondary btn-image" href="{% url 'core:datos_personales' %}">
-            <img src="https://imgur.com/A7sePgG.png" alt="Datos Personales">
-            <span style="margin-top: -2px; font-size: 20px;">Datos Personales</span>
+            <img src="https://cdn-icons-png.flaticon.com/256/1077/1077063.png" alt="Datos Personales">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Datos Personales</span>
           </a>
         </p>
       </div>
       <div class="col-lg-4">
         <p>
           <a class="btn btn-secondary btn-image" href="#">
-            <img src="https://imgur.com/9RVEEy5.png" alt="Vacaciones">
-            <span style="margin-top: -2px; font-size: 20px;">Vacaciones</span>
+            <img src="https://cdn-icons-png.flaticon.com/256/1831/1831534.png" alt="Vacaciones">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Vacaciones</span>
           </a>
         </p>
       </div>
       <div class="col-lg-4">
         <p>
           <a class="btn btn-secondary btn-image" href="#">
-            <img src="https://imgur.com/TWnwaqE.png" alt="Permisos">
-            <span style="margin-top: -2px; font-size: 20px;">Permisos</span>
+            <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png" alt="Permisos">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Permisos</span>
           </a>
         </p>
       </div>
@@ -94,24 +110,24 @@
       <div class="col-lg-4">
         <p>
           <a class="btn btn-secondary btn-image" href="#">
-            <img src="https://imgur.com/PweRflT.png" alt="Incapacidades">
-            <span style="margin-top: -2px; font-size: 20px;">Incapacidades</span>
+            <img src="https://cdn-icons-png.flaticon.com/256/4540/4540514.png" alt="Incapacidades">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Incapacidades</span>
           </a>
         </p>
       </div>
       <div class="col-lg-4">
         <p>
           <a class="btn btn-secondary btn-image" href="{% url 'core:noticias' %}">
-            <img src="https://imgur.com/KTbJv7A.png" alt="Noticias">
-            <span style="margin-top: -2px; font-size: 20px;">Noticias</span>
+            <img src="https://cdn-icons-png.flaticon.com/256/2886/2886141.png" alt="Noticias">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Noticias</span>
           </a>
         </p>
       </div>
       <div class="col-lg-4">
         <p>
           <a class="btn btn-secondary btn-image" href="#">
-            <img src="https://imgur.com/crxqpmu.png" alt="Nomina">
-            <span style="margin-top: -2px; font-size: 20px;">Nomina</span>
+            <img src="https://cdn-icons-png.flaticon.com/256/8290/8290972.png" alt="Nomina">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Nomina</span>
           </a>
         </p>
       </div>
@@ -120,4 +136,3 @@
 </body>
 
 {% endblock content %}
-
