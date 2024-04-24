@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulario enviado</title>
+  <style>
+    .background {
+      background-color: #dadada;
+      margin: 0;
+    }
+
+    header {
+      background-color: #003366;
+      padding: 20px;
+      will-change: 100%;
+      text-align: left;
+      margin-bottom: 85px;
+    }
+
+    .Logo {
+      color: #fff;
+      font-size: 30px;
+      font-weight: bold;
+      font-family: 'ZCOOL QingKe HuangYou';
+    }
+
+    .Contenedor {
+      background-color: #fff;
+      padding-top: 10px;
+      padding-left: 25px;
+      padding-right: 25px;
+      height: 500px;
+      width: 600px;
+      border-radius: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      display: block;
+    }
+
+    img {
+      margin-top: 20px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 200px;
+      width: 200px;
+      display: block;
+      padding-bottom: 10px;
+    }
+
+    .Tittle {
+      font-size: 2em;
+      font-weight: bold;
+      font-family: 'ZCOOL QingKe HuangYou';
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .Instrucciones {
+      font-size: 1em;
+      font-family: 'ZCOOL QingKe HuangYou';
+      text-align: justify;
+    }
+  </style>
+
+<body class="background">
+  <header>
+    <div class="Logo">ADSAP</div>
+  </header>
+
+  <div class=Contenedor>
+    <img src="https://cdn-icons-png.flaticon.com/256/488/488454.png">
+    <p class="Tittle">¡Solicitud creada exitosamente!</p>
+    <p class="Instrucciones">
+        Tu solicitud ha sido enviada exitosamente. En breve, un administrador revisará tu solicitud y te notificará si ha sido aprobada o rechazada.
+        Ahora puedes regresar a la pagina de vacaciones y ver el estado de tu solicitud.
+    </p>
+    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
+  </div>
+</body>
+</head>

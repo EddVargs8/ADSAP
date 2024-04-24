@@ -1,0 +1,24 @@
+{% extends 'base/base.html'%}
+{% block title %}Vacaciones FORM {% endblock title %}
+
+{% block content %}
+
+<body>
+
+    <h1>Vacaciones FORM </h1>
+    <form action="" method="post" class="form">
+        {% csrf_token %}
+            {{ form }}
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-outline-success form-control">Mandar solicitud</button>
+                </div>
+                
+            </div>
+    </form>
+
+
+
+</body>
+{% endblock content %}

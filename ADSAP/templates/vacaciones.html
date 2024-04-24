@@ -1,0 +1,17 @@
+{% extends 'base/base.html'%}
+{% block title %}Vacaciones{% endblock title %}
+
+{% block content %}
+
+<body>
+
+    <h1>Vacaciones</h1>
+
+    <p> Dias disponibles: {{ empleado.dias_vacaciones }} </p>
+    
+    <a class="btn btn-primary py-2 Btn1" type="" href="{% url 'core:vacaciones_solicitud' %}">Solicitar Vacaciones</a>
+
+
+
+</body>
+{% endblock content %}

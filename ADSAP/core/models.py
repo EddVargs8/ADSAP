@@ -6,7 +6,7 @@ from django.dispatch import receiver
 # Create your models here.
 
 class EMPRESA(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     razon_social = models.CharField(max_length=50)
     rfc = models.CharField(max_length=20)
@@ -16,7 +16,7 @@ class EMPRESA(models.Model):
         return self.nombre + " " + self.rfc 
 
 class AREA(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     descripcion = models.CharField(max_length=100)
     lider_area = models.ForeignKey('EMPLEADO', on_delete=models.CASCADE, related_name='mi_empleado', null=True, blank=True)
@@ -25,7 +25,7 @@ class AREA(models.Model):
         return self.nombre + " " + self.descripcion 
 
 class EMPLEADO(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
     apellido_paterno = models.CharField(max_length=100)
     apellido_materno = models.CharField(max_length=100)
@@ -59,8 +59,8 @@ TIPO_PERMISO = (
 )
 
 class PERMISO(models.Model): 
-    id = models.IntegerField(primary_key=True)
-    fecha_solicitud = models.DateField()
+    id = models.AutoField(primary_key=True)
+    fecha_solicitud = models.DateField(auto_now=True)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
     motivo = models.TextField(null=True, blank=True)
@@ -72,8 +72,8 @@ class PERMISO(models.Model):
         return self.motivo
 
 class VACACIONES(models.Model):
-    id = models.IntegerField(primary_key=True)
-    fecha_solicitud = models.DateField()
+    id = models.AutoField(primary_key=True)
+    fecha_solicitud = models.DateField(auto_now=True)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
     motivo = models.TextField(null=True, blank=True)
@@ -85,7 +85,7 @@ class VACACIONES(models.Model):
         verbose_name_plural = "Vacaciones"
 
 class NOMINA(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
     salario_diario = models.DecimalField(max_digits=10, decimal_places=2)
@@ -97,10 +97,10 @@ class NOMINA(models.Model):
 
 
 class NOTICIAS(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=100)
     contenido = models.TextField()
-    fecha_publicacion = models.DateField()
+    fecha_publicacion = models.DateField(auto_now=True)
     id_area = models.ForeignKey(AREA, on_delete=models.CASCADE, null=True, blank=True)
     imagen = models.ImageField(null=True, blank=True); 
 
@@ -111,7 +111,7 @@ class NOTICIAS(models.Model):
         verbose_name_plural = "Noticias"
 
 class PREGUNTAS(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     pregunta = models.TextField()
     respuesta = models.TextField()
     imagen = models.ImageField(null=True, blank=True); 
@@ -130,7 +130,7 @@ ESTADO = (
 )
 
 class ESTADO_SOLICITUD(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     estado = models.CharField(max_length=20, choices=ESTADO)
     comentarios_admin = models.TextField(null=True, blank=True)
     #id de solicitud 
@@ -160,7 +160,7 @@ SECCION = (
 
 #REPORTE
 class REPORTE(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     fecha_inicio = models.DateField()
     fecha_fin = models.DateField()
     descripcion = models.TextField()
