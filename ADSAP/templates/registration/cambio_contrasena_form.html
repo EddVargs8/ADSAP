@@ -78,34 +78,7 @@
       correctamente.</p>
     <form method="post">
       {% csrf_token %}
-      
-      <div>
-        <label for="id_new_password">Nueva contraseña:</label>
-        <input id="id_new_password1" type="password" name="new_password1" autocomplete="new-password" required=""
-          aria-describedby="id_new_password1_helptext" class="form-control" placeholder="Nueva contraseña">
-        </input>
-        <div id="id_new_password1_helptext" class="helptext">
-          <ul>
-            <li ::marker>
-              Tu contraseña no puede ser muy similar a tu información personal.
-            </li>
-            <li ::marker>
-              Tu contraseña debe contener al menos 8 caracteres.
-            </li>
-            <li ::marker>
-              Tu contraseña no debe ser una contraseña común.
-            </li>
-            <li ::marker>
-              Tu contraseña no puede ser enteramente numérica.
-            </li>
-          </ul>
-        </div>
-      </div>
-      <div>
-        <label for="id_new_password2">Confirma la nueva contraseña:</label>
-        <input id="id_new_password2" type="password" name="new_password2" autocomplete="new-password" required=""
-          class="form-control" placeholder="Confirmación de contraseña">
-      </div>
+      {{form}}
       <button class="btn btn-primary w-100 py-2 Btn" type="submit" name="Update Password">Cambiar contraseña</button>
     </form>
   </div>
