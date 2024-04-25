@@ -2,7 +2,7 @@ from core.models import EMPLEADO
 
 def datos_empleado(request):
     if request.user.is_authenticated:
-        #empleado = EMPLEADO.objects.get(usuario=request.user)
+        empleado = EMPLEADO.objects.get(usuario=request.user)
         return {
            'empleado_id': empleado.id,
            'empleado_nombre': empleado.nombre,
