@@ -83,6 +83,15 @@ class VACACIONES(models.Model):
         return self.motivo
     class Meta:
         verbose_name_plural = "Vacaciones"
+    def dias_solicitados(self):
+        diferencia = self.fecha_fin - self.fecha_inicio
+        return diferencia.days 
+    
+@receiver(post_save, sender=VACACIONES)
+def final_date_grantgoal(sender, instance, **kwargs):
+    solicitud = instance
+    id_solicitud = solicitud.id
+    estado = ESTADO_SOLICITUD.objects.create(estado="En revision", id_vacaciones=solicitud)
 
 class NOMINA(models.Model):
     id = models.AutoField(primary_key=True)
@@ -137,8 +146,6 @@ class ESTADO_SOLICITUD(models.Model):
     id_vacaciones = models.ForeignKey(VACACIONES, on_delete=models.CASCADE, null=True, blank=True)
     id_permiso = models.ForeignKey(PERMISO, on_delete=models.CASCADE, null=True, blank=True)
     
-    def __str__(self):
-        return self.estado + " " + self.comentarios_admin + " " 
     class Meta:
         verbose_name_plural = "Estado de solicitudes"
 

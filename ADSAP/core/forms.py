@@ -5,6 +5,10 @@ class Solicitud_Vacaciones_Form(forms.ModelForm):
     class Meta:
         model = models.VACACIONES
         exclude = ["id_empleado"]
+        labels = {
+            'fecha_inicio': 'Fecha de inicio de vacaciones: ',
+            'fecha_fin': 'Fecha de regreso:', 
+        }
         widgets = {
             'fecha_inicio': forms.DateInput({'type': 'date'}),
             'fecha_fin': forms.DateInput({'type': 'date'}),
@@ -21,7 +25,7 @@ class Solicitud_Vacaciones_Form(forms.ModelForm):
         fecha_fin = cleaned_data.get('fecha_fin')
 
         if fecha_inicio and fecha_fin:
-            dias_solicitados = (fecha_fin - fecha_inicio).days + 1
+            dias_solicitados = (fecha_fin  - fecha_inicio).days - 1
             if dias_solicitados > self.empleado.dias_vacaciones:
                 raise forms.ValidationError("No tiene suficientes días de vacaciones disponibles.")
         

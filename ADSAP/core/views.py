@@ -81,8 +81,12 @@ class Vacaciones(generic.View):
     context = {}
 
     def get(self, request):
+        #solicitud_actual = models.VACACIONES.objects.get()
         self.context = {
-            "empleado": models.EMPLEADO.objects.get(usuario=request.user)
+            "empleado": models.EMPLEADO.objects.get(usuario=request.user),
+            "solicitudes": models.VACACIONES.objects.all(),
+            #"solicitud": solicitud_actual,
+            "dias_solicitados": models.VACACIONES.dias_solicitados
         }
 
         return render(request, self.template_name, self.context)
@@ -114,7 +118,7 @@ def Vacaciones_Form(request):
             # Calcular los días solicitados
             fecha_inicio = form.cleaned_data['fecha_inicio']
             fecha_fin = form.cleaned_data['fecha_fin']
-            dias_solicitados = (fecha_fin - fecha_inicio).days + 1
+            dias_solicitados = (fecha_fin - fecha_inicio).days 
 
             # Actualizar los días de vacaciones del empleado
             empleado.dias_vacaciones = F('dias_vacaciones') - dias_solicitados
@@ -126,5 +130,17 @@ def Vacaciones_Form(request):
 
     return render(request, 'form_vacaciones.html', {'form': form})
     
+@method_decorator(login_required, name='dispatch')
+class Vacaciones_Estado(generic.View):
+    template_name = "vacaciones_estado.html"
+    context = {}
 
+    def get(self, request, pk):
+        self.context = {
+            "estado_solicitud": models.ESTADO_SOLICITUD.objects.get(id_vacaciones=pk),
+            "solicitud": models.VACACIONES.objects.get(id=pk),
+            "empleado": models.EMPLEADO.objects.get(usuario=request.user)
+        }
+
+        return render(request, self.template_name, self.context)
     

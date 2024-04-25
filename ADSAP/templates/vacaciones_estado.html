@@ -1,0 +1,25 @@
+{% extends 'base/base.html'%}
+
+{% block title %} ESTADO SOLICITUD VACACIONES {% endblock title %}
+
+{% block content %}
+
+    <h1>ESTADO SOLICITUD </h1>
+
+    <p class="">{{ empleado.nombre }} {{ empleado.apellido_paterno }} {{empleado.apellido_materno }}</p>
+    <p class="">{{ empleado.area }}</p>
+    <p class="">{{ empleado.puesto }}</p>
+    <br>
+    <p> Dias solicitados: {{ solicitud.dias_solicitados }} </p>
+    <p> Fecha inicio: {{ solicitud.fecha_inicio }}  </p>
+    <p> Fecha regreso: {{ solicitud.fecha_fin }} </p>
+    <br>
+
+    <p> Motivo solicitud olicitud: {{ solicitud.motivo }} </p>
+    <p> Estado solicitud: {{ estado_solicitud.estado }}</p>
+    <p> Comentarios admin: {{estado.comentarios_admin}} </p>
+    
+
+
+    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
+{% endblock content %}

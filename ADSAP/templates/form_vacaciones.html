@@ -9,16 +9,11 @@
     <form action="" method="post" class="form">
         {% csrf_token %}
             {{ form }}
-            <hr>
-            <div class="row">
-                <div class="col">
-                    <button type="submit" class="btn btn-outline-success form-control">Mandar solicitud</button>
-                </div>
-                
-            </div>
+            <button type="submit" class="btn btn-outline-success form-control">Mandar solicitud</button>
     </form>
 
 
-
+    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
+    
 </body>
 {% endblock content %}
