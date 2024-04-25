@@ -1,0 +1,44 @@
+{% extends 'base/base.html'%}
+{% block title %}Vacaciones{% endblock title %}
+
+{% block content %}
+
+<body>
+
+    <h1>Vacaciones</h1>
+
+    <p> Dias disponibles: {{ empleado.dias_vacaciones }} </p>
+    
+    <a class="btn btn-primary py-2 Btn1" type="" href="{% url 'core:vacaciones_solicitud' %}">Solicitar Vacaciones</a>
+
+    <br>
+    <br>
+
+
+    {% for solicitud in solicitudes %}
+    
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
+            <img src="" alt="🌴" width="32" height="32" class="rounded-circle flex-shrink-0">
+            <div class="d-flex gap-2 w-100 justify-content-between">
+              <div>
+                <h6 class="mb-0"> {{ solicitud.fecha_inicio }}  al {{ solicitud.fecha_fin }} </h6>
+                <p class="mb-0 opacity-75"> Dias solicitados: {{ solicitud.dias_solicitados }} </p>
+              </div>
+            </div>
+          </a>
+          <a href="{% url 'core:vacaciones_estado' solicitud.id %}" class="btn btn-outline-info">Estado Solicitud</a>
+            </div>
+    
+            
+    
+    
+        {% endfor %}
+
+
+    
+
+
+
+</body>
+{% endblock content %}

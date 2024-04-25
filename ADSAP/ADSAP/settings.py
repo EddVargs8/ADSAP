@@ -171,3 +171,11 @@ EMAIL_HOST_PASSWORD = 'csip tvjx lvhx flid'
 
 LOGIN_REDIRECT_URL = reverse_lazy('home:home')
 LOGOUT_REDIRECT_URL = reverse_lazy('users:login')
+
+#Sessions
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 3600
+SESSION_SAVE_EVERY_REQUEST = True
+
+
+
