@@ -11,4 +11,4 @@ def datos_empleado(request):
            'empleado_empresa': empleado.id_empresa.nombre,
         }
     else:
-        return {}   
+        return {}
