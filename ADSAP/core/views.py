@@ -81,11 +81,9 @@ class Vacaciones(generic.View):
     context = {}
 
     def get(self, request):
-        #solicitud_actual = models.VACACIONES.objects.get()
         self.context = {
             "empleado": models.EMPLEADO.objects.get(usuario=request.user),
             "solicitudes": models.VACACIONES.objects.all(),
-            #"solicitud": solicitud_actual,
             "dias_solicitados": models.VACACIONES.dias_solicitados
         }
 
@@ -143,4 +141,8 @@ class Vacaciones_Estado(generic.View):
         }
 
         return render(request, self.template_name, self.context)
-    
+
+class Vacaciones_Eliminar(generic.DeleteView):
+    template_name = "core/vacaciones_eliminacion.html"
+    model = models.VACACIONES
+    success_url = reverse_lazy("core:vacaciones")

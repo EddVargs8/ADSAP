@@ -1,16 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from django.urls import reverse
+from django.urls import reverse_lazy
 from users.models import CustomUser as User
 from django.views.decorators.cache import never_cache
 
 @never_cache
 def custom_login(request):
-
-    if request.user.is_authenticated:
-       return redirect(reverse('home:home'))
-    
+            
     if request.method == 'POST':
         login_input = request.POST.get('username')
         password = request.POST.get('password')

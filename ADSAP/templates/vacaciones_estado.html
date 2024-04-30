@@ -15,11 +15,11 @@
     <p> Fecha regreso: {{ solicitud.fecha_fin }} </p>
     <br>
 
-    <p> Motivo solicitud olicitud: {{ solicitud.motivo }} </p>
+    <p> Motivo solicitud: {{ solicitud.motivo }} </p>
     <p> Estado solicitud: {{ estado_solicitud.estado }}</p>
-    <p> Comentarios admin: {{estado.comentarios_admin}} </p>
+    <p> Comentarios admin: {{ estado_solicitud.comentarios_admin }} </p>
     
-
+    <a href="{% url 'core:vacaciones_eliminar' solicitud.id %}" class="btn btn-primary">Eliminar Solicitud</a>
 
     <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
 {% endblock content %}

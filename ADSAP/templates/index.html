@@ -76,63 +76,71 @@
 </style>
 
 <body>
+
+  {% if es_rh %} 
+    <p>Eres miembro del grupo Personal RH.</p>
+  {% else %}
   <h2
-    style="font-size: 70px; margin-top: 6rem; margin-bottom: 3rem; color:#003366; font-family: 'ZCOOL QingKe HuangYou'; font-weight: bold;">
-    ¡Bienvenido a ADSAP!</h2>
-  <div class="container marketing">
-    <div class="row">
-      <div class="col-lg-4">
-        <p>
-          <a class="btn btn-secondary btn-image" href="{% url 'core:datos_personales' %}">
-            <img src="https://cdn-icons-png.flaticon.com/256/1077/1077063.png" alt="Datos Personales">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Datos Personales</span>
-          </a>
-        </p>
-      </div>
-      <div class="col-lg-4">
-        <p>
-          <a class="btn btn-secondary btn-image" href="{% url 'core:vacaciones' %}">
-            <img src="https://cdn-icons-png.flaticon.com/256/1831/1831534.png" alt="Vacaciones">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Vacaciones</span>
-          </a>
-        </p>
-      </div>
-      <div class="col-lg-4">
-        <p>
-          <a class="btn btn-secondary btn-image" href="#">
-            <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png" alt="Permisos">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Permisos</span>
-          </a>
-        </p>
-      </div>
+  style="font-size: 70px; margin-top: 6rem; margin-bottom: 3rem; color:#003366; font-family: 'ZCOOL QingKe HuangYou'; font-weight: bold;">
+  ¡Bienvenido a ADSAP!</h2>
+<div class="container marketing">
+  <div class="row">
+    <div class="col-lg-4">
+      <p>
+        <a class="btn btn-secondary btn-image" href="{% url 'core:datos_personales' %}">
+          <img src="https://cdn-icons-png.flaticon.com/256/1077/1077063.png" alt="Datos Personales">
+          <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Datos Personales</span>
+        </a>
+      </p>
     </div>
-    <div class="row">
-      <div class="col-lg-4">
-        <p>
-          <a class="btn btn-secondary btn-image" href="#">
-            <img src="https://cdn-icons-png.flaticon.com/256/4540/4540514.png" alt="Incapacidades">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Incapacidades</span>
-          </a>
-        </p>
-      </div>
-      <div class="col-lg-4">
-        <p>
-          <a class="btn btn-secondary btn-image" href="{% url 'core:noticias' %}">
-            <img src="https://cdn-icons-png.flaticon.com/256/2886/2886141.png" alt="Noticias">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Noticias</span>
-          </a>
-        </p>
-      </div>
-      <div class="col-lg-4">
-        <p>
-          <a class="btn btn-secondary btn-image" href="#">
-            <img src="https://cdn-icons-png.flaticon.com/256/8290/8290972.png" alt="Nomina">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Nomina</span>
-          </a>
-        </p>
-      </div>
+    <div class="col-lg-4">
+      <p>
+        <a class="btn btn-secondary btn-image" href="{% url 'core:vacaciones' %}">
+          <img src="https://cdn-icons-png.flaticon.com/256/1831/1831534.png" alt="Vacaciones">
+          <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Vacaciones</span>
+        </a>
+      </p>
+    </div>
+    <div class="col-lg-4">
+      <p>
+        <a class="btn btn-secondary btn-image" href="#">
+          <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png" alt="Permisos">
+          <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Permisos</span>
+        </a>
+      </p>
     </div>
   </div>
-</body>
+  <div class="row">
+    <div class="col-lg-4">
+      <p>
+        <a class="btn btn-secondary btn-image" href="#">
+          <img src="https://cdn-icons-png.flaticon.com/256/4540/4540514.png" alt="Incapacidades">
+          <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Incapacidades</span>
+        </a>
+      </p>
+    </div>
+    <div class="col-lg-4">
+      <p>
+        <a class="btn btn-secondary btn-image" href="{% url 'core:noticias' %}">
+          <img src="https://cdn-icons-png.flaticon.com/256/2886/2886141.png" alt="Noticias">
+          <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Noticias</span>
+        </a>
+      </p>
+    </div>
+    <div class="col-lg-4">
+      <p>
+        <a class="btn btn-secondary btn-image" href="#">
+          <img src="https://cdn-icons-png.flaticon.com/256/8290/8290972.png" alt="Nomina">
+          <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">Nomina</span>
+        </a>
+      </p>
+    </div>
+  </div>
+</div>
+
+  {% endif %}
+
+
+  </body>
 
 {% endblock content %}

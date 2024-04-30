@@ -11,10 +11,11 @@ from core.models import EMPLEADO
 class Home(generic.View):
     template_name = "index.html"
     context = {}
-
+    
     def get(self, request):
+        rh = request.user.groups.filter(name='Personal RH').exists()
         self.context = {
-            
+            'es_rh': rh,    
         }
         return render(request, self.template_name, self.context)
     

@@ -78,6 +78,7 @@ class VACACIONES(models.Model):
     fecha_fin = models.DateField()
     motivo = models.TextField(null=True, blank=True)
     id_empleado = models.ForeignKey(EMPLEADO, on_delete=models.CASCADE)
+    cancelado = models.BooleanField(default=False)
 
     def __str__(self):
         return self.motivo
@@ -88,10 +89,12 @@ class VACACIONES(models.Model):
         return diferencia.days 
     
 @receiver(post_save, sender=VACACIONES)
-def final_date_grantgoal(sender, instance, **kwargs):
-    solicitud = instance
-    id_solicitud = solicitud.id
-    estado = ESTADO_SOLICITUD.objects.create(estado="En revision", id_vacaciones=solicitud)
+def final_date_grantgoal(sender, instance, created, **kwargs):
+    if created:
+        solicitud = instance
+        id_solicitud = solicitud.id
+        estado = ESTADO_SOLICITUD.objects.create(estado="En revision", id_vacaciones=solicitud)
+
 
 class NOMINA(models.Model):
     id = models.AutoField(primary_key=True)
@@ -148,6 +151,22 @@ class ESTADO_SOLICITUD(models.Model):
     
     class Meta:
         verbose_name_plural = "Estado de solicitudes"
+
+@receiver(post_save, sender=ESTADO_SOLICITUD)
+def vacaciones_canceladas(sender, instance, **kwargs):
+    solicitud = instance
+    vacaciones = solicitud.id_vacaciones
+
+    if (solicitud.estado == "Rechazado" or solicitud.estado == "Cancelado") and solicitud.id_vacaciones:
+        if not vacaciones.cancelado: #Si no esta cancelado 
+            vacaciones.cancelado = True
+            vacaciones.save()
+            vacaciones = solicitud.id_vacaciones
+            empleado = vacaciones.id_empleado
+            empleado.dias_vacaciones += vacaciones.dias_solicitados()
+            empleado.save() 
+         
+        
 
 REPORTE = (
     ("Enviado", "Enviado"),

@@ -46,6 +46,7 @@ LOCAL_APPS = [
     'api',
     'core',
     'users',
+    'RH'
 ]
 
 THIRD_APPS = [
