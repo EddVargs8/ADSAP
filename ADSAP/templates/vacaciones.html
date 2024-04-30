@@ -1,44 +1,119 @@
 {% extends 'base/base.html'%}
+{% load static %}
 {% block title %}Vacaciones{% endblock title %}
-
 {% block content %}
+<style>
+  .background {
+    background-color: #fff;
+  }
 
-<body>
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 300px;
+    display: block;
+  }
 
-    <h1>Vacaciones</h1>
+  img {
+    margin-top: 10px;
+    height: 50px;
+    width: 50px;
+    display: block;
+    padding-bottom: 10px;
+  }
 
-    <p> Dias disponibles: {{ empleado.dias_vacaciones }} </p>
-    
-    <a class="btn btn-primary py-2 Btn1" type="" href="{% url 'core:vacaciones_solicitud' %}">Solicitar Vacaciones</a>
+  .Tittle {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
 
-    <br>
-    <br>
+  .Sub {
+    font-size: 2.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: left;
+    position: absolute;
+  }
 
+  .Dia {
+    font-size: 1em;
+    color: #000000;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+  }
 
-    {% for solicitud in solicitudes %}
-    
-        <div class="list-group">
-          <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3" aria-current="true">
-            <img src="" alt="🌴" width="32" height="32" class="rounded-circle flex-shrink-0">
-            <div class="d-flex gap-2 w-100 justify-content-between">
-              <div>
-                <h6 class="mb-0"> {{ solicitud.fecha_inicio }}  al {{ solicitud.fecha_fin }} </h6>
-                <p class="mb-0 opacity-75"> Dias solicitados: {{ solicitud.dias_solicitados }} </p>
-              </div>
-            </div>
-          </a>
-          <a href="{% url 'core:vacaciones_estado' solicitud.id %}" class="btn btn-outline-info">Estado Solicitud</a>
-            </div>
-    
-            
-    
-    
-        {% endfor %}
+  .fecha {
+    font-size: 1.3em;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: justify;
+  }
 
+  .btn {
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+  }
 
-    
+  .btn1 {
+    margin-left: 75%;
+    margin-bottom: 15px;
+  }
 
+  .Filtro {
+    padding-bottom: 20px;
+  }
 
+  .vacaciones {
+    height: 100px;
+    width: 100%;
+  }
+</style>
 
+<body class="background">
+  <div class=Contenedor>
+    <p class="Tittle">Vacaciones</p>
+    <div>
+      <p class="Sub"> Días disponibles: <span class="Dia">{{ empleado.dias_vacaciones }}</span> </p>
+      <a class="btn btn-primary py-2 btn1" href="{% url 'core:vacaciones_solicitud' %}">Solicitar vacaciones</a>
+    </div>
+    <div class="Filtro">
+      <form action="filtro" method="get">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar vacaciones" name="">
+          <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+            <i class="fas fa-search"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+    <div>
+      {% for solicitud in solicitudes %}
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
+          <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
+          <div>
+            <p class="mb-0 fecha">Periodo: {{ solicitud.fecha_inicio }} al {{ solicitud.fecha_fin }} </p>
+            <p class="mb-0 opacity-75 fecha"> Días solicitados: {{ solicitud.dias_solicitados }} </p>
+          </div>
+        </a>
+        <a href="{% url 'core:vacaciones_estado' solicitud.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
 </body>
 {% endblock content %}

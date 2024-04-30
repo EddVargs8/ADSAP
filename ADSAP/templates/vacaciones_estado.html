@@ -1,25 +1,103 @@
 {% extends 'base/base.html'%}
-
-{% block title %} ESTADO SOLICITUD VACACIONES {% endblock title %}
-
+{% load static %}
+{% block title %}Estado Solicitud{% endblock title %}
 {% block content %}
+<style>
+  .background {
+    background-color: #fff;
+  }
 
-    <h1>ESTADO SOLICITUD </h1>
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 300px;
+    display: block;
+  }
 
-    <p class="">{{ empleado.nombre }} {{ empleado.apellido_paterno }} {{empleado.apellido_materno }}</p>
-    <p class="">{{ empleado.area }}</p>
-    <p class="">{{ empleado.puesto }}</p>
-    <br>
-    <p> Dias solicitados: {{ solicitud.dias_solicitados }} </p>
-    <p> Fecha inicio: {{ solicitud.fecha_inicio }}  </p>
-    <p> Fecha regreso: {{ solicitud.fecha_fin }} </p>
-    <br>
+  .Tittle {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+  }
 
-    <p> Motivo solicitud olicitud: {{ solicitud.motivo }} </p>
-    <p> Estado solicitud: {{ estado_solicitud.estado }}</p>
-    <p> Comentarios admin: {{estado.comentarios_admin}} </p>
-    
+  .Sub {
+    font-size: 2em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: left;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  .Estado {
+    font-size: 2em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: left;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+  .EstadoDato {
+    font-size: 30px;
+    color: #000;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: left;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+
+  .Datos {
+    font-size: 1.8em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+
+  .DatosUsuario {
+    font-size: 24px;
+    color: #000000;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnCancelar{
+    background-color: red;
+    color:#fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+  }
+</style>
+
+<body class="background">
+
+  <div class=Contenedor>
+    <p class="Tittle">Estado de la solicitud</p>
+    <p class="Estado">Estado: <span class="EstadoDato">{{ estado_solicitud.estado }}</span></p>
+
+    <p class="Sub">Datos del empleado</p>
+    <p class="Datos">Nombre: <span class="DatosUsuario">{{ empleado.nombre }} {{ empleado.apellido_paterno }}
+        {{empleado.apellido_materno }}</span></p>
+    <p class="Datos">Área de trabajo: <span class="DatosUsuario">{{ empleado.area }}</span></p>
+    <p class="Datos">Puesto de trabajo: <span class="DatosUsuario">{{ empleado.puesto }}</span></p>
+
+    <p class="Sub">Datos de la solicitud</p>
+    <p class="Datos">Días solicitados: <span class="DatosUsuario">{{ solicitud.dias_solicitados }}</span></p>
+    <p class="Datos">Fecha de inicio: <span class="DatosUsuario">{{ solicitud.fecha_inicio }}</span></p>
+    <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p>
 
 
+    <p class="Datos">Motivo: <span class="DatosUsuario">{{ solicitud.motivo }}</span></p>
+    <p class="Datos">Comentarios: <span class="DatosUsuario">{{estado.comentarios_admin}}</span></p>
     <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
+    <button class="btn btn-primary BtnCancelar">Cancelar</button>
+  </div>
+</body>
 {% endblock content %}

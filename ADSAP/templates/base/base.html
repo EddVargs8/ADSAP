@@ -15,7 +15,7 @@
       margin: 0 auto;
       overflow-x: hidden;
     }
-    
+
     .bg-color {
       background-color: #083464;
     }
@@ -105,7 +105,7 @@
       bottom: 0;
       overflow-y: auto;
       padding-left: 0;
-      
+
     }
 
     .col-lg-9 {
@@ -115,6 +115,15 @@
     .empleado {
       white-space: nowrap;
       overflow-wrap: normal;
+    }
+
+    .Btn {
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .Btn:hover {
+      background-color: #005fbebe;
     }
   </style>
 
@@ -184,7 +193,7 @@
           <hr style="color: white;">
           <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
-              <a href="{% url 'home:home' %}" class="nav-link active" aria-current="page">
+              <a href="{% url 'home:home' %}" class="nav-link text-white Btn" aria-current="page">
                 <svg class="bi pe-none me-2" width="16" height="16">
                   <use xlink:href="#home" />
                 </svg>
@@ -192,7 +201,7 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'core:faq' %}" class="nav-link text-white">
+              <a href="{% url 'core:faq' %}" class="nav-link text-white Btn">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                   class="bi bi-patch-question-fill" viewBox="0 0 16 16">
                   <path
@@ -202,7 +211,7 @@
               </a>
             </li>
             <li>
-              <a href="{% url 'home:cuenta' %}" class="nav-link text-white">
+              <a href="{% url 'home:cuenta' %}" class="nav-link text-white Btn">
                 <svg class="bi pe-none me-2" width="16" height="16">
                   <use xlink:href="#people-circle" />
                 </svg>
