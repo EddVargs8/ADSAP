@@ -1,19 +1,104 @@
 {% extends 'base/base.html'%}
-{% block title %}Vacaciones FORM {% endblock title %}
-
+{% load static %}
+{% block title %}Solicitar vacaciones{% endblock title %}
 {% block content %}
+<style>
+  .background {
+    background-color: #fff;
+  }
 
-<body>
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 300px;
+    display: block;
+  }
 
-    <h1>Vacaciones FORM </h1>
+  .Tittle {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  img {
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 200px;
+    display: block;
+    padding-bottom: 30px;
+  }
+
+  .Texto {
+    font-size: 1.5em;
+    Font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    color: #003366;
+    margin-right: 10px;
+    margin-bottom: 10px;
+  }
+
+  .Motivo {
+    font-size: 1.5em;
+    Font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    color: #003366;
+  }
+
+  .CampoFecha {
+    font-size: 1.2em;
+    Font-family: 'ZCOOL QingKe HuangYou';
+    color: black;
+  }
+
+  .CampoMotivo{
+    width: 950px;
+    margin-bottom: 15px;
+    font-size: 1.5em;
+    Font-family: 'ZCOOL QingKe HuangYou';
+  }
+
+  .btn {
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+    margin-bottom: 30px;
+  }
+
+  .BtnRealizar {
+    width: 950px;
+    background-color: #009c0d;
+    border-color: #009c0d;
+  }
+  .BtnRealizar:hover {
+    background-color: #006909;
+  }
+</style>
+
+<body class="background">
+  <div class=Contenedor>
+    <p class="Tittle">Solicitar vacaciones</p>
+    <img src="https://cdn-icons-png.flaticon.com/256/4285/4285330.png">
     <form action="" method="post" class="form">
-        {% csrf_token %}
-            {{ form }}
-            <button type="submit" class="btn btn-outline-success form-control">Mandar solicitud</button>
+      {% csrf_token %}
+      <label for="{{ form.fecha_inicio.id }}" class="Texto">Fecha de inicio de vacaciones: </label>
+      {{ form.fecha_inicio }}<br>
+      <label for="{{ form.fecha_fin.id }}" class="Texto">Fecha de regreso: </label>
+      {{ form.fecha_fin }}<br>
+      <label for="{{ form.motivo.id }}" class="Motivo">Motivo:</label><br>
+      {{ form.motivo }}<br>
+
+      <button type="submit" class="btn btn-primary py-2 BtnRealizar">Realizar solicitud</button>
     </form>
-
-
-    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
-    
+    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Volver a vacaciones</a>
+  </div>
 </body>
 {% endblock content %}
