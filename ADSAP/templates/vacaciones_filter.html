@@ -1,5 +1,4 @@
 {% extends 'base/base.html'%}
-{% load static %}
 {% block title %}Vacaciones{% endblock title %}
 {% block content %}
 <style>
@@ -78,15 +77,14 @@
   }
 </style>
 
-<body class="background">
-  <div class=Contenedor>
-    <p class="Tittle">Vacaciones</p>
-    <div>
-      <p class="Sub"> Días disponibles: <span class="Dia">{{ empleado.dias_vacaciones }}</span> </p>
-      <a class="btn btn-primary py-2 btn1" href="{% url 'core:vacaciones_solicitud' %}">Solicitar vacaciones</a>
-    </div>
+<body>
+  <div class="Contenedor">
+    <p class="Tittle">Vacaciones filtro</p>
+    
+
+    
     <div class="Filtro">
-      <form action="vacaciones/filtro" method="get">
+      <form action="" method="get">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Buscar vacaciones" name="busquedaVacaciones">
           <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
@@ -100,20 +98,21 @@
         </div>
       </form>
     </div>
-    <div>
-      {% for solicitud in solicitudes %}
+    <div class="Respuestas">
+      {% for vacacion in vacaciones %}
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
           <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
           <div>
-            <p class="mb-0 fecha">Periodo: {{ solicitud.fecha_inicio }} al {{ solicitud.fecha_fin }} </p>
-            <p class="mb-0 opacity-75 fecha"> Días solicitados: {{ solicitud.dias_solicitados }} </p>
+            <p class="mb-0 fecha">Periodo: {{ vacacion.fecha_inicio }} al {{ vacacion.fecha_fin }} </p>
+            <p class="mb-0 opacity-75 fecha"> Días solicitados: {{ vacacion.dias_solicitados }} </p>
           </div>
         </a>
-        <a href="{% url 'core:vacaciones_estado' solicitud.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
+        <a href="{% url 'core:vacaciones_estado' vacacion.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
       </div>
       {% endfor %}
     </div>
-  </div>
+    <br>
+    <a class="btn btn-primary py-2 Btn1" href="{% url 'core:vacaciones' %}">Volver a vacaciones</a>
 </body>
 {% endblock content %}

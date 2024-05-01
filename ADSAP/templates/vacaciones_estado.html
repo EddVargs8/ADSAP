@@ -97,7 +97,14 @@
     <p class="Datos">Motivo: <span class="DatosUsuario">{{ solicitud.motivo }}</span></p>
     <p class="Datos">Comentarios: <span class="DatosUsuario">{{estado.comentarios_admin}}</span></p>
     <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
-    <button class="btn btn-primary BtnCancelar">Cancelar</button>
+    <a href="{% url 'core:vacaciones_eliminar_confirmacion' solicitud.id %}" class="btn btn-primary">Cancelar</a>
+    
+
+
+    
+    
+    
+
   </div>
 </body>
 {% endblock content %}

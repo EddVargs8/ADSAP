@@ -1,6 +1,6 @@
 from django.db import models
 from users.models import CustomUser
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
 
 # Create your models here.
@@ -89,11 +89,18 @@ class VACACIONES(models.Model):
         return diferencia.days 
     
 @receiver(post_save, sender=VACACIONES)
-def final_date_grantgoal(sender, instance, created, **kwargs):
+def createEstado_Vacaciones(sender, instance, created, **kwargs):
     if created:
         solicitud = instance
         id_solicitud = solicitud.id
         estado = ESTADO_SOLICITUD.objects.create(estado="En revision", id_vacaciones=solicitud)
+
+@receiver(post_delete, sender=VACACIONES)
+def actualiza_dias(sender, instance, **kwargs):
+    empleado = instance.id_empleado 
+    dias_recuperados = instance.dias_solicitados() 
+    empleado.dias_vacaciones += dias_recuperados
+    empleado.save()
 
 
 class NOMINA(models.Model):

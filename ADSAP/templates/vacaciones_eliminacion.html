@@ -3,17 +3,24 @@
 {% block title %} ELIMINACION DE VACACIONES {% endblock title %}
 
 {% block content %}
-    <h1>ELIMINACION DE VACACIONES </h1>
-    <h2>¿Estás seguro de que deseas eliminar la solicitud de vacaciones?</h2>
 
-    <form action="" method="post" class="form">
-        {% csrf_token %}
-           
-            
-            <button type="submit" class="btn btn-outline-danger form-control">Delete GrantGoal</button>
-                
-                
-    </form>
+    
 
-    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
+    {% if not estado_solicitud.estado == "Aceptado" %}  
+        <h1>ELIMINACION DE VACACIONES </h1>
+        <h2>¿Estás seguro de que deseas eliminar la solicitud de vacaciones?
+            Esto cancelara la solicitud automaticamente y no podra ser recuperada.
+        </h2>
+        <form action="" method="post" class="form">
+            {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger form-control">Eliminar</button>   
+        </form>
+        <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
+    {% else %}
+        <p>NO PUEDES CANCELAR TU SOLICITUD PORQUE YA SE ACEPTO</p>
+    {% endif %}
+
+
+
+    
 {% endblock content %}

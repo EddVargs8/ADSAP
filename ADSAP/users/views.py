@@ -7,7 +7,9 @@ from django.views.decorators.cache import never_cache
 
 @never_cache
 def custom_login(request):
-            
+    if request.user.is_authenticated:
+        return redirect('home:home') 
+
     if request.method == 'POST':
         login_input = request.POST.get('username')
         password = request.POST.get('password')

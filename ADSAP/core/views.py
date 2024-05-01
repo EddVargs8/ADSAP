@@ -1,3 +1,4 @@
+from django.forms import IntegerField
 from django.shortcuts import redirect, render
 from core import models
 from core import forms
@@ -7,9 +8,11 @@ from django.utils.decorators import method_decorator
 from django.db.models import Q
 from django.urls import reverse_lazy
 from django.db.models import F 
+from django.db.models.functions import ExtractMonth
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 @method_decorator(login_required, name='dispatch')
-class Home(generic.View):
+class Home(LoginRequiredMixin, generic.View):
     template_name = "index.html"
     context = {}
 
@@ -20,7 +23,7 @@ class Home(generic.View):
         return render(request, self.template_name, self.context)
 
 @method_decorator(login_required, name='dispatch')
-class Preguntas(generic.View):
+class Preguntas(LoginRequiredMixin, generic.View):
     template_name = "faq.html"
     context = {}
 
@@ -31,7 +34,7 @@ class Preguntas(generic.View):
 
         return render(request, self.template_name, self.context)
 
-
+@login_required
 def searchPreguntas(request, *args, **kwargs):
     if request.method == 'GET':
         preguntaAB = request.GET.get('busqueda')
@@ -43,7 +46,7 @@ def searchPreguntas(request, *args, **kwargs):
 
 
 @method_decorator(login_required, name='dispatch')
-class Noticias(generic.View):
+class Noticias(LoginRequiredMixin, generic.View):
     template_name = "noticia.html"
     context = {}
 
@@ -54,6 +57,7 @@ class Noticias(generic.View):
 
         return render(request, self.template_name, self.context)
 
+@login_required
 def searchNoticias(request, *args, **kwargs):
     if request.method == 'GET':
         noticiaAB = request.GET.get('busquedaNoticia')
@@ -64,7 +68,7 @@ def searchNoticias(request, *args, **kwargs):
         return render(request, "noticia_filter.html", {"noticiasAB": noticiasAB})
     
 @method_decorator(login_required, name='dispatch')
-class Datos_Personales(generic.View):
+class Datos_Personales(LoginRequiredMixin, generic.View):
     template_name = "datos_personales.html"
     context = {}
 
@@ -76,7 +80,7 @@ class Datos_Personales(generic.View):
         return render(request, self.template_name, self.context)
     
 @method_decorator(login_required, name='dispatch')
-class Vacaciones(generic.View):
+class Vacaciones(LoginRequiredMixin, generic.View):
     template_name = "vacaciones.html"
     context = {}
 
@@ -90,7 +94,7 @@ class Vacaciones(generic.View):
         return render(request, self.template_name, self.context)
 
 @method_decorator(login_required, name='dispatch')
-class Vacaciones_Confirmacion(generic.View):
+class Vacaciones_Confirmacion(LoginRequiredMixin, generic.View):
     template_name = "vacaciones_confirmacion.html"
     context = {}
 
@@ -101,7 +105,7 @@ class Vacaciones_Confirmacion(generic.View):
 
         return render(request, self.template_name, self.context)
 
-
+@login_required
 def Vacaciones_Form(request):
     empleado = models.EMPLEADO.objects.get(usuario=request.user)  # Asumiendo que cada usuario está vinculado a un empleado
 
@@ -129,7 +133,7 @@ def Vacaciones_Form(request):
     return render(request, 'form_vacaciones.html', {'form': form})
     
 @method_decorator(login_required, name='dispatch')
-class Vacaciones_Estado(generic.View):
+class Vacaciones_Estado(LoginRequiredMixin, generic.View):
     template_name = "vacaciones_estado.html"
     context = {}
 
@@ -139,10 +143,38 @@ class Vacaciones_Estado(generic.View):
             "solicitud": models.VACACIONES.objects.get(id=pk),
             "empleado": models.EMPLEADO.objects.get(usuario=request.user)
         }
-
         return render(request, self.template_name, self.context)
 
-class Vacaciones_Eliminar(generic.DeleteView):
-    template_name = "core/vacaciones_eliminacion.html"
+@method_decorator(login_required, name='dispatch')
+class Vacaciones_Eliminacion(LoginRequiredMixin, generic.DeleteView):
+    template_name = "vacaciones_eliminacion.html"
     model = models.VACACIONES
-    success_url = reverse_lazy("core:vacaciones")
+    success_url = reverse_lazy('core:vacaciones')
+    
+    def get(self, request, pk):
+        self.context = {
+            "estado_solicitud": models.ESTADO_SOLICITUD.objects.get(id_vacaciones=pk),
+            "solicitud": models.VACACIONES.objects.get(id=pk),
+            "empleado": models.EMPLEADO.objects.get(usuario=request.user),
+
+        }
+        return render(request, self.template_name, self.context)
+    
+@login_required
+def searchVacaciones(request, *args, **kwargs):
+    
+    if request.method == 'GET':
+        vacacionesAB = request.GET.get('busquedaVacaciones').lower()
+
+        month_mapping = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
+        'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
+        'octubre': 10, 'noviembre': 11, 'diciembre': 12
+        }
+        month_number ="0" + str(month_mapping.get(vacacionesAB, 0)) 
+
+        if month_number:
+            results = models.VACACIONES.objects.filter(fecha_inicio__month=month_number)
+        else:
+            results = models.VACACIONES.objects.none() 
+        return render(request, "vacaciones_filter.html", {"vacaciones": results})

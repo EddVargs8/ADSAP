@@ -4,11 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.contrib.auth import authenticate, login, logout
 from core.models import EMPLEADO
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Create your views here.
 
 @method_decorator(login_required, name='dispatch')
-class Home(generic.View):
+class Home(LoginRequiredMixin, generic.View):
     template_name = "index.html"
     context = {}
     
@@ -20,7 +21,7 @@ class Home(generic.View):
         return render(request, self.template_name, self.context)
     
 @method_decorator(login_required, name='dispatch')
-class Cuenta(generic.View):
+class Cuenta(LoginRequiredMixin, generic.View):
     template_name = "cuenta.html"
     context = {}
 
