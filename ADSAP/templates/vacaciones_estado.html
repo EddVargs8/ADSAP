@@ -10,8 +10,8 @@
   .Contenedor {
     background-color: #fff;
     padding-top: 50px;
-    padding-left: 25px;
-    padding-right: 25px;
+    padding-left: 60px;
+    padding-right: 60px;
     height: 700px;
     width: 1000px;
     border-radius: 20px;
@@ -25,6 +25,7 @@
     font-family: 'ZCOOL QingKe HuangYou';
     font-weight: bold;
     text-align: center;
+    margin-bottom: 30px;
   }
 
   .Sub {
@@ -43,8 +44,9 @@
     font-family: 'ZCOOL QingKe HuangYou';
     text-align: left;
     font-weight: bold;
-    margin-top: 30px;
+    position: absolute;
   }
+
   .EstadoDato {
     font-size: 30px;
     color: #000;
@@ -52,6 +54,13 @@
     text-align: left;
     font-weight: bold;
     margin-top: 30px;
+  }
+
+  img {
+    float: left;
+    margin-right: 10px;
+    height: 150px;
+    width: 150px;
   }
 
   .Datos {
@@ -69,42 +78,55 @@
     font-weight: bold;
   }
 
-  .BtnCancelar{
+  .BtnAtras{
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+    margin-top: 30px;
+  }
+
+  .BtnCancelar {
     background-color: red;
-    color:#fff;
+    border-color: red;
+    color: #fff;
     font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    margin-left: 75%;
+    margin-bottom: 15px;
+  }
+  .BtnCancelar:hover {
+    background-color: rgb(141, 0, 0);
   }
 </style>
 
 <body class="background">
-
   <div class=Contenedor>
     <p class="Tittle">Estado de la solicitud</p>
     <p class="Estado">Estado: <span class="EstadoDato">{{ estado_solicitud.estado }}</span></p>
-
-    <p class="Sub">Datos del empleado</p>
-    <p class="Datos">Nombre: <span class="DatosUsuario">{{ empleado.nombre }} {{ empleado.apellido_paterno }}
-        {{empleado.apellido_materno }}</span></p>
-    <p class="Datos">Área de trabajo: <span class="DatosUsuario">{{ empleado.area }}</span></p>
-    <p class="Datos">Puesto de trabajo: <span class="DatosUsuario">{{ empleado.puesto }}</span></p>
-
-    <p class="Sub">Datos de la solicitud</p>
-    <p class="Datos">Días solicitados: <span class="DatosUsuario">{{ solicitud.dias_solicitados }}</span></p>
-    <p class="Datos">Fecha de inicio: <span class="DatosUsuario">{{ solicitud.fecha_inicio }}</span></p>
-    <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p>
-
-
-    <p class="Datos">Motivo: <span class="DatosUsuario">{{ solicitud.motivo }}</span></p>
-    <p class="Datos">Comentarios: <span class="DatosUsuario">{{estado.comentarios_admin}}</span></p>
-    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Regresar</a>
-    <a href="{% url 'core:vacaciones_eliminar_confirmacion' solicitud.id %}" class="btn btn-primary">Cancelar</a>
-    
-
-
-    
-    
-    
-
+    <button class="btn btn-primary BtnCancelar">Cancelar solicitud</button>
+    <div>
+      <p class="Sub">Datos del empleado</p>
+      {% if empleado.sexo == "M" %}
+      <img src="https://cdn-icons-png.flaticon.com/256/1896/1896513.png">
+      {% else %}
+      <img src="https://cdn-icons-png.flaticon.com/256/1896/1896516.png">
+      {% endif %}
+      <p class="Datos">Nombre: <span class="DatosUsuario">{{ empleado.nombre }} {{ empleado.apellido_paterno }}
+          {{empleado.apellido_materno }}</span></p>
+      <p class="Datos">Área de trabajo: <span class="DatosUsuario">{{ empleado.area }}</span></p>
+      <p class="Datos">Puesto de trabajo: <span class="DatosUsuario">{{ empleado.puesto }}</span></p>
+    </div>
+    <div>
+      <p class="Sub">Datos de la solicitud</p>
+      <img src="https://cdn-icons-png.flaticon.com/256/2858/2858429.png">
+      <p class="Datos">Días solicitados: <span class="DatosUsuario">{{ solicitud.dias_solicitados }}</span></p>
+      <p class="Datos">Fecha de inicio: <span class="DatosUsuario">{{ solicitud.fecha_inicio }}</span></p>
+      <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p>
+      <br>
+      <p class="Datos">Motivo: <span class="DatosUsuario">{{ solicitud.motivo }}</span></p>
+      <p class="Datos">Comentarios: <span class="DatosUsuario">{{estado.comentarios_admin}}</span></p>
+    </div>
+    <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:vacaciones' %}">Volver a vacaciones</a>
   </div>
 </body>
 {% endblock content %}

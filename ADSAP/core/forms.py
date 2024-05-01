@@ -6,14 +6,10 @@ class Solicitud_Vacaciones_Form(forms.ModelForm):
     class Meta:
         model = models.VACACIONES
         exclude = ["id_empleado", "cancelado"]
-        labels = {
-            'fecha_inicio': 'Fecha de inicio de vacaciones: ',
-            'fecha_fin': 'Fecha de regreso:', 
-        }
         widgets = {
-            'fecha_inicio': forms.DateInput({'type': 'date'}),
-            'fecha_fin': forms.DateInput({'type': 'date'}),
-            'motivo': forms.Textarea(attrs={'rows': 3, 'cols': 30}),  
+            'fecha_inicio': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
+            'fecha_fin': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
+            'motivo': forms.Textarea(attrs={'rows': 3, 'cols': 30,'class': 'CampoMotivo'}),  
         }
 
     def __init__(self, *args, **kwargs):
