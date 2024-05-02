@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}Vacaciones{% endblock title %}
+{% block title %}Permisos filtro{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -84,9 +84,9 @@
 
     
     <div class="Filtro">
-      <form action="" method="get">
+      <form action="filtro" method="get">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar vacaciones" name="busquedaVacaciones">
+          <input type="text" class="form-control" placeholder="Buscar permisos" name="busquedaPermisos">
           <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
             <i class="fas fa-search"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
@@ -99,20 +99,21 @@
       </form>
     </div>
     <div class="Respuestas">
-      {% for vacacion in vacaciones %}
+      {% for permiso in permisos %}
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
           <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
           <div>
-            <p class="mb-0 fecha">Periodo: {{ vacacion.fecha_inicio }} al {{ vacacion.fecha_fin }} </p>
-            <p class="mb-0 opacity-75 fecha"> Días solicitados: {{ vacacion.dias_solicitados }} </p>
+            <p class="mb-0">Motivo: {{ solicitud.tipo }} </p>
+            <p class="mb-0 fecha">Periodo: {{ permiso.fecha_inicio }} al {{ permiso.fecha_fin }} </p>
+            <p class="mb-0 opacity-75 fecha"> Días solicitados: {{ permiso.dias_solicitados }} </p>
           </div>
         </a>
-        <a href="{% url 'core:vacaciones_estado' vacacion.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
+        <a href="{% url 'core:permisos_estado' permiso.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
       </div>
       {% endfor %}
     </div>
     <br>
-    <a class="btn btn-primary py-2 Btn1" href="{% url 'core:vacaciones' %}">Volver a vacaciones</a>
+    <a class="btn btn-primary py-2 Btn1" href="{% url 'core:permisos' %}">Volver a permisos</a>
 </body>
 {% endblock content %}

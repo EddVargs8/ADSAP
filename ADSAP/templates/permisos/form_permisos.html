@@ -1,6 +1,6 @@
 {% extends 'base/base.html'%}
 {% load static %}
-{% block title %}Solicitar vacaciones{% endblock title %}
+{% block title %}Solicitar permiso{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -85,15 +85,16 @@
 
 <body class="background">
   <div class=Contenedor>
-    <p class="Tittle">Solicitar vacaciones</p>
+    <p class="Tittle">Solicitar Permiso</p>
     <img src="https://cdn-icons-png.flaticon.com/256/4285/4285330.png">
     <form action="" method="post" class="form">
       {% csrf_token %}
       {{ form }}
+     
 
       <button type="submit" class="btn btn-primary py-2 BtnRealizar">Realizar solicitud</button>
     </form>
-    <a href="{% url 'core:vacaciones' %}" class="btn btn-primary">Volver a vacaciones</a>
+    <a href="{% url 'core:permisos' %}" class="btn btn-primary">Volver a permisos</a>
   </div>
 </body>
 {% endblock content %}

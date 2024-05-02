@@ -10,6 +10,7 @@ class Solicitud_Vacaciones_Form(forms.ModelForm):
             'fecha_inicio': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
             'fecha_fin': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
             'motivo': forms.Textarea(attrs={'rows': 3, 'cols': 30,'class': 'CampoMotivo'}),  
+        
         }
 
     def __init__(self, *args, **kwargs):
@@ -33,7 +34,8 @@ class Solicitud_Vacaciones_Form(forms.ModelForm):
                 raise forms.ValidationError("No tiene suficientes días de vacaciones disponibles.")
         
         # Verificar solapamientos en las fechas de vacaciones
-        vacaciones_existente = models.VACACIONES.objects.filter(
+        vacacionesEmp = models.VACACIONES.objects.filter(id_empleado=self.empleado.id)
+        vacaciones_existente = vacacionesEmp.filter(
             fecha_inicio__lte=fecha_fin, 
             fecha_fin__gte=fecha_inicio
         )
@@ -42,4 +44,53 @@ class Solicitud_Vacaciones_Form(forms.ModelForm):
             raise forms.ValidationError("Ya existe una solicitud de vacaciones que se solapa con las fechas seleccionadas.")
 
         return cleaned_data
+ 
+
+class Solicitud_Permiso_Form(forms.ModelForm):
+    TIPO_PERMISO = (
+    ("Personal", "Personal"),
+    ("Medico", "Medico"),
+    ("Emergencia", "Emergencia"),
+    )
+    tipo = forms.ChoiceField(
+        choices=TIPO_PERMISO,
+        widget=forms.Select(attrs={"class": "form-select"})
+    )
+    class Meta:
+        model = models.PERMISO
+        exclude = ["id_empleado", "cancelado"]
+        widgets = {
+            'fecha_inicio': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
+            'fecha_fin': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
+            'motivo': forms.Textarea(attrs={'rows': 3, 'cols': 30,'class': 'CampoMotivo'}),  
+            'tipo': forms.Select({"type": "select", "class": "form-select"}),
+            'archivo': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+    
+    def __init__(self, *args, **kwargs):
+        self.empleado = kwargs.pop('empleado', None)
+        super(Solicitud_Permiso_Form, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        fecha_inicio = cleaned_data.get('fecha_inicio')
+        fecha_fin = cleaned_data.get('fecha_fin')
+
+        if fecha_inicio <= datetime.date.today(): 
+            raise forms.ValidationError("La fecha de inicio debe ser posterior a la fecha actual.")
+
+        if fecha_fin <= fecha_inicio:
+            raise forms.ValidationError("La fecha de regreso debe ser posterior a la fecha de inicio.")
+        
+        permisosEmp = models.PERMISO.objects.filter(id_empleado=self.empleado.id)
+        vacaciones_existente = permisosEmp.filter(
+            fecha_inicio__lte=fecha_fin, 
+            fecha_fin__gte=fecha_inicio
+        )
+
+        if vacaciones_existente.exists():
+            raise forms.ValidationError("Ya existe una solicitud de vacaciones que se solapa con las fechas seleccionadas.")
+
+        return 
  

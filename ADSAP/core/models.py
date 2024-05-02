@@ -67,10 +67,14 @@ class PERMISO(models.Model):
     tipo = models.CharField(max_length=20, choices=TIPO_PERMISO)
     id_empleado = models.ForeignKey(EMPLEADO, on_delete=models.CASCADE)
     archivo = models.FileField(null=True, blank=True)
-
+    cancelado = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.motivo
-
+    def dias_solicitados(self):
+        diferencia = self.fecha_fin - self.fecha_inicio
+        return diferencia.days 
+    
 class VACACIONES(models.Model):
     id = models.AutoField(primary_key=True)
     fecha_solicitud = models.DateField(auto_now=True)
@@ -94,6 +98,14 @@ def createEstado_Vacaciones(sender, instance, created, **kwargs):
         solicitud = instance
         id_solicitud = solicitud.id
         estado = ESTADO_SOLICITUD.objects.create(estado="En revision", id_vacaciones=solicitud)
+
+@receiver(post_save, sender=PERMISO)
+def createEstado_Permisos(sender, instance, created, **kwargs):
+    if created:
+        solicitud = instance
+        id_solicitud = solicitud.id
+        estado = ESTADO_SOLICITUD.objects.create(estado="En revision", id_permiso=solicitud)
+
 
 @receiver(post_delete, sender=VACACIONES)
 def actualiza_dias(sender, instance, **kwargs):
