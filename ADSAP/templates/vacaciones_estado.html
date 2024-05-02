@@ -103,7 +103,7 @@
   <div class=Contenedor>
     <p class="Tittle">Estado de la solicitud</p>
     <p class="Estado">Estado: <span class="EstadoDato">{{ estado_solicitud.estado }}</span></p>
-    <button class="btn btn-primary BtnCancelar">Cancelar solicitud</button>
+    <a href="{% url 'core:vacaciones_eliminar_confirmacion' solicitud.id %}" class="btn btn-primary BtnCancelar">Cancelar Solicitud</a>
     <div>
       <p class="Sub">Datos del empleado</p>
       {% if empleado.sexo == "M" %}
@@ -124,7 +124,12 @@
       <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p>
       <br>
       <p class="Datos">Motivo: <span class="DatosUsuario">{{ solicitud.motivo }}</span></p>
-      <p class="Datos">Comentarios: <span class="DatosUsuario">{{estado.comentarios_admin}}</span></p>
+      {% if estado_solicitud.comentarios_admin == "" %}
+          <p class="Datos">Comentarios del supervisor: <span class="DatosUsuario">Ninguno</span></p>
+      {% else %}
+          <p class="Datos">Comentarios del supervisor: <span class="DatosUsuario">{{ estado_solicitud.comentarios_admin }}</span></p>
+      {% endif %}
+      
     </div>
     <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:vacaciones' %}">Volver a vacaciones</a>
   </div>
