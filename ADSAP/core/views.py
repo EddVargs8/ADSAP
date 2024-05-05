@@ -10,17 +10,8 @@ from django.urls import reverse_lazy
 from django.db.models import F 
 from django.db.models.functions import ExtractMonth
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import UserPassesTestMixin
 
-@method_decorator(login_required, name='dispatch')
-class Home(LoginRequiredMixin, generic.View):
-    template_name = "index.html"
-    context = {}
-
-    def get(self, request):
-        self.context = {
-            "noticia": models.NOTICIAS.objects.all()
-        }
-        return render(request, self.template_name, self.context)
 
 @method_decorator(login_required, name='dispatch')
 class Preguntas(LoginRequiredMixin, generic.View):

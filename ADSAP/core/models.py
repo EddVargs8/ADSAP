@@ -40,7 +40,7 @@ class EMPLEADO(models.Model):
     nss = models.CharField(max_length=20)
     rfc = models.CharField(max_length=20)   
     fecha_nacimiento = models.DateField()
-    fecha_ingreso = models.DateField()
+    fecha_ingreso = models.DateField(auto_now_add=True)
     dias_vacaciones = models.IntegerField()
     puesto = models.CharField(max_length=100)
     sexo = models.CharField(max_length=20, choices=(("M", "Masculino"), ("F", "Femenino")), default="Masculino")

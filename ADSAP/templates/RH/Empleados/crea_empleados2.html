@@ -1,0 +1,24 @@
+{% extends 'base/base.html'%}
+
+{% block title %} CREA EMPLEADOS {% endblock title %}
+
+{% block content %}
+
+    <h1>CREACION DE EMPLEADOS - DATOS PERSONALES</h1>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+            
+            <div class="row">
+                <div class="col">
+                    <button type="submit" class="btn btn-outline-success form-control">Crea Empleado</button>
+                </div>
+                <div class="col">
+                    <a href="{% url 'RH:empleados' %}" class="btn btn-outline-warning form-control">Cancel</a>
+                </div>
+            </div>
+    </form>
+
+
+{% endblock content %}
