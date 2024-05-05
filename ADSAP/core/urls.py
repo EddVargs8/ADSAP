@@ -18,4 +18,4 @@ urlpatterns = [
     path('vacaciones/solicitud/estado/<int:pk>/', views.Vacaciones_Estado.as_view(), name="vacaciones_estado"),
     path('vacaciones/solicitud/eliminar/<int:pk>/', views.Vacaciones_Eliminacion.as_view(), name="vacaciones_eliminar_confirmacion"),
     
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

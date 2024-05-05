@@ -81,13 +81,15 @@ class Datos_Personales(LoginRequiredMixin, generic.View):
     
 @method_decorator(login_required, name='dispatch')
 class Vacaciones(LoginRequiredMixin, generic.View):
-    template_name = "vacaciones.html"
+    template_name = "vacaciones/vacaciones.html"
     context = {}
 
     def get(self, request):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+
         self.context = {
             "empleado": models.EMPLEADO.objects.get(usuario=request.user),
-            "solicitudes": models.VACACIONES.objects.all(),
+            "solicitudes": models.VACACIONES.objects.filter(id_empleado=empleado.id),
             "dias_solicitados": models.VACACIONES.dias_solicitados
         }
 
@@ -95,7 +97,7 @@ class Vacaciones(LoginRequiredMixin, generic.View):
 
 @method_decorator(login_required, name='dispatch')
 class Vacaciones_Confirmacion(LoginRequiredMixin, generic.View):
-    template_name = "vacaciones_confirmacion.html"
+    template_name = "vacaciones/vacaciones_confirmacion.html"
     context = {}
 
     def get(self, request):
@@ -130,11 +132,11 @@ def Vacaciones_Form(request):
     else:
         form = forms.Solicitud_Vacaciones_Form(empleado=empleado)
 
-    return render(request, 'form_vacaciones.html', {'form': form})
+    return render(request, 'vacaciones/form_vacaciones.html', {'form': form})
     
 @method_decorator(login_required, name='dispatch')
 class Vacaciones_Estado(LoginRequiredMixin, generic.View):
-    template_name = "vacaciones_estado.html"
+    template_name = "vacaciones/vacaciones_estado.html"
     context = {}
 
     def get(self, request, pk):
@@ -147,7 +149,7 @@ class Vacaciones_Estado(LoginRequiredMixin, generic.View):
 
 @method_decorator(login_required, name='dispatch')
 class Vacaciones_Eliminacion(LoginRequiredMixin, generic.DeleteView):
-    template_name = "vacaciones_eliminacion.html"
+    template_name = "vacaciones/vacaciones_eliminacion.html"
     model = models.VACACIONES
     success_url = reverse_lazy('core:vacaciones')
     
@@ -165,6 +167,8 @@ def searchVacaciones(request, *args, **kwargs):
     
     if request.method == 'GET':
         vacacionesAB = request.GET.get('busquedaVacaciones').lower()
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        VacacionesEmp = models.VACACIONES.objects.filter(id_empleado=empleado.id)
 
         month_mapping = {
         'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
@@ -174,7 +178,104 @@ def searchVacaciones(request, *args, **kwargs):
         month_number ="0" + str(month_mapping.get(vacacionesAB, 0)) 
 
         if month_number:
-            results = models.VACACIONES.objects.filter(fecha_inicio__month=month_number)
+            results = VacacionesEmp.filter(fecha_inicio__month=month_number)
         else:
             results = models.VACACIONES.objects.none() 
-        return render(request, "vacaciones_filter.html", {"vacaciones": results})
+        return render(request, "vacaciones/vacaciones_filter.html", {"vacaciones": results})
+
+
+@method_decorator(login_required, name='dispatch')
+class Permisos(LoginRequiredMixin, generic.View):
+    template_name = "permisos/permisos.html"
+    context = {}
+
+    def get(self, request):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        
+        self.context = {
+            "empleado": empleado,
+            "solicitudes": models.PERMISO.objects.filter(id_empleado=empleado.id),
+            "dias_solicitados": models.PERMISO.dias_solicitados
+        }
+
+        return render(request, self.template_name, self.context)
+    
+
+@login_required
+def Permisos_Form(request):
+    empleado = models.EMPLEADO.objects.get(usuario=request.user)
+
+    if request.method == 'POST':
+        form = forms.Solicitud_Permiso_Form(request.POST, empleado=empleado)
+        if form.is_valid():
+            permiso = form.save(commit=False)
+            permiso.id_empleado = empleado
+            permiso.save()
+
+            return redirect('core:permisos_confirmacion')
+    else:
+        form = forms.Solicitud_Permiso_Form(empleado=empleado)
+
+    return render(request, 'permisos/form_permisos.html', {'form': form})
+    
+@method_decorator(login_required, name='dispatch')
+class Permisos_Estado(LoginRequiredMixin, generic.View):
+    template_name = "permisos/permisos_estado.html"
+    context = {}
+
+    def get(self, request, pk):
+        self.context = {
+            "estado_solicitud": models.ESTADO_SOLICITUD.objects.get(id_permiso=pk),
+            "solicitud": models.PERMISO.objects.get(id=pk),
+            "empleado": models.EMPLEADO.objects.get(usuario=request.user)
+        }
+        return render(request, self.template_name, self.context)
+    
+@method_decorator(login_required, name='dispatch')
+class Permisos_Eliminacion(LoginRequiredMixin, generic.DeleteView):
+    template_name = "permisos/permisos_eliminacion.html"
+    model = models.PERMISO
+    success_url = reverse_lazy('core:permisos')
+    
+    
+    def get(self, request, pk):
+        self.context = {
+            "estado_solicitud": models.ESTADO_SOLICITUD.objects.get(id_permiso=pk),
+            "solicitud": models.PERMISO.objects.get(id=pk),
+            "empleado": models.EMPLEADO.objects.get(usuario=request.user),
+
+        }
+        return render(request, self.template_name, self.context)
+    
+@method_decorator(login_required, name='dispatch')
+class Permisos_Confirmacion(LoginRequiredMixin, generic.View):
+    template_name = "permisos/permisos_confirmacion.html"
+    context = {}
+
+    def get(self, request):
+        self.context = {
+            
+        }
+
+        return render(request, self.template_name, self.context)
+    
+@login_required
+def searchPermisos(request, *args, **kwargs):
+    if request.method == 'GET':
+        permisoAB = request.GET.get('busquedaPermisos').lower()
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        permisosEmp = models.PERMISO.objects.filter(id_empleado=empleado.id)
+        
+        month_mapping = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
+        'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
+        'octubre': 10, 'noviembre': 11, 'diciembre': 12
+        }
+        month_number ="0" + str(month_mapping.get(permisoAB, 0)) 
+
+        if month_number:
+            results = permisosEmp.filter(fecha_inicio__month=month_number)
+        else:
+            results = models.PERMISO.objects.none() 
+        
+        return render(request, "permisos/permisos_filter.html", {"permisos": results})

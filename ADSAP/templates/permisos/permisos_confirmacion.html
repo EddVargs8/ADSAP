@@ -1,0 +1,66 @@
+{% extends 'base/base.html'%}
+{% load static %}
+{% block title %}Permiso registrado registrado{% endblock title %}
+{% block content %}
+<style>
+  .background {
+    background-color: #fff;
+  }
+
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 150px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 700px;
+    border-radius: 20px;
+    margin-left: 450px;
+    display: block;
+  }
+
+  img {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 200px;
+    display: block;
+    padding-bottom: 10px;
+  }
+
+  .Tittle {
+    font-size: 2em;
+    font-weight: bold;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .Instrucciones {
+    font-size: 1.5em;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: justify;
+  }
+
+  .btn{
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+  }
+</style>
+
+<body class="background">
+
+  <div class=Contenedor>
+    <img src="https://cdn-icons-png.flaticon.com/256/661/661513.png">
+    <p class="Tittle">¡Solicitud de permiso creada exitosamente!</p>
+    <p class="Instrucciones">
+      Tu solicitud ha sido enviada exitosamente. En breve, un administrador revisará tu solicitud y te notificará si ha
+      sido aprobada o rechazada.
+      Ahora puedes regresar a la pagina de vacaciones y ver el estado de tu solicitud.
+    </p>
+    <a href="{% url 'core:permisos' %}" class="btn btn-primary w-100 py-2">Regresar</a>
+  </div>
+</body>
+{% endblock content %}
