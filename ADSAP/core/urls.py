@@ -23,6 +23,5 @@ urlpatterns = [
     path('permisos/solicitud/estado/<int:pk>/', views.Permisos_Estado.as_view(), name="permisos_estado"),
     path('permisos/solicitud/eliminar/<int:pk>/', views.Permisos_Eliminacion.as_view(), name="permisos_eliminar_confirmacion"),
     path('permisos/filtro', views.searchPermisos, name="permisos_filter"),
-
-
+    
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

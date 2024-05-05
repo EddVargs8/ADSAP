@@ -47,8 +47,8 @@
   }
 
   .accordion-body {
-    font-size:
-      1.5em;
+    font-size: 1.5em;
+    text-align: justify;
   }
 
   .accordion-collapse {
@@ -64,6 +64,7 @@
   .Respuestas {
     padding-bottom: 20px;
   }
+
   img {
     margin-top: 20px;
     margin-left: auto;
@@ -73,13 +74,20 @@
     display: block;
     padding-bottom: 10px;
   }
+
+  .imgnoticia {
+    float: left;
+    margin-right: 20px;
+    height: 150px;
+    width: 150px;
+  }
 </style>
 
 <body>
   <div class="Contenedor">
     <p class="TittleADSAP">ADSAP</p>
     <img src="https://cdn-icons-png.flaticon.com/256/1074/1074106.png">
-    <p class="Sub">¿En qué podemos ayudarte?</p>
+    <p class="Sub">Noticias de la empresa</p>
     <div class="Filtro">
       <form action="filtro" method="get">
         <div class="input-group">
@@ -108,6 +116,10 @@
           <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+              {% if noticia.imagen %}
+              <img class="imgnoticia" src="{{ noticia.imagen.url }}">
+              {% else %}
+              {% endif %}
               {{ noticia.contenido }}
             </div>
           </div>
