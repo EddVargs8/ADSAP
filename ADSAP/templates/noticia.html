@@ -47,8 +47,8 @@
   }
 
   .accordion-body {
-    font-size:
-      1.5em;
+    font-size: 1.5em;
+    text-align: justify;
   }
 
   .accordion-collapse {
@@ -69,6 +69,13 @@
     width: 150px;
     display: block;
     padding-bottom: 10px;
+  }
+
+  .imgnoticia {
+    float: left;
+    margin-right: 20px;
+    height: 150px;
+    width: 150px;
   }
 </style>
 
@@ -105,6 +112,10 @@
           <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+              {% if noticia.imagen %}
+              <img class="imgnoticia" src="{{ noticia.imagen.url }}">
+              {% else %}
+              {% endif %}
               {{ noticia.contenido }}
             </div>
           </div>

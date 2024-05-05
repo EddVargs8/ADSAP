@@ -48,8 +48,8 @@
   }
 
   .accordion-body {
-    font-size:
-      1.5em;
+    font-size: 1.5em;
+    text-align: justify;
   }
 
   .accordion-collapse {
@@ -61,6 +61,13 @@
     border-color: #003366;
     font-size: 1.5em;
   }
+
+  .imgpregunta {
+    float: left;
+    margin-right: 20px;
+    height: 150px;
+    width: 150px;
+  }
 </style>
 
 <body>
@@ -70,7 +77,8 @@
     <div class="Filtro">
       <form action="filtro" method="get">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar pregunta" name="busqueda" style="background-color: #fff;">
+          <input type="text" class="form-control" placeholder="Buscar pregunta" name="busqueda"
+            style="background-color: #fff;">
           <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
             <i class="fas fa-search"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
@@ -95,6 +103,10 @@
           <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+              {% if pregunta.imagen %}
+              <img class="imgpregunta" src="{{ pregunta.imagen.url }}">
+              {% else %}
+              {% endif %}
               {{ pregunta.respuesta }}
             </div>
           </div>

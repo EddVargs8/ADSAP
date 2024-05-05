@@ -47,8 +47,8 @@
   }
 
   .accordion-body {
-    font-size:
-      1.5em;
+    font-size: 1.5em;
+    text-align: justify;
   }
 
   .accordion-collapse {
@@ -60,8 +60,16 @@
     border-color: #003366;
     font-size: 1.5em;
   }
-  .Respuestas{
+
+  .Respuestas {
     padding-bottom: 20px;
+  }
+
+  .imgpregunta {
+    float: left;
+    margin-right: 20px;
+    height: 150px;
+    width: 150px;
   }
 </style>
 
@@ -97,6 +105,10 @@
           <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
+              {% if pregunta.imagen %}
+              <img class="imgpregunta" src="{{ pregunta.imagen.url }}">
+              {% else %}
+              {% endif %}
               {{ pregunta.respuesta }}
             </div>
           </div>

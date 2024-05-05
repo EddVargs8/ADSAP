@@ -121,7 +121,7 @@ class NOTICIAS(models.Model):
     contenido = models.TextField()
     fecha_publicacion = models.DateField(auto_now=True)
     id_area = models.ForeignKey(AREA, on_delete=models.CASCADE, null=True, blank=True)
-    imagen = models.ImageField(null=True, blank=True); 
+    imagen = models.ImageField(null=True, blank=True, upload_to="noticias"); 
 
     def __str__(self):
         return self.titulo + " " + self.contenido 
@@ -133,7 +133,7 @@ class PREGUNTAS(models.Model):
     id = models.AutoField(primary_key=True)
     pregunta = models.TextField()
     respuesta = models.TextField()
-    imagen = models.ImageField(null=True, blank=True); 
+    imagen = models.ImageField(null=True, blank=True, upload_to="preguntas"); 
 
     def __str__(self):
         return self.pregunta + " " + self.respuesta
