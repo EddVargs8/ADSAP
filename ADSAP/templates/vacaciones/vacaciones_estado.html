@@ -104,6 +104,7 @@
     <p class="Tittle">Estado de la solicitud</p>
     <p class="Estado">Estado: <span class="EstadoDato">{{ estado_solicitud.estado }}</span></p>
     <a href="{% url 'core:vacaciones_eliminar_confirmacion' solicitud.id %}" class="btn btn-primary BtnCancelar">Cancelar Solicitud</a>
+    <p class="Datos">Fecha de creación: <span class="DatosUsuario">{{ solicitud.fecha_solicitud }}</span></p>
     <div>
       <p class="Sub">Datos del empleado</p>
       {% if empleado.sexo == "M" %}

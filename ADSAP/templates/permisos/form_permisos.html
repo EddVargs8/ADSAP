@@ -59,7 +59,7 @@
     color: black;
   }
 
-  .CampoMotivo{
+  .CampoMotivo {
     width: 950px;
     margin-bottom: 15px;
     font-size: 1.5em;
@@ -75,9 +75,11 @@
 
   .BtnRealizar {
     width: 950px;
+    margin-top: 30px;
     background-color: #009c0d;
     border-color: #009c0d;
   }
+
   .BtnRealizar:hover {
     background-color: #006909;
   }
@@ -86,12 +88,10 @@
 <body class="background">
   <div class=Contenedor>
     <p class="Tittle">Solicitar Permiso</p>
-    <img src="https://cdn-icons-png.flaticon.com/256/4285/4285330.png">
+    <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
     <form action="" method="post" class="form">
       {% csrf_token %}
       {{ form }}
-     
-
       <button type="submit" class="btn btn-primary py-2 BtnRealizar">Realizar solicitud</button>
     </form>
     <a href="{% url 'core:permisos' %}" class="btn btn-primary">Volver a permisos</a>

@@ -1,6 +1,5 @@
 {% extends 'base/base.html'%}
-
-{% block title %}INICIO{% endblock title %}
+{% block title %}Inicio Administrativo{% endblock title %}
 {% block content %}
 <style>
   body {
@@ -73,19 +72,27 @@
     display: block;
     margin-top: 10px;
   }
+
+  .Sub {
+    font-size: 2.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+  }
 </style>
 
 <body>
   <h2
-    style="font-size: 70px; margin-top: 6rem; margin-bottom: 3rem; color:#003366; font-family: 'ZCOOL QingKe HuangYou'; font-weight: bold;">
-    ¡Bienvenido a ADSAP USUARIO DE ADMINISTRADOR!</h2>
+    style="font-size: 70px; margin-top: 6rem; color:#003366; font-family: 'ZCOOL QingKe HuangYou'; font-weight: bold;">
+    ¡Bienvenido a ADSAP!</h2>
+    <p class="Sub">Usuario administrativo</p>
   <div class="container marketing">
     <div class="row">
       <div class="col-lg-4">
         <p>
           <a class="btn btn-secondary btn-image" href="{% url 'RH:empleados' %}">
             <img src="https://cdn-icons-png.flaticon.com/256/1077/1077063.png" alt="Datos Personales">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ADMINISTRAR EMPLEADOS</span>
+            <span style="margin-top: 5px; font-size: 1.2em; font-weight: bold;">ADMINISTRAR EMPLEADOS</span>
           </a>
         </p>
       </div>
@@ -93,7 +100,7 @@
         <p>
           <a class="btn btn-secondary btn-image" href="#">
             <img src="https://cdn-icons-png.flaticon.com/256/1831/1831534.png" alt="Vacaciones">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ADMINISTRAR VACACIONES</span>
+            <span style="margin-top: 5px; font-size: 1.2em; font-weight: bold;">ADMINISTRAR VACACIONES</span>
           </a>
         </p>
       </div>
@@ -101,7 +108,7 @@
         <p>
           <a class="btn btn-secondary btn-image" href="#">
             <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png" alt="Permisos">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ADMINISTRAR PERMISOS</span>
+            <span style="margin-top: 5px; font-size: 1.2em; font-weight: bold;">ADMINISTRAR PERMISOS</span>
           </a>
         </p>
       </div>
@@ -111,7 +118,7 @@
         <p>
           <a class="btn btn-secondary btn-image" href="#">
             <img src="https://cdn-icons-png.flaticon.com/256/4540/4540514.png" alt="Incapacidades">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ADMINISTRAR INCAPACIDADES</span>
+            <span style="margin-top: 5px; font-size: 1.1em; font-weight: bold;">ADMINISTRAR INCAPACIDADES</span>
           </a>
         </p>
       </div>
@@ -119,7 +126,7 @@
         <p>
           <a class="btn btn-secondary btn-image" href="">
             <img src="https://cdn-icons-png.flaticon.com/256/2886/2886141.png" alt="Noticias">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ADMINISTRAR NOTICIAS</span>
+            <span style="margin-top: 5px; font-size: 1.2em; font-weight: bold;">ADMINISTRAR NOTICIAS</span>
           </a>
         </p>
       </div>
@@ -127,7 +134,7 @@
         <p>
           <a class="btn btn-secondary btn-image" href="#">
             <img src="https://cdn-icons-png.flaticon.com/256/8290/8290972.png" alt="Nomina">
-            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ADMINISTRAR NOMINAS</span>
+            <span style="margin-top: 5px; font-size: 1.2em; font-weight: bold;">ADMINISTRAR NOMINAS</span>
           </a>
         </p>
       </div>
