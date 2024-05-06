@@ -73,6 +73,9 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ADSAP.urls'
 
+#MEDIA CONFIG
+#MEDIA_ROOT = BASE_DIR / 'media' / 'database'
+#MEDIA_URL = 'media/database/'
 
 TEMPLATES = [
     {
@@ -151,11 +154,11 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static' 
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+#STORAGES = {
+#    "staticfiles": {
+#        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#    },
+#}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
