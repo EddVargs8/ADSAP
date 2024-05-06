@@ -73,9 +73,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'ADSAP.urls'
 
-#MEDIA CONFIG
-MEDIA_ROOT = BASE_DIR / 'media' / 'database'
-MEDIA_URL = 'media/database/'
 
 TEMPLATES = [
     {
