@@ -1,20 +1,69 @@
-{% extends 'base/base.html' %}
-
+{% extends 'base/base.html'%}
+{% block title %} Busqueda de empleado {% endblock title %}
 {% block content %}
-<h2>Editar Empleado Listar</h2>
+<style>
+  body {
+    background-color: #fff;
+  }
 
-<form action="filtro" method="get">
-    <div class="input-group">
-      <input type="text" class="form-control" placeholder="Buscar empleado" name="busquedaEmpleado">
-      <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
-        <i class="fas fa-search"></i>
-        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
-          viewBox="0 0 16 16">
-          <path
-            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-        </svg>
-      </button>
-    </div>
-  </form> 
+  .btn2 {
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+    width: 750px;
+    margin-top: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
 
-{% endblock %}
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 300px;
+    display: block;
+  }
+
+  .TittleADSAP {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .Sub {
+    font-size: 2.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="Contenedor">
+    <p class="TittleADSAP">ADSAP</p>
+    <p class="Sub">Busqueda de empleado a editar</p>
+    <form action="filtro" method="get">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Buscar empleado" name="busquedaEmpleado">
+        <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+          <i class="fas fa-search"></i>
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
+            viewBox="0 0 16 16">
+            <path
+              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+          </svg>
+        </button>
+      </div>
+    </form> 
+    <a class="btn btn-primary py-2 btn2" href="{% url 'home:home' %}">Volver al menú</a>
+  </div>
+</body>
+{% endblock content %}
