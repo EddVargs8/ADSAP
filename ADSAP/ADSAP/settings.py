@@ -33,7 +33,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 BASE_APPS = [
@@ -74,8 +73,8 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'ADSAP.urls'
 
 #MEDIA CONFIG
-MEDIA_ROOT = BASE_DIR / 'media' / 'database'
-MEDIA_URL = 'media/database/'
+#MEDIA_ROOT = BASE_DIR / 'media' / 'database'
+#MEDIA_URL = 'media/database/'
 
 TEMPLATES = [
     {
@@ -154,11 +153,11 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static' 
 ]
 
-STORAGES = {
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
+#STORAGES = {
+#    "staticfiles": {
+#        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+#    },
+#}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
@@ -188,5 +187,6 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 3600
 SESSION_SAVE_EVERY_REQUEST = True
 
+#MEDIA CONFIG
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
