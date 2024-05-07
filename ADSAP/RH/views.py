@@ -98,8 +98,6 @@ class EmpleadoMixin:
         except ObjectDoesNotExist:
             return None
 
-
-
 @method_decorator(login_required, name='dispatch')
 class Edita_Empleados_List(LoginRequiredMixin, EmpleadoMixin, generic.View):
     
@@ -130,3 +128,71 @@ class Elimina_Empleados(LoginRequiredMixin, generic.DeleteView):
             return HttpResponseForbidden("No estás autorizado para ver esta página.")
         return super().dispatch(request, *args, **kwargs)
 
+@method_decorator(login_required, name='dispatch')
+class Vacaciones(LoginRequiredMixin, generic.View):
+    def get(self, request):
+ 
+        if request.user.groups.filter(name='Personal RH').exists():
+            return render(request, "RH/Vacaciones/vacaciones.html", {})
+
+        return HttpResponseForbidden("No estás autorizado para ver esta página.") 
+    
+
+@method_decorator(login_required, name='dispatch')
+class Vacaciones_Busqueda(LoginRequiredMixin, generic.View):
+    template_name = "RH/Vacaciones/vacaciones_busqueda.html"
+    context = {}
+
+    def get(self, request):
+        resultados = models.ESTADO_SOLICITUD.objects.filter(id_vacaciones__isnull=False)
+        resultados_revision = resultados.filter(estado="En revision")
+        vacaciones = [estado.id_vacaciones for estado in resultados_revision]
+        self.context = {
+            "resultados": resultados_revision,
+            "vacaciones": vacaciones
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+    
+@method_decorator(login_required, name='dispatch')
+class Edita_Vacaciones(LoginRequiredMixin, generic.UpdateView):
+    model = models.ESTADO_SOLICITUD
+    form_class = forms.EstadoSolicitudForm 
+    template_name = "RH/Vacaciones/vacaciones_estado.html"
+    success_url = reverse_lazy("RH:vacaciones_busqueda")
+
+@login_required
+def searchVacaciones(request, *args, **kwargs):
+    
+    if request.method == 'GET':
+        resultados = models.ESTADO_SOLICITUD.objects.filter(id_vacaciones__isnull=False)
+        resultados_revision = resultados.filter(estado="En revision")
+        vacaciones = [estado.id_vacaciones for estado in resultados_revision]
+        
+
+        vacacionesAB = request.GET.get('busquedaVacacion').lower()
+           
+        month_mapping = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
+        'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
+        'octubre': 10, 'noviembre': 11, 'diciembre': 12
+        }
+        month_number ="0" + str(month_mapping.get(vacacionesAB, 0)) 
+
+        filtered_vacations = [
+            vacacion for vacacion in vacaciones 
+            if vacacion.fecha_inicio.month == month_number
+        ]
+
+
+        if month_number:
+            results = filtered_vacations
+        else:
+            results = models.VACACIONES.objects.none() 
+        return render(request, "RH/Vacaciones/vacaciones_filter.html", {"vacaciones": results})
+    
