@@ -130,3 +130,32 @@ class Elimina_Empleados(LoginRequiredMixin, generic.DeleteView):
             return HttpResponseForbidden("No estás autorizado para ver esta página.")
         return super().dispatch(request, *args, **kwargs)
 
+@method_decorator(login_required, name='dispatch')
+class Vacaciones(LoginRequiredMixin, generic.View):
+    def get(self, request):
+ 
+        if request.user.groups.filter(name='Personal RH').exists():
+            return render(request, "RH/Vacaciones/vacaciones.html", {})
+
+        return HttpResponseForbidden("No estás autorizado para ver esta página.") 
+    
+
+@method_decorator(login_required, name='dispatch')
+class Vacaciones_Busqueda(LoginRequiredMixin, generic.View):
+    template_name = "RH/Vacaciones/vacaciones_busqueda.html"
+    context = {}
+    
+    def get(self, request):
+        resultados = models.ESTADO_SOLICITUD.objects.filter(id_vacaciones__isnull=False)
+        resultados_revision = resultados.filter(estado="En revision")
+        vacaciones = [estado.id_vacaciones for estado in resultados_revision]
+        self.context = {
+            "resultados": resultados_revision,
+            "vacaciones": vacaciones
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)

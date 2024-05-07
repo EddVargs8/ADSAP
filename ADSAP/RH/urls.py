@@ -11,5 +11,9 @@ urlpatterns = [
     path('Empleados/Editar/Empleado/filtro/', views.Edita_Empleados_List.as_view(), name='editar_empleados_list'),
     path('Empleados/Editar/Empleado/<int:pk>/', views.Edita_Empleados.as_view(), name='editar_empleado'),
     path('Empleados/Editar/Empleado/Eliminar/<int:pk>/', views.Elimina_Empleados.as_view(), name='eliminar_empleado'),
+    path('Administra_Vacaciones/', views.Vacaciones.as_view(), name="vacaciones"),
+    path('Administra_Vacaciones/Busqueda', views.Vacaciones_Busqueda.as_view(), name="vacaciones_busqueda"),
+
+
 
 ]
