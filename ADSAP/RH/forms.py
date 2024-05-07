@@ -71,4 +71,14 @@ class Crea_Empleado_Form2(forms.ModelForm):
         self.fields['area'].queryset = models.AREA.objects.all()
         #self.fields['usuario'].queryset = CustomUser.objects.all()
         self.fields['id_empresa'].queryset = models.EMPRESA.objects.all()
-        
+
+
+class EstadoSolicitudForm(forms.ModelForm):
+    class Meta:
+        model = models.ESTADO_SOLICITUD
+        fields = ['estado', 'comentarios_admin'] 
+
+        widgets = {
+            'estado': forms.Select(attrs={'class': 'form-control'}),
+            'comentarios_admin': forms.Textarea(attrs={'class': 'form-control'}),
+        }

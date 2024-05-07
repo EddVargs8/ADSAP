@@ -4,16 +4,17 @@ from RH import views
 app_name = "RH"
 
 urlpatterns = [
-    path('Empleados/', views.Empleados.as_view(), name="empleados"),
-    path('Empleados/Crea', views.Crea_Empleados.as_view(), name="crea_empleados"),
-    path('Empleados/Crea/<int:user_id>/', views.Crea_Empleados2.as_view(), name="crea_empleados2"),
-    path('Empleados/Editar/Empleado/', views.Edita_Empleados_Busqueda.as_view(), name="editar_empleado_busqueda"),
-    path('Empleados/Editar/Empleado/filtro/', views.Edita_Empleados_List.as_view(), name='editar_empleados_list'),
-    path('Empleados/Editar/Empleado/<int:pk>/', views.Edita_Empleados.as_view(), name='editar_empleado'),
-    path('Empleados/Editar/Empleado/Eliminar/<int:pk>/', views.Elimina_Empleados.as_view(), name='eliminar_empleado'),
-    path('Administra_Vacaciones/', views.Vacaciones.as_view(), name="vacaciones"),
-    path('Administra_Vacaciones/Busqueda', views.Vacaciones_Busqueda.as_view(), name="vacaciones_busqueda"),
-
-
+    path('empleados/', views.Empleados.as_view(), name="empleados"),
+    path('empleados/crea', views.Crea_Empleados.as_view(), name="crea_empleados"),
+    path('empleados/crea/<int:user_id>/', views.Crea_Empleados2.as_view(), name="crea_empleados2"),
+    path('empleados/editar/empleado/', views.Edita_Empleados_Busqueda.as_view(), name="editar_empleado_busqueda"),
+    path('empleados/editar/empleado/filtro/', views.Edita_Empleados_List.as_view(), name='editar_empleados_list'),
+    path('empleados/editar/empleado/<int:pk>/', views.Edita_Empleados.as_view(), name='editar_empleado'),
+    path('empleados/editar/empleado/eliminar/<int:pk>/', views.Elimina_Empleados.as_view(), name='eliminar_empleado'),
+    #path('administra_vacaciones/', views.Vacaciones.as_view(), name="vacaciones"),
+    path('administra_vacaciones/', views.Vacaciones_Busqueda.as_view(), name="vacaciones_busqueda"),
+    path('administra_vacaciones/estado/<int:pk>/', views.Edita_Vacaciones.as_view(), name="vacaciones_estado"),
+    path('administra_vacaciones/filtro/', views.searchVacaciones, name="vacaciones_filtro"),
+    #path('administra_vacaciones/editar/empleado/<int:pk>/', views.Edita_Vacaciones.as_view(), name='vacaciones_editar'),
 
 ]

@@ -76,6 +76,8 @@
       width: 100%;
     }
   </style>
+
+<body>
 <h2>Administrar Vacaciones Listar</h2>
 
 <form action="filtro" method="get">
@@ -92,21 +94,22 @@
     </div>
 </form> 
 
-{% for vacacion in vacaciones %}
+{% for vacacion in resultados %}
 <div class="list-group">
   <a href="#" class="list-group-item list-group-item-action d-flex gap-3 vacaciones" aria-current="true">
     <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
     <div>
-      <p class="mb-0 fecha">Periodo: {{ vacacion.fecha_inicio }} al {{ vacacion.fecha_fin }} </p>
-      <p class="mb-0 opacity-75 fecha"> Estado: {{ vacacion.estado }} </p>
-      <p class="mb-0 opacity-75 fecha"> Nombre de Empleado: {{ vacacion.id_empleado }} </p>
+      <p class="mb-0 fecha">Periodo: {{ vacacion.id_vacaciones.fecha_inicio }} al {{ vacacion.id_vacaciones.fecha_fin }} </p>
+      <p class="mb-0 fecha"> Datos del Empleado: {{ vacacion.id_vacaciones.id_empleado }} </p>
     </div>
   </a>
-  <a href="#" class="btn btn-primary py-2">Abre Solicitud</a>
+  <a href="{% url 'RH:vacaciones_estado' vacacion.id %}" class="btn btn-primary py-2">Abre Solicitud</a>
 </div>
 {% endfor %}
 </div>
 <br>
-
-
+<br>
+<br>
+<a href="{% url 'home:home' %}" class="">Volver</a>
+</body>
 {% endblock %}
