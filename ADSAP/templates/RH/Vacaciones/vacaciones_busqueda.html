@@ -101,6 +101,8 @@
     <div>
       <p class="mb-0 fecha">Periodo: {{ vacacion.id_vacaciones.fecha_inicio }} al {{ vacacion.id_vacaciones.fecha_fin }} </p>
       <p class="mb-0 fecha"> Datos del Empleado: {{ vacacion.id_vacaciones.id_empleado }} </p>
+      <p class="mb-0 fecha"> Dias solicitados: {{ vacacion.id_vacaciones.dias_solicitados }} </p>
+      <p class="mb-0 fecha"> Motivo: {{ vacacion.id_vacaciones.motivo }} </p>
     </div>
   </a>
   <a href="{% url 'RH:vacaciones_estado' vacacion.id %}" class="btn btn-primary py-2">Abre Solicitud</a>
@@ -108,8 +110,7 @@
 {% endfor %}
 </div>
 <br>
-<br>
-<br>
+
 <a href="{% url 'home:home' %}" class="">Volver</a>
 </body>
 {% endblock %}

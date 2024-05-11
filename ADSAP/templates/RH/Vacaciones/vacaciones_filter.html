@@ -83,10 +83,10 @@
     
 
     
-    <div class="Filtro">
+    <div class="filtro">
       <form action="" method="get">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar vacaciones" name="busquedaVacaciones">
+          <input type="text" class="form-control" placeholder="Buscar vacaciones" name="busquedaVacacion">
           <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
             <i class="fas fa-search"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
@@ -104,11 +104,13 @@
         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
           <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
           <div>
-            <p class="mb-0 fecha">Periodo: {{ vacacion.fecha_inicio }} al {{ vacacion.fecha_fin }} </p>
-            <p class="mb-0 opacity-75 fecha"> Días solicitados: {{ vacacion.dias_solicitados }} </p>
+            <p class="mb-0 fecha">Periodo: {{ vacacion.id_vacaciones.fecha_inicio }} al {{ vacacion.id_vacaciones.fecha_fin }} </p>
+            <p class="mb-0 fecha"> Datos del Empleado: {{ vacacion.id_vacaciones.id_empleado }} </p>
+            <p class="mb-0 fecha"> Dias solicitados: {{ vacacion.id_vacaciones.dias_solicitados }} </p>
+            <p class="mb-0 fecha"> Motivo: {{ vacacion.id_vacaciones.motivo }} </p>
           </div>
         </a>
-        <a href="{% url 'core:vacaciones_estado' vacacion.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
+        <a href="{% url 'RH:vacaciones_estado' vacacion.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
       </div>
       {% endfor %}
     </div>

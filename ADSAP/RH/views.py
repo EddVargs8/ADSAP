@@ -172,7 +172,7 @@ def searchVacaciones(request, *args, **kwargs):
     if request.method == 'GET':
         resultados = models.ESTADO_SOLICITUD.objects.filter(id_vacaciones__isnull=False)
         resultados_revision = resultados.filter(estado="En revision")
-        vacaciones = [estado.id_vacaciones for estado in resultados_revision]
+        vacaciones = [estado.id_vacaciones for estado in resultados_revision] 
         
 
         vacacionesAB = request.GET.get('busquedaVacacion').lower()
@@ -182,17 +182,23 @@ def searchVacaciones(request, *args, **kwargs):
         'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
         'octubre': 10, 'noviembre': 11, 'diciembre': 12
         }
-        month_number ="0" + str(month_mapping.get(vacacionesAB, 0)) 
+        month_number = str(month_mapping.get(vacacionesAB, 0)) 
 
-        filtered_vacations = [
-            vacacion for vacacion in vacaciones 
-            if vacacion.fecha_inicio.month == month_number
-        ]
+        filtered_vacations = []
+        filtered_solicitudes = []
 
+        for vacacion in vacaciones:
+            if str(vacacion.fecha_inicio.month) == month_number:
+                filtered_vacations.append(vacacion)
+                filtered_solicitudes.append(models.ESTADO_SOLICITUD.objects.get(id_vacaciones=vacacion.id))
 
+        print(filtered_vacations)
+        print(filtered_solicitudes)   
         if month_number:
             results = filtered_vacations
+            solicitudes = filtered_solicitudes
         else:
             results = models.VACACIONES.objects.none() 
-        return render(request, "RH/Vacaciones/vacaciones_filter.html", {"vacaciones": results})
+
+        return render(request, "RH/Vacaciones/vacaciones_filter.html", {"vacaciones": solicitudes})
     
