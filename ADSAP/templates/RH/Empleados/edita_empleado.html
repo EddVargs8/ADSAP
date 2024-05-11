@@ -1,11 +1,78 @@
-{% extends 'base/base.html' %}
-
+{% extends 'base/base.html'%}
+{% load static %}
+{% block title %}Editar empleado{% endblock title %}
 {% block content %}
-<h2>Editar Empleado</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Actualizar</button>
-    <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn btn-outline-warning form-control">Cancel</a>
-</form>
-{% endblock %}
+<style>
+  .background {
+    background-color: #fff;
+  }
+
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 1750px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 300px;
+    display: block;
+  }
+
+  .Tittle {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .BtnRealizar {
+    background-color: #009c0d;
+    border-color: #009c0d;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .btn{
+    margin-top: 35px;
+  }
+
+  .BtnRealizar:hover {
+    background-color: #006909;
+    color: #fff;
+  }
+
+  .BtnCancelar {
+    background-color: red;
+    border-color: red;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+  .BtnCancelar:hover {
+    background-color: rgb(141, 0, 0);
+    color: #fff;
+  }
+</style>
+
+<body class="background">
+  <div class="Contenedor">
+    <p class="Tittle">Edición de empleado</p>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="row">
+            <div class="col">
+              <button type="submit" class="btn BtnRealizar form-control">Actualizar</button>
+            </div>
+            <div class="col">
+              <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn BtnCancelar form-control">Cancelar</a>
+            </div>
+          </div>
+    </form>
+  </div>
+</body>
+{% endblock content %}

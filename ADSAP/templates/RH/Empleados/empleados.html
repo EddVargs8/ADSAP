@@ -1,107 +1,131 @@
 {% extends 'base/base.html'%}
-
-{% block title %} EMPLEADOS {% endblock title %}
-
+{% block title %} Administración de empleados {% endblock title %}
 {% block content %}
+<style>
+  body {
+    background-color: #fff;
+  }
 
-    <h1>PAGINA DE ADMINISTRAR EMPLEADOS</h1>
+  .bd-radius {
+    border-radius: 15px;
+  }
 
-    <style>
-        body {
-          background-color: #fff;
-        }
-      
-        .bd-radius {
-          border-radius: 15px;
-        }
-      
-        h2 {
-          text-align: center;
-        }
-      
-        .col-lg-4 {
-          flex: 0 0 auto;
-          width: 33.333333%;
-        }
-      
-        .row {
-          justify-content: center;
-          align-items: center;
-          flex-wrap: wrap;
-          gap: 4rem;
-        }
-      
-        .col-lg-4 {
-          flex: 0 0 auto;
-          width: auto;
-        }
-      
-        .col-lg-4 {
-          flex: 0 0 auto;
-          width: auto;
-        }
-      
-        .btn {
-          margin-top: 20px;
-          margin-bottom: 20px;
-          background-color: #004c9759;
-          cursor: pointer;
-          transition: background-color 0.3s;
-        }
-      
-        .btn:hover {
-          background-color: #004b97b7;
-        }
-      
-        .btn-image {
-          display: inline-block;
-          padding: 0;
-          width: 300px;
-          height: 210px;
-          text-align: center;
-          color: black;
-          font-family: 'Arial', sans-serif;
-          font-weight: bold;
-          border-radius: 15px;
-        }
-      
-        .btn-image img {
-          width: 150px;
-          height: 150px;
-          object-fit: contain;
-          margin-top: 15px;
-          margin-bottom: 0px;
-        }
-      
-        .btn-image span {
-          display: block;
-          margin-top: 10px;
-        }
-      </style>
-      
-      <body>
-        <div class="container marketing">
-          <div class="row">
-            <div class="col-lg-4">
-              <p>
-                <a class="btn btn-secondary btn-image" href="{% url 'RH:crea_empleados' %}">
-                  <img src="https://cdn-icons-png.flaticon.com/256/1077/1077063.png" alt="Datos Personales">
-                  <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ALTA EMPLEADOS</span>
-                </a>
-              </p>
-            </div>
-            <div class="col-lg-4">
-              <p>
-                <a class="btn btn-secondary btn-image" href="{% url 'RH:editar_empleado_busqueda' %}"> 
-                  <img src="https://cdn-icons-png.flaticon.com/256/1831/1831534.png" alt="Vacaciones">
-                  <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">MODIFICAR EMPLEADOS</span>
-                </a>
-              </p>
-            </div>
-            
-          </div>
-        </div>
-        <a href="{% url 'home:home' %}" class="btn btn-primary">Volver</a>
-      </body>
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: 33.333333%;
+  }
 
+  .row {
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4rem;
+  }
+
+  .col-lg-4 {
+    flex: 0 0 auto;
+    width: auto;
+  }
+
+  .btn1 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #004c9759;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .btn1:hover {
+    background-color: #004b97b7;
+  }
+
+  .btn2 {
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .btn-image {
+    display: inline-block;
+    padding: 0;
+    width: 325px;
+    height: 255px;
+    text-align: center;
+    color: black;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    border-radius: 15px;
+  }
+
+  .btn-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-top: 15px;
+    margin-bottom: 0px;
+  }
+
+  .btn-image span {
+    display: block;
+    margin-top: 10px;
+  }
+
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 100px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 250px;
+    display: block;
+  }
+
+  .TittleADSAP {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .Sub {
+    font-size: 2.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="Contenedor">
+    <p class="TittleADSAP">ADSAP</p>
+    <p class="Sub">¿Qué acción desea realizar?</p>
+    <div class="row">
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image btn1" href="{% url 'RH:crea_empleados' %}">
+            <img src="https://cdn-icons-png.flaticon.com/256/11911/11911011.png" alt="Dar de alta empleado">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">ALTA EMPLEADOS</span>
+          </a>
+        </p>
+      </div>
+      <div class="col-lg-4">
+        <p>
+          <a class="btn btn-secondary btn-image btn1" href="{% url 'RH:editar_empleado_busqueda' %}">
+            <img src="https://cdn-icons-png.flaticon.com/256/3934/3934107.png" alt="Modificar empleado">
+            <span style="margin-top: -2px; font-size: 1.7em; font-weight: bold;">MODIFICAR EMPLEADOS</span>
+          </a>
+        </p>
+      </div>
+    </div>
+    <a class="btn btn-primary py-2 btn2" href="{% url 'home:home' %}">Volver al menú</a>
+  </div>
+</body>
 {% endblock content %}

@@ -4,115 +4,156 @@
 
 {% block content %}
 <style>
-    body {
-      background-color: #fff;
-    }
-  
-    .Contenedor {
-      background-color: #fff;
-      padding-top: 20px;
-      padding-left: 25px;
-      padding-right: 25px;
-      width: 1300px;
-      margin-left: 150px;
-      display: block;
-    }
-  
-    .Tittle {
-      font-size: 3em;
-      color: #003366;
-      font-family: 'ZCOOL QingKe HuangYou';
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 0;
-    }
-  
-    img {
-      margin-top: 20px;
-      height: 230px;
-      width: 230px;
-      margin-left: auto;
-      margin-right: auto;
-      display: block;
-    }
-  
-    .Nombre {
-      font-size: 2em;
-      color: #003366;
-      font-family: 'ZCOOL QingKe HuangYou';
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 0;
-    }
-  
-    .Area {
-      font-size: 1.5em;
-      color: #003366;
-      font-family: 'ZCOOL QingKe HuangYou';
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 0;
-    }
-  
-    .Puesto {
-      font-size: 1.5em;
-      color: #003366;
-      font-family: 'ZCOOL QingKe HuangYou';
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 10;
-    }
-  
-    .Datos {
-      font-size: 1.8em;
-      color: #003366;
-      font-family: 'ZCOOL QingKe HuangYou';
-      font-weight: bold;
-    }
-  
-    .DatosUsuario {
-      font-size: 24px;
-      color: #000000;
-      font-family: 'ZCOOL QingKe HuangYou';
-      font-weight: bold;
-    }
-  </style>
+  body {
+    background-color: #fff;
+  }
+
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 1300px;
+    margin-left: 150px;
+    display: block;
+  }
+
+  .Tittle {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  img {
+    margin-top: 20px;
+    height: 230px;
+    width: 230px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
+
+  .Nombre {
+    font-size: 2em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .Area {
+    font-size: 1.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .Puesto {
+    font-size: 1.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10;
+  }
+
+  .Datos {
+    font-size: 1.8em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .DatosUsuario {
+    font-size: 24px;
+    color: #000000;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnEditar {
+    background-color: #009c0d;
+    border-color: #009c0d;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnEditar:hover {
+    background-color: #006909;
+    color: #fff;
+  }
+
+  .BtnEliminar {
+    background-color: red;
+    border-color: red;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnEliminar:hover {
+    background-color: rgb(141, 0, 0);
+    color: #fff;
+  }
+
+  .BtnCancelar {
+    background-color: orange;
+    border-color: orange;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnCancelar:hover {
+    background-color: rgb(146, 95, 0);
+    color: #fff;
+  }
+</style>
 
 <body>
-    <div class="Contenedor">
-        <p class="Tittle">Datos personales</p>
-        {% if empleado.sexo == "M" %}
-        <img src="https://cdn-icons-png.flaticon.com/256/1896/1896513.png">
-        {% else %}
-        <img src="https://cdn-icons-png.flaticon.com/256/1896/1896516.png">
-        {% endif %}
-        <p class="Nombre">{{ empleado.nombre }} {{ empleado.apellido_paterno }} {{empleado.apellido_materno }}</p>
-        <p class="Area">{{ empleado.area }}</p>
-        <p class="Puesto">{{ empleado.puesto }}</p>
+  <div class="Contenedor">
+    <p class="Tittle">Datos personales</p>
+    {% if empleado.sexo == "M" %}
+    <img src="https://cdn-icons-png.flaticon.com/256/1896/1896513.png">
+    {% else %}
+    <img src="https://cdn-icons-png.flaticon.com/256/1896/1896516.png">
+    {% endif %}
+    <p class="Nombre">{{ empleado.nombre }} {{ empleado.apellido_paterno }} {{empleado.apellido_materno }}</p>
+    <p class="Area">{{ empleado.area }}</p>
+    <p class="Puesto">{{ empleado.puesto }}</p>
 
-        <p class="Datos">Fecha de nacimiento: <span class="DatosUsuario">{{ empleado.fecha_nacimiento }}</span> </p>
-        <p class="Datos">Lugar de nacimiento: <span class="DatosUsuario">{{ empleado.municipio}},</span> <span
-            class="DatosUsuario">{{ empleado.estado }}</span> </p>
-        <p class="Datos">RFC: <span class="DatosUsuario">{{ empleado.rfc }}</span></p>
-        <p class="Datos">CURP: <span class="DatosUsuario">{{ empleado.curp }}</span></p>
-        <p class="Datos">NSS: <span class="DatosUsuario">{{ empleado.nss }}</span></p>
-        <p class="Datos">Dirección: <span class="DatosUsuario">{{ empleado.calle }} #{{ empleado.numero_casa }}, {{empleado.colonia}} CP: {{empleado.cp }}</span></p>
-        <p class="Datos">Teléfono de contacto: <span class="DatosUsuario">{{ empleado.telefono }}</span></p>
-        
-        <div class="row">
-            <div class="col">
-                <a href="{% url 'RH:editar_empleado' pk=empleado.id %}" class="btn btn-outline-info form-control">Edita Empleado</a>
-            </div>
-            <div class="col">
-                <a href="{% url 'RH:eliminar_empleado' pk=usuario.id%}" class="btn btn-outline-danger form-control">Elimina Empleado</a>
-            </div>
-            <div class="col">
-                <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn btn-outline-warning form-control">Cancel</a>
-            </div>
-        </div>
+    <p class="Datos">Fecha de nacimiento: <span class="DatosUsuario">{{ empleado.fecha_nacimiento }}</span> </p>
+    <p class="Datos">Lugar de nacimiento: <span class="DatosUsuario">{{ empleado.municipio}},</span> <span
+        class="DatosUsuario">{{ empleado.estado }}</span> </p>
+    <p class="Datos">RFC: <span class="DatosUsuario">{{ empleado.rfc }}</span></p>
+    <p class="Datos">CURP: <span class="DatosUsuario">{{ empleado.curp }}</span></p>
+    <p class="Datos">NSS: <span class="DatosUsuario">{{ empleado.nss }}</span></p>
+    <p class="Datos">Dirección: <span class="DatosUsuario">{{ empleado.calle }} #{{ empleado.numero_casa }},
+        {{empleado.colonia}} CP: {{empleado.cp }}</span></p>
+    <p class="Datos">Teléfono de contacto: <span class="DatosUsuario">{{ empleado.telefono }}</span></p>
 
+    <div class="row">
+      <div class="col">
+        <a href="{% url 'RH:editar_empleado' pk=empleado.id %}" class="btn BtnEditar form-control">Editar
+          empleado</a>
+      </div>
+      <div class="col">
+        <a href="{% url 'RH:eliminar_empleado' pk=usuario.id%}" class="btn BtnEliminar form-control">Eliminar
+          empleado</a>
+      </div>
+      <div class="col">
+        <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn BtnCancelar form-control">Cancelar</a>
+      </div>
     </div>
-    <br>
-    <br>
+  </div>
+  <br>
+  <br>
 </body>
 {% endblock content %}
