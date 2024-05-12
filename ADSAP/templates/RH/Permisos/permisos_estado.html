@@ -1,0 +1,25 @@
+{% extends 'base/base.html'%}
+{% load static %}
+{% block title %}Estado Solicitud{% endblock title %}
+{% block content %}
+
+  
+  <body class="background">
+      <form method="post">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit">Actualizar</button>
+      </form>
+      {% if object.id_permiso.archivo %}
+        <p>Archivo adjunto: <a href="{{ object.id_permiso.archivo.url }} " target="_blank" >{{ object.id_permiso.archivo.name }}</a></p>
+      {% else %}
+        <p>No hay archivo adjunto.</p>
+      {% endif %}
+      <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'RH:permisos_busqueda' %}">Volver a permisos</a>
+    </div>
+  </body>
+
+
+   
+
+{% endblock content %}

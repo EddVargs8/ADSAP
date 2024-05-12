@@ -82,3 +82,13 @@ class EstadoSolicitudForm(forms.ModelForm):
             'estado': forms.Select(attrs={'class': 'form-control'}),
             'comentarios_admin': forms.Textarea(attrs={'class': 'form-control'}),
         }
+
+class EstadoSolicitudPermisoForm(forms.ModelForm):
+    class Meta:
+        model = models.ESTADO_SOLICITUD
+        fields = ['estado', 'comentarios_admin'] 
+
+        widgets = {
+            'estado': forms.Select(attrs={'class': 'form-control'}),
+            'comentarios_admin': forms.Textarea(attrs={'class': 'form-control'}),
+        }

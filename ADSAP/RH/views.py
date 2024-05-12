@@ -128,16 +128,7 @@ class Elimina_Empleados(LoginRequiredMixin, generic.DeleteView):
             return HttpResponseForbidden("No estás autorizado para ver esta página.")
         return super().dispatch(request, *args, **kwargs)
 
-@method_decorator(login_required, name='dispatch')
-class Vacaciones(LoginRequiredMixin, generic.View):
-    def get(self, request):
- 
-        if request.user.groups.filter(name='Personal RH').exists():
-            return render(request, "RH/Vacaciones/vacaciones.html", {})
-
-        return HttpResponseForbidden("No estás autorizado para ver esta página.") 
     
-
 @method_decorator(login_required, name='dispatch')
 class Vacaciones_Busqueda(LoginRequiredMixin, generic.View):
     template_name = "RH/Vacaciones/vacaciones_busqueda.html"
@@ -191,9 +182,7 @@ def searchVacaciones(request, *args, **kwargs):
             if str(vacacion.fecha_inicio.month) == month_number:
                 filtered_vacations.append(vacacion)
                 filtered_solicitudes.append(models.ESTADO_SOLICITUD.objects.get(id_vacaciones=vacacion.id))
-
-        print(filtered_vacations)
-        print(filtered_solicitudes)   
+   
         if month_number:
             results = filtered_vacations
             solicitudes = filtered_solicitudes
@@ -201,4 +190,61 @@ def searchVacaciones(request, *args, **kwargs):
             results = models.VACACIONES.objects.none() 
 
         return render(request, "RH/Vacaciones/vacaciones_filter.html", {"vacaciones": solicitudes})
+
+
+@method_decorator(login_required, name='dispatch')
+class Permisos_Busqueda(LoginRequiredMixin, generic.View):
+    template_name = "RH/Permisos/permisos_busqueda.html"
+    context = {}
+
+    def get(self, request):
+        resultados = models.ESTADO_SOLICITUD.objects.filter(id_permiso__isnull=False)
+        resultados_revision = resultados.filter(estado="En revision")
+
+        self.context = {
+            "resultados": resultados_revision,
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
     
+@method_decorator(login_required, name='dispatch')
+class Edita_Permisos(LoginRequiredMixin, generic.UpdateView):
+    model = models.ESTADO_SOLICITUD
+    form_class = forms.EstadoSolicitudPermisoForm 
+    template_name = "RH/Permisos/permisos_estado.html"
+    success_url = reverse_lazy("RH:permisos_busqueda")
+
+@login_required
+def searchPermisos(request, *args, **kwargs):
+    
+    if request.method == 'GET':
+        resultados = models.ESTADO_SOLICITUD.objects.filter(id_permiso__isnull=False)
+        resultados_revision = resultados.filter(estado="En revision")
+        permisos = [estado.id_permiso for estado in resultados_revision] 
+        
+
+        permisosAB = request.GET.get('busquedaPermiso').lower()
+           
+        month_mapping = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
+        'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
+        'octubre': 10, 'noviembre': 11, 'diciembre': 12
+        }
+        month_number = str(month_mapping.get(permisosAB, 0)) 
+
+        filtered_solicitudes = []
+
+        for vacacion in permisos:
+            if str(vacacion.fecha_inicio.month) == month_number:
+                filtered_solicitudes.append(models.ESTADO_SOLICITUD.objects.get(id_permiso=vacacion.id))
+  
+        if month_number:
+            solicitudes = filtered_solicitudes
+        else:
+            results = models.PERMISO.objects.none() 
+
+        return render(request, "RH/Permisos/permisos_filter.html", {"vacaciones": solicitudes})
