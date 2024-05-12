@@ -9,6 +9,7 @@ from django.http import HttpResponse, HttpResponseForbidden
 from core import models 
 from users import models as users_models
 from RH import forms
+from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -214,7 +215,7 @@ class Permisos_Busqueda(LoginRequiredMixin, generic.View):
 @method_decorator(login_required, name='dispatch')
 class Edita_Permisos(LoginRequiredMixin, generic.UpdateView):
     model = models.ESTADO_SOLICITUD
-    form_class = forms.EstadoSolicitudPermisoForm 
+    form_class = forms.EstadoSolicitudForm 
     template_name = "RH/Permisos/permisos_estado.html"
     success_url = reverse_lazy("RH:permisos_busqueda")
 
@@ -248,3 +249,91 @@ def searchPermisos(request, *args, **kwargs):
             results = models.PERMISO.objects.none() 
 
         return render(request, "RH/Permisos/permisos_filter.html", {"vacaciones": solicitudes})
+    
+
+@method_decorator(login_required, name='dispatch')
+class Noticias(LoginRequiredMixin, generic.View):
+    def get(self, request):
+ 
+        if request.user.groups.filter(name='Personal RH').exists():
+            return render(request, "RH/Noticias/noticias.html", {})
+
+        return HttpResponseForbidden("No estás autorizado para ver esta página.")
+    
+@method_decorator(login_required, name='dispatch')
+class Crea_Noticias(LoginRequiredMixin, generic.CreateView):
+    model = models.NOTICIAS 
+    form_class = forms.NoticiasForm
+    template_name = "RH/Noticias/noticias_crear.html"
+    success_url = reverse_lazy("RH:noticias")
+    
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+@method_decorator(login_required, name='dispatch')
+class ListarNoticias(LoginRequiredMixin, generic.View):
+    template_name = "RH/Noticias/noticias_listar.html"
+    context = {}
+
+    def get(self, request):
+        self.context = {
+            "noticias" : models.NOTICIAS.objects.all()
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+@method_decorator(login_required, name='dispatch')
+class DetallesNoticia(LoginRequiredMixin, generic.View):
+    template_name = "RH/Noticias/noticia_detalle.html"
+    context = {}
+
+    def get(self, request, pk):
+        self.context = {
+            "noticia" : models.NOTICIAS.objects.get(pk=pk)
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+@method_decorator(login_required, name='dispatch')
+class Edita_Noticias(LoginRequiredMixin, generic.UpdateView):
+    model = models.NOTICIAS
+    form_class = forms.NoticiasForm
+    template_name = "RH/Noticias/noticia_editar.html"
+    success_url = reverse_lazy("RH:lista_noticias")
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+@method_decorator(login_required, name='dispatch')
+class Elimina_Noticia(LoginRequiredMixin, generic.DeleteView):
+    model = models.NOTICIAS
+    template_name = "RH/Noticias/noticia_eliminar.html"
+    success_url = reverse_lazy("RH:noticias")
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+@login_required
+def searchNoticias(request, *args, **kwargs):
+    if request.method == 'GET':
+        noticiaAB = request.GET.get('busquedaNoticias')
+        if noticiaAB:
+            noticiasAB = models.NOTICIAS.objects.filter(Q (titulo__icontains=noticiaAB) | Q(contenido__icontains=noticiaAB) )
+        else:
+            noticiasAB = None
+        return render(request, "RH/Noticias/noticias_filter.html", {"noticias": noticiasAB})

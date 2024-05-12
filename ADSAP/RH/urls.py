@@ -17,5 +17,11 @@ urlpatterns = [
     path('administra_permisos/', views.Permisos_Busqueda.as_view(), name="permisos_busqueda"),
     path('administra_permisos/estado/<int:pk>/', views.Edita_Permisos.as_view(), name="permisos_estado"),
     path('administra_permisos/filtro/', views.searchPermisos, name="permisos_filtro"),
-
+    path('administra_noticas/', views.Noticias.as_view(), name="noticias"),
+    path('administra_noticas/crea/', views.Crea_Noticias.as_view(), name="crea_noticias"),
+    path('administra_noticas/lista/', views.ListarNoticias.as_view(), name="lista_noticias"),
+    path('administra_noticas/detalle/<int:pk>/', views.DetallesNoticia.as_view(), name="detalles_noticias"),
+    path('administra_noticas/editar/<int:pk>/', views.Edita_Noticias.as_view(), name="editar_noticias"),
+    path('administra_noticas/eliminar/<int:pk>/', views.Elimina_Noticia.as_view(), name="eliminar_noticias"),
+    path('administra_noticas/lista/filtro/', views.searchNoticias, name="noticias_filtro"),
 ]

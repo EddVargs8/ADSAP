@@ -1,0 +1,24 @@
+{% extends 'base/base.html'%}
+{% load static %}
+{% block title %}Creación de Noticias{% endblock title %}
+{% block content %}
+
+
+<body class="background">
+  <div class="Contenedor">
+    <p class="Tittle">Creación de noticias</p>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="btn btn-outline-success form-control">Crear Noticia</button>
+        </div>
+        <div class="col">
+          <a href="{% url 'RH:noticias' %}" class="btn btn-outline-warning form-control">Cancelar</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+{% endblock content %}

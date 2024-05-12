@@ -1,5 +1,6 @@
 {% extends 'base/base.html'%}
-{% block title %}Editar empleado{% endblock title %}
+
+{% block title %}Editar noticia{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -59,8 +60,8 @@
 
 <body class="background">
   <div class="Contenedor">
-    <p class="Tittle">Edición de empleado</p>
-    <form method="post">
+    <p class="Tittle">Edición de Noticia</p>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="row">
@@ -68,7 +69,7 @@
               <button type="submit" class="btn BtnRealizar form-control">Actualizar</button>
             </div>
             <div class="col">
-              <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn BtnCancelar form-control">Cancelar</a>
+              <a href="{% url 'RH:lista_noticias' %}" class="btn BtnCancelar form-control">Cancelar</a>
             </div>
           </div>
     </form>

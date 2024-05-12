@@ -1,5 +1,6 @@
 {% extends 'base/base.html'%}
-{% block title %}Eliminar empleado{% endblock title %}
+
+{% block title %}Eliminar Noticia{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -75,16 +76,16 @@
 
   <div class=Contenedor>
     <img src="https://cdn-icons-png.flaticon.com/256/2194/2194309.png">
-    <p class="Tittle">¿Estás seguro de que deseas eliminar a este empleado?</p>
-    <p class="Instrucciones">Esto eliminará automáticamente la información del empleado y no podrá ser recuperada.</p>
+    <p class="Tittle">¿Estás seguro de que deseas eliminar a esta noticia?</p>
+    <p class="Instrucciones">Esto eliminará automáticamente la información de la noticia y no podra ser recuperrada.</p>
     <form method="post">
       {% csrf_token %}
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn BtnEliminar form-control">Eliminar empleado</button>
+          <button type="submit" class="btn BtnEliminar form-control">Eliminar noticia</button>
         </div>
         <div class="col">
-          <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn BtnCancelar form-control">Cancelar</a>
+          <a href="{% url 'RH:lista_noticias' %}" class="btn BtnCancelar form-control">Cancelar</a>
         </div>
     </form>
   </div>

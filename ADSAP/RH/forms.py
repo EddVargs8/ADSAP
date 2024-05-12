@@ -83,12 +83,11 @@ class EstadoSolicitudForm(forms.ModelForm):
             'comentarios_admin': forms.Textarea(attrs={'class': 'form-control'}),
         }
 
-class EstadoSolicitudPermisoForm(forms.ModelForm):
+class NoticiasForm(forms.ModelForm):
     class Meta:
-        model = models.ESTADO_SOLICITUD
-        fields = ['estado', 'comentarios_admin'] 
+        model = models.NOTICIAS
+        fields = ['titulo' , 'imagen', 'contenido', 'id_area'] 
 
         widgets = {
-            'estado': forms.Select(attrs={'class': 'form-control'}),
-            'comentarios_admin': forms.Textarea(attrs={'class': 'form-control'}),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
         }
