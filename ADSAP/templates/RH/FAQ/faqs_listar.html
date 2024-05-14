@@ -1,0 +1,132 @@
+{% extends 'base/base.html'%}
+{% block title %}Preguntas{% endblock title %}
+{% block content %}
+<style>
+  body {
+    background-color: #fff;
+  }
+
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 20px;
+    padding-left: 25px;
+    padding-right: 25px;
+    width: 1300px;
+    margin-left: 150px;
+    display: block;
+  }
+
+  .Filtro {
+    padding-bottom: 20px;
+  }
+
+  .form-control {
+    padding: 20px;
+    font-size: 1.5em;
+    font-family: 'ZCOOL QingKe HuangYou';
+  }
+
+  .TittleADSAP {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .Sub {
+    font-size: 2.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+  }
+
+  .accordion-button {
+    font-size: 0.8em;
+  }
+
+  .accordion-body {
+    font-size: 1.5em;
+    text-align: justify;
+  }
+
+  .accordion-collapse {
+    padding-bottom: 10px;
+  }
+
+  .btn {
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+  }
+
+  img {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 150px;
+    width: 150px;
+    display: block;
+    padding-bottom: 10px;
+  }
+
+  .imgnoticia {
+    float: left;
+    margin-right: 20px;
+    height: 150px;
+    width: 150px;
+  }
+</style>
+
+<body>
+  <div class="Contenedor">
+    <p class="TittleADSAP">ADSAP</p>
+    <img src="https://cdn-icons-png.flaticon.com/256/1074/1074106.png">
+    <p class="Sub">Preguntas de la empresa</p>
+    <div class="Filtro">
+      <form action="filtro" method="get">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar pregunta" name="busquedaPreguntas">
+          <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+            <i class="fas fa-search"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div>
+      {% for pregunta in preguntas %}
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item mb-1">
+          <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+            <button class="accordion-button collapsed mb" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseThree">
+              {{ pregunta.pregunta }}
+            </button>
+          </h2>
+          <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+            aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              {% if pregunta.imagen %}
+              <img class="imgpregunta" src="{{ pregunta.imagen.url }}">
+              {% else %}
+              {% endif %}
+              {{ pregunta.respuesta }}
+              <a href="{% url 'RH:detalles_faqs' pk=pregunta.id %}" class="btn btn-warning">Editar</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+    
+    <a href="{% url 'RH:faqs' %}" class="btn btn-primary">Regresar</a>
+
+</body>
+{% endblock content %}

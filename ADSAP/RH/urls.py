@@ -24,4 +24,14 @@ urlpatterns = [
     path('administra_noticas/editar/<int:pk>/', views.Edita_Noticias.as_view(), name="editar_noticias"),
     path('administra_noticas/eliminar/<int:pk>/', views.Elimina_Noticia.as_view(), name="eliminar_noticias"),
     path('administra_noticas/lista/filtro/', views.searchNoticias, name="noticias_filtro"),
+    path('administra_faqs/', views.Preguntas.as_view(), name="faqs"),
+    path('administra_faqs/crea/', views.Crea_Preguntas.as_view(), name="crea_faqs"),
+    path('administra_faqs/lista/', views.ListarPreguntas.as_view(), name="lista_faqs"),
+    path('administra_faqs/detalle/<int:pk>/', views.DetallesPregunta.as_view(), name="detalles_faqs"),
+    path('administra_faqs/editar/<int:pk>/', views.Edita_Preguntas.as_view(), name="editar_faqs"),
+    path('administra_faqs/eliminar/<int:pk>/', views.Elimina_Pregunta.as_view(), name="eliminar_faqs"),
+    path('administra_faqs/lista/filtro/', views.searchPreguntas, name="faqs_filtro"),
+    
+
+
 ]

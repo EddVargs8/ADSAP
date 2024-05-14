@@ -91,3 +91,12 @@ class NoticiasForm(forms.ModelForm):
         widgets = {
             'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
         }
+
+class PreguntasForm(forms.ModelForm):
+    class Meta:
+        model = models.PREGUNTAS
+        fields = ['pregunta' , 'respuesta', 'imagen'] 
+
+        widgets = {
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+        }

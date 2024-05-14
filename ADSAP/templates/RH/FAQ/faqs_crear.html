@@ -1,20 +1,20 @@
 {% extends 'base/base.html'%}
-{% block title %}Creación de Noticias{% endblock title %}
+{% block title %}Creación de FAQS {% endblock title %}
 {% block content %}
 
 
 <body class="background">
   <div class="Contenedor">
-    <p class="Tittle">Creación de noticias</p>
+    <p class="Tittle">Creación de faqs </p>
     <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn btn-outline-success form-control">Crear Noticia</button>
+          <button type="submit" class="btn btn-outline-success form-control">Crear Faqs</button>
         </div>
         <div class="col">
-          <a href="{% url 'RH:noticias' %}" class="btn btn-outline-warning form-control">Cancelar</a>
+          <a href="{% url 'RH:faqs' %}" class="btn btn-outline-warning form-control">Cancelar</a>
         </div>
       </div>
     </form>

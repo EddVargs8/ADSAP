@@ -158,6 +158,11 @@ class Edita_Vacaciones(LoginRequiredMixin, generic.UpdateView):
     template_name = "RH/Vacaciones/vacaciones_estado.html"
     success_url = reverse_lazy("RH:vacaciones_busqueda")
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
 @login_required
 def searchVacaciones(request, *args, **kwargs):
     
@@ -266,8 +271,7 @@ class Crea_Noticias(LoginRequiredMixin, generic.CreateView):
     form_class = forms.NoticiasForm
     template_name = "RH/Noticias/noticias_crear.html"
     success_url = reverse_lazy("RH:noticias")
-    
-    
+      
     def dispatch(self, request, *args, **kwargs):
         if not request.user.groups.filter(name='Personal RH').exists():
             return HttpResponseForbidden("No estás autorizado para ver esta página.")
@@ -337,3 +341,97 @@ def searchNoticias(request, *args, **kwargs):
         else:
             noticiasAB = None
         return render(request, "RH/Noticias/noticias_filter.html", {"noticias": noticiasAB})
+
+@method_decorator(login_required, name='dispatch')
+class Preguntas(LoginRequiredMixin, generic.View):
+    def get(self, request):
+ 
+        if request.user.groups.filter(name='Personal RH').exists():
+            return render(request, "RH/FAQ/faq.html", {})
+
+        return HttpResponseForbidden("No estás autorizado para ver esta página.")
+
+@method_decorator(login_required, name='dispatch')
+class Crea_Preguntas(LoginRequiredMixin, generic.CreateView):
+    model = models.PREGUNTAS 
+    form_class = forms.PreguntasForm
+    template_name = "RH/FAQ/faqs_crear.html"
+    success_url = reverse_lazy("RH:faqs")
+    
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class ListarPreguntas(LoginRequiredMixin, generic.View):
+    template_name = "RH/FAQ/faqs_listar.html"
+    context = {}
+
+    def get(self, request):
+        self.context = {
+            "preguntas" : models.PREGUNTAS.objects.all()
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+@method_decorator(login_required, name='dispatch')
+class DetallesPregunta(LoginRequiredMixin, generic.View):
+    template_name = "RH/FAQ/faq_detalle.html"
+    context = {}
+
+    def get(self, request, pk):
+        self.context = {
+            "pregunta" : models.PREGUNTAS.objects.get(pk=pk)
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class Edita_Preguntas(LoginRequiredMixin, generic.UpdateView):
+    model = models.PREGUNTAS
+    form_class = forms.PreguntasForm
+    template_name = "RH/FAQ/faq_editar.html"
+    success_url = reverse_lazy("RH:lista_faqs")
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class Elimina_Pregunta(LoginRequiredMixin, generic.DeleteView):
+    model = models.PREGUNTAS
+    template_name = "RH/FAQ/faq_eliminar.html"
+    success_url = reverse_lazy("RH:lista_faqs")
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@login_required
+def searchPreguntas(request, *args, **kwargs):
+    if request.method == 'GET':
+        preguntaAB = request.GET.get('busquedaPreguntas')
+        print(preguntaAB)
+        if preguntaAB:
+            preguntasAB = models.PREGUNTAS.objects.filter(pregunta__icontains=preguntaAB)
+            print(preguntasAB)
+        else:
+            preguntasAB = None
+        return render(request, "RH/FAQ/faq_filter.html", {"preguntas": preguntasAB})
+
+
+
+
+
