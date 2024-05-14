@@ -94,3 +94,33 @@ class Solicitud_Permiso_Form(forms.ModelForm):
 
         return 
  
+
+class Solicitud_Incapacidad_Form(forms.ModelForm):
+    class Meta:
+        model = models.PERMISO
+        exclude = ["id_empleado", "cancelado", "tipo"]
+        widgets = {
+            'fecha_inicio': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
+            'fecha_fin': forms.DateInput({'type': 'date', 'class': 'CampoFecha'}),
+            'archivo': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'motivo': forms.Textarea(attrs={'rows': 3, 'cols': 30,'class': 'CampoMotivo'}),
+        }
+
+    
+    def __init__(self, *args, **kwargs):
+        self.empleado = kwargs.pop('empleado', None)
+        super(Solicitud_Incapacidad_Form, self).__init__(*args, **kwargs)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        fecha_inicio = cleaned_data.get('fecha_inicio')
+        fecha_fin = cleaned_data.get('fecha_fin')
+
+        if fecha_inicio <= datetime.date.today(): 
+            raise forms.ValidationError("La fecha de inicio debe ser posterior a la fecha actual.")
+
+        if fecha_fin <= fecha_inicio:
+            raise forms.ValidationError("La fecha de regreso debe ser posterior a la fecha de inicio.")
+        
+        return 
+ 

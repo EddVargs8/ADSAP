@@ -70,7 +70,7 @@ class PERMISO(models.Model):
     cancelado = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.motivo
+        return self.tipo
     def dias_solicitados(self):
         diferencia = self.fecha_fin - self.fecha_inicio
         return diferencia.days 

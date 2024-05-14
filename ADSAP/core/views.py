@@ -270,3 +270,51 @@ def searchPermisos(request, *args, **kwargs):
             results = models.PERMISO.objects.none() 
         
         return render(request, "permisos/permisos_filter.html", {"permisos": results})
+    
+
+@method_decorator(login_required, name='dispatch')
+class Incapacidades(LoginRequiredMixin, generic.View):
+    template_name = "incapacidades/incapacidades.html"
+    context = {}
+
+    def get(self, request):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        
+        self.context = {
+            "empleado": empleado,
+            "solicitudes": models.PERMISO.objects.filter( Q(id_empleado=empleado.id) & Q(tipo="Incapacidad")),
+            "dias_solicitados": models.PERMISO.dias_solicitados
+        }
+
+        return render(request, self.template_name, self.context)
+    
+@method_decorator(login_required, name='dispatch')
+class Incapacidades_Detalles(LoginRequiredMixin, generic.View):
+    template_name = "incapacidades/incapacidades_detalles.html"
+    context = {}
+    
+    def get(self, request, pk):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+
+        self.context = {
+           "solicitud": models.PERMISO.objects.get(id=pk),
+        }
+        return render(request, self.template_name, self.context)
+    
+@login_required
+def Incapacidades_Form(request):
+    empleado = models.EMPLEADO.objects.get(usuario=request.user)
+
+    if request.method == 'POST':
+        form = forms.Solicitud_Incapacidad_Form(request.POST, request.FILES, empleado=empleado)
+        if form.is_valid():
+            permiso = form.save(commit=False)
+            permiso.id_empleado = empleado
+            permiso.tipo = "Incapacidad"
+            permiso.save()
+
+            return redirect('core:incapacidades')
+    else:
+        form = forms.Solicitud_Incapacidad_Form(empleado=empleado)
+
+    return render(request, 'incapacidades/incapacidades_crea.html', {'form': form})

@@ -23,5 +23,10 @@ urlpatterns = [
     path('permisos/solicitud/estado/<int:pk>/', views.Permisos_Estado.as_view(), name="permisos_estado"),
     path('permisos/solicitud/eliminar/<int:pk>/', views.Permisos_Eliminacion.as_view(), name="permisos_eliminar_confirmacion"),
     path('permisos/filtro', views.searchPermisos, name="permisos_filter"),
-    
+    path('incapacidades', views.Incapacidades.as_view(), name="incapacidades"),
+    path('incapacidades/detalle/<int:pk>/', views.Incapacidades_Detalles.as_view(), name="incapacidad_detalle"),
+    path('incapacidades/solicitud', views.Incapacidades_Form, name="incapacidades_solicitud"),
+
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

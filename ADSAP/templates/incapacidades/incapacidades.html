@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}Permisos{% endblock title %}
+{% block title %}Incapacidades{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -91,8 +91,8 @@
 
 <body class="background">
   <div class=Contenedor>
-    <p class="Tittle">Permisos</p>
-    <a class="btn btn-primary py-2 btn1" href="{% url 'core:permisos_solicitud' %}">Solicitar permiso</a>
+    <p class="Tittle">Incapacidades</p>
+    <a class="btn btn-primary py-2 btn1" href="{% url 'core:incapacidades_solicitud' %}">Registrar incapacidad</a>
     <div class="Filtro">
       <form action="permisos/filtro" method="get">
         <div class="input-group">
@@ -115,11 +115,10 @@
           <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
           <div>
             <p class="mb-0 fecha">Periodo: {{ solicitud.fecha_inicio }} al {{ solicitud.fecha_fin }} </p>
-            <p class="mb-0 opacity-75 fecha Dias"> Días solicitados: {{ solicitud.dias_solicitados }} </p>
-            <p class="mb-0 Motivo">Motivo: {{ solicitud.tipo }} </p>
+            <p class="mb-0 opacity-75 fecha Dias"> Días de incapacidad: {{ solicitud.dias_solicitados }} </p>
           </div>
         </a>
-        <a href="{% url 'core:permisos_estado' solicitud.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
+        <a href="{% url 'core:incapacidad_detalle' solicitud.id %}" class="btn btn-primary py-2">Ver detalles</a>
       </div>
       {% endfor %}
     </div>
