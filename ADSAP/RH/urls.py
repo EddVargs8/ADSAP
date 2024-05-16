@@ -31,7 +31,9 @@ urlpatterns = [
     path('administra_faqs/editar/<int:pk>/', views.Edita_Preguntas.as_view(), name="editar_faqs"),
     path('administra_faqs/eliminar/<int:pk>/', views.Elimina_Pregunta.as_view(), name="eliminar_faqs"),
     path('administra_faqs/lista/filtro/', views.searchPreguntas, name="faqs_filtro"),
-    
+    path('administra_incapacidades/', views.Incapacidades.as_view(), name="incapacidades"),
+    path('administra_incapacidades/detalle/<int:pk>/', views.Incapacidades_Detalles.as_view(), name="incapacidad_detalle"),
+    path('administra_incapacidades/filtro/', views.searchIncapacidades, name="busqueda_incapacidades"),
 
 
 ]

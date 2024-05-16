@@ -423,15 +423,48 @@ class Elimina_Pregunta(LoginRequiredMixin, generic.DeleteView):
 def searchPreguntas(request, *args, **kwargs):
     if request.method == 'GET':
         preguntaAB = request.GET.get('busquedaPreguntas')
-        print(preguntaAB)
         if preguntaAB:
             preguntasAB = models.PREGUNTAS.objects.filter(pregunta__icontains=preguntaAB)
-            print(preguntasAB)
         else:
             preguntasAB = None
         return render(request, "RH/FAQ/faq_filter.html", {"preguntas": preguntasAB})
 
+@method_decorator(login_required, name='dispatch')
+class Incapacidades(LoginRequiredMixin, generic.View):
 
+    def get(self, request):
+        
+        self.context = {
+            'incapacidades' : models.PERMISO.objects.filter(tipo="Incapacidad"), 
+        }
+        
+        if request.user.groups.filter(name='Personal RH').exists():
+            return render(request, "RH/Incapacidades/incapacidades.html", self.context)
 
+        return HttpResponseForbidden("No estás autorizado para ver esta página.")
 
+@method_decorator(login_required, name='dispatch')
+class Incapacidades_Detalles(LoginRequiredMixin, generic.View):
+    template_name = "RH/Incapacidades/incapacidades_detalle.html"
+    context = {}
+    
+    def get(self, request, pk):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
 
+        self.context = {
+           "solicitud": models.PERMISO.objects.get(id=pk),
+        }
+        return render(request, self.template_name, self.context)
+
+@login_required
+def searchIncapacidades(request, *args, **kwargs):
+    if request.method == 'GET':
+        empleadoAB = request.GET.get('busquedaIncapacidad')
+        usuario = users_models.CustomUser.objects.get(numero_empleado=empleadoAB)
+        empleado = models.EMPLEADO.objects.get(usuario=usuario)
+        if empleadoAB:
+            incapacidadesAB = models.PERMISO.objects.filter(id_empleado=empleado.id, tipo="Incapacidad")
+        else:
+            incapacidadesAB = None
+        return render(request, "RH/Incapacidades/incapacidades_busqueda.html", {"incapacidades": incapacidadesAB})
+    

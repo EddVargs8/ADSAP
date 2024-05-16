@@ -105,6 +105,7 @@
     
     <div>
       <img src="https://cdn-icons-png.flaticon.com/256/2858/2858429.png">
+      <p class="Datos">Datos del empleado: <span class="DatosUsuario">{{ solicitud.id_empleado }}</span></p>
       <p class="Datos">Días de incapacidad: <span class="DatosUsuario">{{ solicitud.dias_solicitados }}</span></p>
       <p class="Datos">Fecha de inicio: <span class="DatosUsuario">{{ solicitud.fecha_inicio }}</span></p>
       <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p>
@@ -116,11 +117,7 @@
       
     </div>
 
-
-      <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:incapacidades' %}">Volver a incapacidades</a>
-
-
-    
+    <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'RH:incapacidades' %}">Volver a incapacidades</a>
 
 
   </div>
