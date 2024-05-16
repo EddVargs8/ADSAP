@@ -215,15 +215,13 @@
                 Preguntas Frecuentes
               </a>
             </li>
-            <li>
-                <a href="{% url 'home:cuenta' %}" class="nav-link text-white Btn">
-                <svg class="bi pe-none me-2" width="16" height="16">
-                  <use xlink:href="#people-circle" />
-                </svg>
-                Cuenta
-              </a>
-            </li>
           </ul>
+
+          <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <button type="submit">Log out</button>
+        </form>
+
         </div>
       </main>
       <!-- End Sidebar -->
