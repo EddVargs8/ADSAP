@@ -123,4 +123,30 @@ class Solicitud_Incapacidad_Form(forms.ModelForm):
             raise forms.ValidationError("La fecha de regreso debe ser posterior a la fecha de inicio.")
         
         return 
- 
+    
+
+REPORTE = (
+    ("Enviado", "Enviado"),
+    ("En revision", "En revision"),
+    ("Corregido", "Corregido"),
+)
+SECCION = (
+    ("Login", "Inicio de Sesion"),
+    ("Permisos", "Permisos"),
+    ("Vacaciones", "Vacaciones"),
+    ("Nomina", "Nomina"),
+    ("Noticias", "Noticias"),
+    ("Preguntas", "Preguntas"), 
+    ("Datos personales", "Datos personales"),
+    ("Otro", "Otro")
+)
+
+class ReporteForm(forms.ModelForm):
+    class Meta:
+        model = models.REPORTE
+        fields = ['descripcion', 'seccion', 'imagen']
+        widgets = {
+            'descripcion': forms.Textarea(attrs={'rows': 3, 'cols': 30}),
+            'seccion': forms.Select(choices=SECCION),
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }

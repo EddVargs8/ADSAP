@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}Creación de empleado{% endblock title %}
+{% block title %}Reporte de error{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -85,16 +85,16 @@
 
 <body class="background">
   <div class="Contenedor">
-    <p class="Tittle">Creación de empleado</p>
-    <form method="post">
+    <p class="Tittle">Reporte de error</p>
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
       <div class="row">
         <div class="col">
-          <button type="submit" class="btn btn-outline-success form-control">Crear Empleado</button>
+          <button type="submit" class="btn btn-outline-success form-control">Enviar Reporte</button>
         </div>
         <div class="col">
-          <a href="{% url 'RH:empleados' %}" class="btn btn-outline-warning form-control">Cancelar</a>
+          <a href="{% url 'home:home' %}" class="btn btn-outline-warning form-control">Cancelar</a>
         </div>
       </div>
     </form>

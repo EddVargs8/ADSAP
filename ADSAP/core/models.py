@@ -206,13 +206,13 @@ SECCION = (
 #REPORTE
 class REPORTE(models.Model):
     id = models.AutoField(primary_key=True)
-    fecha_inicio = models.DateField()
-    fecha_fin = models.DateField()
+    fecha_inicio = models.DateField(auto_now=True)
+    fecha_fin = models.DateField(null=True, blank=True)
     descripcion = models.TextField()
     remitente = models.ForeignKey(EMPLEADO, on_delete=models.CASCADE)
     estado = models.CharField(max_length=20, choices=REPORTE)
     seccion = models.CharField(max_length=20, choices=SECCION, null=True, blank=True)
-    imagen = models.ImageField(null=True, blank=True); 
+    imagen = models.ImageField(null=True, blank=True) 
 
     def __str__(self):
         return self.descripcion

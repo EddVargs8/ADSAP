@@ -11,6 +11,7 @@ from django.db.models import F
 from django.db.models.functions import ExtractMonth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
+from datetime import date 
 
 
 @method_decorator(login_required, name='dispatch')
@@ -318,3 +319,91 @@ def Incapacidades_Form(request):
         form = forms.Solicitud_Incapacidad_Form(empleado=empleado)
 
     return render(request, 'incapacidades/incapacidades_crea.html', {'form': form})
+
+@login_required
+def searchIncapacidades(request, *args, **kwargs):
+    if request.method == 'GET':
+        incapacidadAB = request.GET.get('busquedaIncapacidades').lower()
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        incapacidades = models.PERMISO.objects.filter(tipo="Incapacidad")
+        incapacidadesEmp = incapacidades.filter(id_empleado=empleado.id)
+        
+        month_mapping = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
+        'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
+        'octubre': 10, 'noviembre': 11, 'diciembre': 12
+        }
+        month_number ="0" + str(month_mapping.get(incapacidadAB, 0)) 
+
+        if month_number:
+            results = incapacidadesEmp.filter(fecha_inicio__month=month_number)
+        else:
+            results = models.PERMISO.objects.none() 
+        
+        return render(request, "incapacidades/incapacidades_filter.html", {"solicitudes": results})
+
+@method_decorator(login_required, name='dispatch')
+class Reportes(LoginRequiredMixin, generic.View):
+
+    def get(self, request):
+        return render(request, "reporte/reporte_error.html", {})
+
+@method_decorator(login_required, name='dispatch')
+class Genera_Reporte(LoginRequiredMixin, generic.CreateView):
+    template_name = "reporte/error_form.html"
+    model = models.REPORTE
+    form_class = forms.ReporteForm
+    success_url = reverse_lazy("home:home")
+
+    def form_valid(self, form):
+        form.instance.estado = "Enviado"  
+        form.instance.remitente = self.request.user.empleado  
+        return super().form_valid(form)
+    
+@method_decorator(login_required, name='dispatch')
+class Lista_Reportes(LoginRequiredMixin, generic.View):
+    template_name = "reporte/reportes_list.html"
+    context = {}
+
+    def get(self, request):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        
+        self.context = {
+            "empleado": empleado,
+            "reportes": models.REPORTE.objects.filter(remitente=empleado.id),
+
+        }
+
+        return render(request, self.template_name, self.context)
+
+@method_decorator(login_required, name='dispatch')
+class Reporte_Estado(LoginRequiredMixin, generic.View):
+    template_name = "reporte/reporte_estado.html"
+    context = {}
+
+    def get(self, request, pk):
+        self.context = {
+            "reporte": models.REPORTE.objects.get(id=pk),
+        }
+        return render(request, self.template_name, self.context)
+    
+@login_required
+def searchReportes(request, *args, **kwargs):
+    if request.method == 'GET':
+        reporteAB = request.GET.get('busquedaReportes').lower()
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        reportesEmp = models.REPORTE.objects.filter(remitente=empleado.id)
+        
+        month_mapping = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
+        'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
+        'octubre': 10, 'noviembre': 11, 'diciembre': 12
+        }
+        month_number ="0" + str(month_mapping.get(reporteAB, 0)) 
+
+        if month_number:
+            results = reportesEmp.filter(fecha_inicio__month=month_number)
+        else:
+            results = models.REPORTE.objects.none() 
+        
+        return render(request, "reporte/reporte_filter.html", {"reportes": results})
