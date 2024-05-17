@@ -99,7 +99,12 @@
     <p class="mb-0 fecha">Fecha fin reporte: {{ reporte.fecha_fin }}  </p>
     <p class="mb-0">Estado: {{ reporte.estado }} </p>
     <p class="mb-0">Descripcion: {{ reporte.descripcion }} </p>
-    <img src="{{ reporte.imagen.url }}" alt="Imagen de reporte">
+    {% if reporte.img %}
+        <img src="{{ reporte.imagen.url }}" alt="Imagen de reporte">
+    {% else %}
+        <p class="mb-0">No se ha subido una imagen</p>
+    {% endif %}
+  
     </div>
     <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:reporte_lista' %}">Volver a reportes</a>
   </div>
