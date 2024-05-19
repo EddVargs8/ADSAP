@@ -1,5 +1,5 @@
-{% extends 'base/base.html'%}
-{% block title %}Permisos Filtro{% endblock title %}
+{% extends 'base/base.html' %}
+{% block title %}Administrar permisos{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -20,8 +20,8 @@
 
   img {
     margin-top: 10px;
-    height: 50px;
-    width: 50px;
+    height: 75px;
+    width: 75px;
     display: block;
     padding-bottom: 10px;
   }
@@ -39,8 +39,7 @@
     font-size: 2.5em;
     color: #003366;
     font-family: 'ZCOOL QingKe HuangYou';
-    text-align: left;
-    position: absolute;
+    text-align: center;
   }
 
   .Dia {
@@ -79,11 +78,9 @@
 
 <body>
   <div class="Contenedor">
-    <p class="Tittle">Permisos filtro</p>
-    
-
-    
-    <div class="filtro">
+    <p class="Tittle">ADSAP</p>
+    <p class="Sub">Administrador de permisos</p>
+    <div class="Filtro">
       <form action="" method="get">
         <div class="input-group">
           <input type="text" class="form-control" placeholder="Buscar permisos" name="busquedaPermiso">
@@ -101,20 +98,19 @@
     <div class="Respuestas">
       {% for vacacion in vacaciones %}
       <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
-          <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
+        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 vacaciones" aria-current="true">
+          <img src="https://cdn-icons-png.flaticon.com/256/7257/7257795.png">
           <div>
-            <p class="mb-0 fecha">Periodo: {{ vacacion.id_permiso.fecha_inicio }} al {{ vacacion.id_permiso.fecha_fin }} </p>
-            <p class="mb-0 fecha"> Datos del Empleado: {{ vacacion.id_permiso.id_empleado }} </p>
-            <p class="mb-0 fecha"> Dias solicitados: {{ vacacion.id_permiso.dias_solicitados }} </p>
-            <p class="mb-0 fecha"> Motivo: {{ vacacion.id_permiso.motivo }} </p>
+            <p class="mb-0 fecha">Periodo: {{ vacacion.id_permiso.fecha_inicio }} al {{ vacacion.id_permiso.fecha_fin }}</p>
+          <p class="mb-0 fecha"> Datos del Empleado: {{ vacacion.id_permiso.id_empleado }} </p>
+          <p class="mb-0 fecha"> Dias solicitados: {{ vacacion.id_permiso.dias_solicitados }} Tipo permiso: {{ vacacion.id_permiso.tipo }} </p>
           </div>
         </a>
-        <a href="{% url 'RH:permisos_estado' vacacion.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
+        <a href="{% url 'RH:permisos_estado' vacacion.id %}" class="btn btn-primary py-2 btnabrir">Abrir solicitud</a>
       </div>
       {% endfor %}
     </div>
     <br>
     <a class="btn btn-primary py-2 Btn1" href="{% url 'RH:permisos_busqueda' %}">Volver a permisos</a>
 </body>
-{% endblock content %}
+{% endblock %}

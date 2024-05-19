@@ -158,6 +158,11 @@ class Edita_Vacaciones(LoginRequiredMixin, generic.UpdateView):
     template_name = "RH/Vacaciones/vacaciones_estado.html"
     success_url = reverse_lazy("RH:vacaciones_busqueda")
 
+  
+
+
+
+
 @login_required
 def searchVacaciones(request, *args, **kwargs):
     

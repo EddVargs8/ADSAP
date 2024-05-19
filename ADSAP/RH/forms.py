@@ -80,7 +80,7 @@ class EstadoSolicitudForm(forms.ModelForm):
 
         widgets = {
             'estado': forms.Select(attrs={'class': 'form-control'}),
-            'comentarios_admin': forms.Textarea(attrs={'class': 'form-control'}),
+            'comentarios_admin': forms.Textarea(attrs={'class': 'form-control CampoMotivo'}),
         }
 
 class NoticiasForm(forms.ModelForm):
