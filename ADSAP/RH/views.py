@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import View
 from django.utils.decorators import method_decorator
@@ -12,6 +11,9 @@ from RH import forms
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import Group
+from datetime import datetime
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -468,3 +470,37 @@ def searchIncapacidades(request, *args, **kwargs):
             incapacidadesAB = None
         return render(request, "RH/Incapacidades/incapacidades_busqueda.html", {"incapacidades": incapacidadesAB})
     
+def crea_semana_nominas(request):
+    grupo_emp = Group.objects.get(name='Empleados')
+    empleados = models.EMPLEADO.objects.filter(usuario__groups=grupo_emp)
+
+    if request.method == 'POST':
+        for empleado in empleados:
+            fecha_inicio_str = request.POST.get(f"fecha_inicio_{empleado.id}")
+            salario_diario = request.POST.get(f"salario_diario_{empleado.id}")
+            horas_trabajadas = request.POST.get(f"horas_trabajadas_{empleado.id}")
+            horas_extra = request.POST.get(f"horas_extra_{empleado.id}")            
+            deducciones = request.POST.get(f"deducciones_{empleado.id}")
+
+            # Convertir fecha_inicio a un objeto date
+            fecha_inicio = datetime.strptime(fecha_inicio_str, '%Y-%m-%d').date()
+
+            # Crear una nueva entrada en la tabla NOMINA para este empleado
+            nomina = models.NOMINA.objects.create(
+                fecha_inicio=fecha_inicio,
+                fecha_fin=models.NOMINA.get_fecha_fin(fecha_inicio),
+                salario_diario=salario_diario,
+                horas_trabajadas=horas_trabajadas,
+                horas_extra=horas_extra,
+                percepciones=models.NOMINA.get_percepciones(salario_diario, horas_trabajadas, horas_extra),
+                deducciones=deducciones,
+                id_empleado=empleado,
+            )
+            
+
+            nomina.save()
+        return redirect(reverse_lazy('home:home'))
+    
+    context = {'empleados': empleados}
+    return render(request, 'RH/Nominas/crea_semana.html', context)
+

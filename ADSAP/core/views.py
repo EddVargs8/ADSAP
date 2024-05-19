@@ -12,7 +12,9 @@ from django.db.models.functions import ExtractMonth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import UserPassesTestMixin
 from datetime import date 
-
+from django.http import HttpResponse
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 @method_decorator(login_required, name='dispatch')
 class Preguntas(LoginRequiredMixin, generic.View):
@@ -407,3 +409,111 @@ def searchReportes(request, *args, **kwargs):
             results = models.REPORTE.objects.none() 
         
         return render(request, "reporte/reporte_filter.html", {"reportes": results})
+    
+@method_decorator(login_required, name='dispatch')
+class Nominas(LoginRequiredMixin, generic.View):
+    template_name = "nominas/nominas.html"
+    context = {}
+
+    def get(self, request):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        
+        self.context = {
+            "empleado": empleado,
+            "nominas": models.NOMINA.objects.filter(id_empleado=empleado.id),
+        }
+
+        return render(request, self.template_name, self.context)
+    
+@method_decorator(login_required, name='dispatch')
+class Nominas_Detalle(LoginRequiredMixin, generic.View):
+    template_name = "nominas/nomina_detalles.html"
+    context = {}
+
+    def get(self, request, pk):
+        self.context = {
+            "nomina": models.NOMINA.objects.get(id=pk),
+            "empleado": models.EMPLEADO.objects.get(usuario=request.user)
+        }
+        return render(request, self.template_name, self.context)
+    
+def generar_reporte_pdf(request, nomina_id):
+    # Crear el objeto HttpResponse con el encabezado de PDF
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = 'attachment; filename="reporte_nomina.pdf"'
+
+    # Crear un objeto canvas
+    p = canvas.Canvas(response, pagesize=letter)
+    width, height = letter
+
+    # Obtener la nómina específica
+    try:
+        nomina = models.NOMINA.objects.get(pk=nomina_id)
+    except models.NOMINA.DoesNotExist:
+        response.write("Nómina no encontrada")
+        return response
+
+    # Configurar el título del reporte
+    p.setFont("Helvetica-Bold", 14)
+    p.drawString(100, height - 40, "Reporte de Nómina")
+
+    # Escribir datos de la nómina
+    p.setFont("Helvetica", 12)
+    y = height - 80
+
+    semana = nomina.get_semana()
+    fecha_inicio = nomina.fecha_inicio
+    fecha_fin = nomina.fecha_fin
+    salario_diario = nomina.salario_diario
+    dias_trabajados = nomina.get_dias()
+    dias_extras = nomina.get_dias_extra()
+    salario_bruto = nomina.get_bruto()
+    salario_neto = nomina.get_neto()
+
+    p.drawString(100, y, f"Semana: {semana}")
+    y -= 20
+    p.drawString(100, y, f"Fecha Inicio: {nomina.fecha_inicio} a Fecha Fin: {nomina.fecha_fin}")
+    y -= 20
+    p.drawString(100, y, f"Salario Diario: ${salario_diario}")
+    y -= 20
+    p.drawString(100, y, f"Días Trabajados: {dias_trabajados}")
+    y -= 20
+    p.drawString(100, y, f"Días Extras: {dias_extras}")
+    y -= 20
+    p.drawString(100, y, f"Salario Bruto: ${salario_bruto}")
+    y -= 20
+    p.drawString(100, y, f"Salario Neto: ${salario_neto}")
+
+    # Cerrar el objeto canvas
+    p.showPage()
+    p.save()
+
+    return response
+
+
+@login_required
+def searchNominas(request, *args, **kwargs):
+    if request.method == 'GET':
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+        resultados = models.NOMINA.objects.filter(id_empleado=empleado.id)
+        nominasAB = request.GET.get('busquedaNominas').lower()
+           
+        month_mapping = {
+        'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
+        'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
+        'octubre': 10, 'noviembre': 11, 'diciembre': 12
+        }
+        month_number = str(month_mapping.get(nominasAB, 0)) 
+
+        filtered_solicitudes = []
+
+        for nomina in resultados:
+            if str(nomina.fecha_inicio.month) == month_number:
+                filtered_solicitudes.append(models.NOMINA.objects.get(id=nomina.id))
+  
+        if month_number:
+            solicitudes = filtered_solicitudes
+        else:
+            results = models.NOMINA.objects.none() 
+
+        return render(request, "nominas/nomina_filter.html", {"nominas": solicitudes})

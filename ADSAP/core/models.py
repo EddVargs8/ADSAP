@@ -2,6 +2,8 @@ from django.db import models
 from users.models import CustomUser
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
+from datetime import date
+from datetime import timedelta
 
 # Create your models here.
 
@@ -126,7 +128,41 @@ class NOMINA(models.Model):
     deducciones = models.DecimalField(max_digits=10, decimal_places=2)
     id_empleado = models.ForeignKey(EMPLEADO, on_delete=models.CASCADE)
 
-
+    def periodo_nomina(self):
+        periodo = self.fecha_fin - self.fecha_inicio
+        return periodo.days 
+    
+    def get_semana(self):
+        if isinstance(self.fecha_inicio, date):
+            semana = self.fecha_inicio.isocalendar()[1]
+            return semana
+        else:
+            raise ValueError("fecha_inicio no es una fecha válida")
+    
+    def get_dias(self):
+        dias = self.horas_trabajadas / 8
+        return dias
+    
+    def get_dias_extra(self):
+        dias = self.horas_extra / 8
+        return dias
+    
+    def get_neto(self): 
+        return self.percepciones - self.deducciones
+    
+    def get_bruto(self): 
+        return self.percepciones
+    
+    @classmethod
+    def get_fecha_fin(cls, fecha_inicio):
+        return fecha_inicio + timedelta(days=7)
+    
+    def get_percepciones(salario_diario, horas_trabajadas, horas_extra):
+        salario_diario = float(salario_diario)
+        horas_trabajadas = float(horas_trabajadas)
+        horas_extra = float(horas_extra)
+        return ( (horas_trabajadas/8) * salario_diario ) + 2 * ( (horas_extra/8) * salario_diario)
+    
 class NOTICIAS(models.Model):
     id = models.AutoField(primary_key=True)
     titulo = models.CharField(max_length=100)

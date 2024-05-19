@@ -32,6 +32,13 @@ urlpatterns = [
     path('reporte_error/lista/', views.Lista_Reportes.as_view(), name="reporte_lista"),
     path('reporte_error/detalle/<int:pk>/', views.Reporte_Estado.as_view(), name="reporte_detalle"),
     path('reporte_error/lista/filtro/', views.searchReportes, name="reporte_filtro"),
+    path('nominas/', views.Nominas.as_view(), name="nominas"),
+    path('nominas/filtro', views.searchNominas, name="nominas_filter"),
+    path('nominas/detalle/<int:pk>/', views.Nominas_Detalle.as_view(), name="nomina_detalle"),
+    path('nominas/nomina_pdf/<int:nomina_id>/', views.generar_reporte_pdf, name='generar_reporte_nomina'),
     
+
+
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
