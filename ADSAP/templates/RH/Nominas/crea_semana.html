@@ -1,0 +1,35 @@
+{% extends 'base/base.html'%}
+{% block title %}Crea Semana Nomina{% endblock title %}
+{% block content %}
+<body>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Empleado</th>
+                    <th>Salario Diario</th>
+                    <th>Horas Trabajadas</th>
+                    <th>Fecha Inicio</th>
+                    <th>Horas Extra</th>
+                    <th>Deducciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empleado in empleados %}
+                    <tr>
+                        <td>{{ empleado.nombre }}</td>
+                        <td><input type="text" name="salario_diario_{{ empleado.id }}"></td>
+                        <td><input type="text" name="horas_trabajadas_{{ empleado.id }}"></td>
+                        <td><input type="date" name="fecha_inicio_{{ empleado.id }}"></td>
+                        <td><input type="text" name="horas_extra_{{ empleado.id }}"></td>
+                        <td><input type="text" name="deducciones_{{ empleado.id }}"></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="submit">Generar Nóminas</button>
+        <a href="{% url 'home:home' %}">Regresar</a>
+    </form>
+</body>
+{% endblock content %}

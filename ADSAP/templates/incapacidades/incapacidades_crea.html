@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}Solicitar permiso{% endblock title %}
+{% block title %}Registrar Incapacidad{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -86,14 +86,14 @@
 
 <body class="background">
   <div class=Contenedor>
-    <p class="Tittle">Solicitar Permiso</p>
+    <p class="Tittle">Registrar Incapacidad</p>
     <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
-    <form action="" method="post" class="form">
+    <form action="" method="post" class="form" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
-      <button type="submit" class="btn btn-primary py-2 BtnRealizar">Realizar solicitud</button>
+      <button type="submit" class="btn btn-primary py-2 BtnRealizar">Registrar Incapacidad</button>
     </form>
-    <a href="{% url 'core:permisos' %}" class="btn btn-primary">Volver a permisos</a>
+    <a href="{% url 'core:incapacidades' %}" class="btn btn-primary">Volver a permisos</a>
   </div>
 </body>
 {% endblock content %}

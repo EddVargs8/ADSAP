@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}Solicitar permiso{% endblock title %}
+{% block title %}Reporte de error{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -74,7 +74,6 @@
 
   .BtnRealizar {
     width: 950px;
-    margin-top: 30px;
     background-color: #009c0d;
     border-color: #009c0d;
   }
@@ -85,15 +84,20 @@
 </style>
 
 <body class="background">
-  <div class=Contenedor>
-    <p class="Tittle">Solicitar Permiso</p>
-    <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
-    <form action="" method="post" class="form">
+  <div class="Contenedor">
+    <p class="Tittle">Reporte de error</p>
+    <form method="post" enctype="multipart/form-data">
       {% csrf_token %}
-      {{ form }}
-      <button type="submit" class="btn btn-primary py-2 BtnRealizar">Realizar solicitud</button>
+      {{ form.as_p }}
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="btn btn-outline-success form-control">Enviar Reporte</button>
+        </div>
+        <div class="col">
+          <a href="{% url 'home:home' %}" class="btn btn-outline-warning form-control">Cancelar</a>
+        </div>
+      </div>
     </form>
-    <a href="{% url 'core:permisos' %}" class="btn btn-primary">Volver a permisos</a>
   </div>
 </body>
 {% endblock content %}

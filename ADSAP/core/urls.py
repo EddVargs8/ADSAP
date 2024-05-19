@@ -23,5 +23,22 @@ urlpatterns = [
     path('permisos/solicitud/estado/<int:pk>/', views.Permisos_Estado.as_view(), name="permisos_estado"),
     path('permisos/solicitud/eliminar/<int:pk>/', views.Permisos_Eliminacion.as_view(), name="permisos_eliminar_confirmacion"),
     path('permisos/filtro', views.searchPermisos, name="permisos_filter"),
+    path('incapacidades', views.Incapacidades.as_view(), name="incapacidades"),
+    path('incapacidades/detalle/<int:pk>/', views.Incapacidades_Detalles.as_view(), name="incapacidad_detalle"),
+    path('incapacidades/solicitud', views.Incapacidades_Form, name="incapacidades_solicitud"),
+    path('incapacidades/filtro', views.searchIncapacidades, name="incapacidades_filter"),
+    path('reporte_error', views.Reportes.as_view(), name="reporte_error"),
+    path('reporte_error/genera', views.Genera_Reporte.as_view(), name="genera_reporte"),
+    path('reporte_error/lista/', views.Lista_Reportes.as_view(), name="reporte_lista"),
+    path('reporte_error/detalle/<int:pk>/', views.Reporte_Estado.as_view(), name="reporte_detalle"),
+    path('reporte_error/lista/filtro/', views.searchReportes, name="reporte_filtro"),
+    path('nominas/', views.Nominas.as_view(), name="nominas"),
+    path('nominas/filtro', views.searchNominas, name="nominas_filter"),
+    path('nominas/detalle/<int:pk>/', views.Nominas_Detalle.as_view(), name="nomina_detalle"),
+    path('nominas/nomina_pdf/<int:nomina_id>/', views.generar_reporte_pdf, name='generar_reporte_nomina'),
     
+
+
+
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

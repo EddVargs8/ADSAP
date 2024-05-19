@@ -1,0 +1,120 @@
+{% extends 'base/base.html'%}
+{% block title %}Detalles Nomina{% endblock title %}
+{% block content %}
+<style>
+  .background {
+    background-color: #fff;
+  }
+
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 50px;
+    padding-left: 60px;
+    padding-right: 60px;
+    height: 700px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 300px;
+    display: block;
+  }
+
+  .Tittle {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .Sub {
+    font-size: 2em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: left;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 5px;
+  }
+
+  .Estado {
+    font-size: 2em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: left;
+    font-weight: bold;
+    position: absolute;
+  }
+
+  .EstadoDato {
+    font-size: 30px;
+    color: #000;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: left;
+    font-weight: bold;
+    margin-top: 30px;
+  }
+
+  img {
+    float: left;
+    margin-right: 10px;
+    height: 150px;
+    width: 150px;
+  }
+
+  .Datos {
+    font-size: 1.8em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    margin-bottom: 0px;
+  }
+
+  .DatosUsuario {
+    font-size: 24px;
+    color: #000000;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnAtras{
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+    margin-top: 30px;
+  }
+
+  .BtnCancelar {
+    background-color: red;
+    border-color: red;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    margin-left: 75%;
+    margin-bottom: 15px;
+  }
+  .BtnCancelar:hover {
+    background-color: rgb(141, 0, 0);
+  }
+</style>
+
+<body class="background">
+  <div class=Contenedor>
+    <p class="Tittle">Detalles de nomina Semana: {{ nomina.get_semana }}</p>
+    <p class="Sub">Datos de la nomina</p>
+    <img src="https://cdn-icons-png.flaticon.com/256/2858/2858429.png">
+    <p class="Datos">Fecha de inicio: <span class="DatosUsuario">{{ nomina.fecha_inicio }}</span></p>
+    <p class="Datos">Fecha de fin: <span class="DatosUsuario">{{ nomina.fecha_fin }}</span></p>
+    <p class="Datos">Salario diario: <span class="DatosUsuario">{{ nomina.salario_diario }}</span></p>
+    <p class="Datos">Días trabajados: <span class="DatosUsuario">{{ nomina.get_dias }}</span></p>
+    <p class="Datos">Días extras: <span class="DatosUsuario">{{ nomina.get_dias_extra }}</span></p>
+    <p class="Datos">Salario bruto: <span class="DatosUsuario">{{ nomina.get_bruto }}</span></p>
+    <p class="Datos">Salario neto: <span class="DatosUsuario">{{ nomina.get_neto }}</span></p>
+
+    <a href="{% url 'core:generar_reporte_nomina' nomina.id %}" class="btn btn-primary py-2">Imprimir Nomina</a>
+      
+    </div>
+    <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:nominas' %}">Volver a nominas</a>
+  </div>
+</body>
+{% endblock content %}

@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import View
 from django.utils.decorators import method_decorator
@@ -12,6 +11,9 @@ from RH import forms
 from django.db.models import Q
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.models import Group
+from datetime import datetime
+from django.shortcuts import render, redirect
 
 # Create your views here.
 
@@ -158,10 +160,10 @@ class Edita_Vacaciones(LoginRequiredMixin, generic.UpdateView):
     template_name = "RH/Vacaciones/vacaciones_estado.html"
     success_url = reverse_lazy("RH:vacaciones_busqueda")
 
-  
-
-
-
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
 
 @login_required
 def searchVacaciones(request, *args, **kwargs):
@@ -271,8 +273,7 @@ class Crea_Noticias(LoginRequiredMixin, generic.CreateView):
     form_class = forms.NoticiasForm
     template_name = "RH/Noticias/noticias_crear.html"
     success_url = reverse_lazy("RH:noticias")
-    
-    
+      
     def dispatch(self, request, *args, **kwargs):
         if not request.user.groups.filter(name='Personal RH').exists():
             return HttpResponseForbidden("No estás autorizado para ver esta página.")
@@ -342,3 +343,164 @@ def searchNoticias(request, *args, **kwargs):
         else:
             noticiasAB = None
         return render(request, "RH/Noticias/noticias_filter.html", {"noticias": noticiasAB})
+
+@method_decorator(login_required, name='dispatch')
+class Preguntas(LoginRequiredMixin, generic.View):
+    def get(self, request):
+ 
+        if request.user.groups.filter(name='Personal RH').exists():
+            return render(request, "RH/FAQ/faq.html", {})
+
+        return HttpResponseForbidden("No estás autorizado para ver esta página.")
+
+@method_decorator(login_required, name='dispatch')
+class Crea_Preguntas(LoginRequiredMixin, generic.CreateView):
+    model = models.PREGUNTAS 
+    form_class = forms.PreguntasForm
+    template_name = "RH/FAQ/faqs_crear.html"
+    success_url = reverse_lazy("RH:faqs")
+    
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class ListarPreguntas(LoginRequiredMixin, generic.View):
+    template_name = "RH/FAQ/faqs_listar.html"
+    context = {}
+
+    def get(self, request):
+        self.context = {
+            "preguntas" : models.PREGUNTAS.objects.all()
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+    
+@method_decorator(login_required, name='dispatch')
+class DetallesPregunta(LoginRequiredMixin, generic.View):
+    template_name = "RH/FAQ/faq_detalle.html"
+    context = {}
+
+    def get(self, request, pk):
+        self.context = {
+            "pregunta" : models.PREGUNTAS.objects.get(pk=pk)
+        }
+        return render(request, self.template_name, self.context)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class Edita_Preguntas(LoginRequiredMixin, generic.UpdateView):
+    model = models.PREGUNTAS
+    form_class = forms.PreguntasForm
+    template_name = "RH/FAQ/faq_editar.html"
+    success_url = reverse_lazy("RH:lista_faqs")
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@method_decorator(login_required, name='dispatch')
+class Elimina_Pregunta(LoginRequiredMixin, generic.DeleteView):
+    model = models.PREGUNTAS
+    template_name = "RH/FAQ/faq_eliminar.html"
+    success_url = reverse_lazy("RH:lista_faqs")
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+
+@login_required
+def searchPreguntas(request, *args, **kwargs):
+    if request.method == 'GET':
+        preguntaAB = request.GET.get('busquedaPreguntas')
+        if preguntaAB:
+            preguntasAB = models.PREGUNTAS.objects.filter(pregunta__icontains=preguntaAB)
+        else:
+            preguntasAB = None
+        return render(request, "RH/FAQ/faq_filter.html", {"preguntas": preguntasAB})
+
+@method_decorator(login_required, name='dispatch')
+class Incapacidades(LoginRequiredMixin, generic.View):
+
+    def get(self, request):
+        
+        self.context = {
+            'incapacidades' : models.PERMISO.objects.filter(tipo="Incapacidad"), 
+        }
+        
+        if request.user.groups.filter(name='Personal RH').exists():
+            return render(request, "RH/Incapacidades/incapacidades.html", self.context)
+
+        return HttpResponseForbidden("No estás autorizado para ver esta página.")
+
+@method_decorator(login_required, name='dispatch')
+class Incapacidades_Detalles(LoginRequiredMixin, generic.View):
+    template_name = "RH/Incapacidades/incapacidades_detalle.html"
+    context = {}
+    
+    def get(self, request, pk):
+        empleado = models.EMPLEADO.objects.get(usuario=request.user)
+
+        self.context = {
+           "solicitud": models.PERMISO.objects.get(id=pk),
+        }
+        return render(request, self.template_name, self.context)
+
+@login_required
+def searchIncapacidades(request, *args, **kwargs):
+    if request.method == 'GET':
+        empleadoAB = request.GET.get('busquedaIncapacidad')
+        usuario = users_models.CustomUser.objects.get(numero_empleado=empleadoAB)
+        empleado = models.EMPLEADO.objects.get(usuario=usuario)
+        if empleadoAB:
+            incapacidadesAB = models.PERMISO.objects.filter(id_empleado=empleado.id, tipo="Incapacidad")
+        else:
+            incapacidadesAB = None
+        return render(request, "RH/Incapacidades/incapacidades_busqueda.html", {"incapacidades": incapacidadesAB})
+    
+def crea_semana_nominas(request):
+    grupo_emp = Group.objects.get(name='Empleados')
+    empleados = models.EMPLEADO.objects.filter(usuario__groups=grupo_emp)
+
+    if request.method == 'POST':
+        for empleado in empleados:
+            fecha_inicio_str = request.POST.get(f"fecha_inicio_{empleado.id}")
+            salario_diario = request.POST.get(f"salario_diario_{empleado.id}")
+            horas_trabajadas = request.POST.get(f"horas_trabajadas_{empleado.id}")
+            horas_extra = request.POST.get(f"horas_extra_{empleado.id}")            
+            deducciones = request.POST.get(f"deducciones_{empleado.id}")
+
+            # Convertir fecha_inicio a un objeto date
+            fecha_inicio = datetime.strptime(fecha_inicio_str, '%Y-%m-%d').date()
+
+            # Crear una nueva entrada en la tabla NOMINA para este empleado
+            nomina = models.NOMINA.objects.create(
+                fecha_inicio=fecha_inicio,
+                fecha_fin=models.NOMINA.get_fecha_fin(fecha_inicio),
+                salario_diario=salario_diario,
+                horas_trabajadas=horas_trabajadas,
+                horas_extra=horas_extra,
+                percepciones=models.NOMINA.get_percepciones(salario_diario, horas_trabajadas, horas_extra),
+                deducciones=deducciones,
+                id_empleado=empleado,
+            )
+            
+
+            nomina.save()
+        return redirect(reverse_lazy('home:home'))
+    
+    context = {'empleados': empleados}
+    return render(request, 'RH/Nominas/crea_semana.html', context)
+

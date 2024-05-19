@@ -1,0 +1,93 @@
+{% extends 'base/base.html'%}
+
+{% block title %}Eliminar FAQ{% endblock title %}
+{% block content %}
+<style>
+  .background {
+    background-color: #fff;
+  }
+
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 150px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 700px;
+    border-radius: 20px;
+    margin-left: 450px;
+    position: relative;
+    display: block;
+  }
+
+  img {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 200px;
+    width: 200px;
+    display: block;
+    padding-bottom: 10px;
+  }
+
+  .Tittle {
+    font-size: 2em;
+    font-weight: bold;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .Instrucciones {
+    font-size: 1.5em;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: justify;
+    margin-bottom: 25px;
+  }
+
+  .BtnEliminar {
+    background-color: red;
+    border-color: red;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnEliminar:hover {
+    background-color: rgb(141, 0, 0);
+    color: #fff;
+  }
+
+  .BtnCancelar {
+    background-color: orange;
+    border-color: orange;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+  }
+
+  .BtnCancelar:hover {
+    background-color: rgb(146, 95, 0);
+    color: #fff;
+  }
+</style>
+
+<body class="background">
+
+  <div class=Contenedor>
+    <img src="https://cdn-icons-png.flaticon.com/256/2194/2194309.png">
+    <p class="Tittle">¿Estás seguro de que deseas eliminar a esta faq?</p>
+    <p class="Instrucciones">Esto eliminará automáticamente la información de la FAQ y no podra ser recuperrada.</p>
+    <form method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="btn BtnEliminar form-control">Eliminar faq</button>
+        </div>
+        <div class="col">
+          <a href="{% url 'RH:lista_faqs' %}" class="btn BtnCancelar form-control">Cancelar</a>
+        </div>
+    </form>
+  </div>
+</body>
+{% endblock content %}

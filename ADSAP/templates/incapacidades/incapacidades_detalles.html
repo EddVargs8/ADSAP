@@ -100,38 +100,29 @@
 
 <body class="background">
   <div class=Contenedor>
-    <p class="Tittle">Estado de la solicitud</p>
-    <p class="Estado">Estado: <span class="EstadoDato">{{ estado_solicitud.estado }}</span></p>
-    <a href="{% url 'core:permisos_eliminar_confirmacion' solicitud.id %}" class="btn btn-primary BtnCancelar">Cancelar Solicitud</a>
+    <p class="Tittle"> Detalles de la incapacidad </p>
     <p class="Datos">Fecha de creación: <span class="DatosUsuario">{{ solicitud.fecha_solicitud }}</span></p>
+    
     <div>
-      <p class="Sub">Datos del empleado</p>
-      {% if empleado.sexo == "M" %}
-      <img src="https://cdn-icons-png.flaticon.com/256/1896/1896513.png">
-      {% else %}
-      <img src="https://cdn-icons-png.flaticon.com/256/1896/1896516.png">
-      {% endif %}
-      <p class="Datos">Nombre: <span class="DatosUsuario">{{ empleado.nombre }} {{ empleado.apellido_paterno }}
-          {{empleado.apellido_materno }}</span></p>
-      <p class="Datos">Área de trabajo: <span class="DatosUsuario">{{ empleado.area }}</span></p>
-      <p class="Datos">Puesto de trabajo: <span class="DatosUsuario">{{ empleado.puesto }}</span></p>
-    </div>
-    <div>
-      <p class="Sub">Datos de la solicitud</p>
       <img src="https://cdn-icons-png.flaticon.com/256/2858/2858429.png">
-      <p class="Datos">Días solicitados: <span class="DatosUsuario">{{ solicitud.dias_solicitados }}</span></p>
+      <p class="Datos">Días de incapacidad: <span class="DatosUsuario">{{ solicitud.dias_solicitados }}</span></p>
       <p class="Datos">Fecha de inicio: <span class="DatosUsuario">{{ solicitud.fecha_inicio }}</span></p>
       <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p>
-      <p class="Datos">Tipo de permiso: <span class="DatosUsuario">{{ solicitud.tipo }}</span></p>
-      <p class="Datos">Motivo: <span class="DatosUsuario">{{ solicitud.motivo }}</span></p>
-      {% if estado_solicitud.comentarios_admin == "" %}
-          <p class="Datos">Comentarios del supervisor: <span class="DatosUsuario">Ninguno</span></p>
+      {% if solicitud.archivo %}
+      <p>Archivo adjunto: <a href="{{ solicitud.archivo.url }} " target="_blank" >{{ solicitud.archivo.name }}</a></p>
       {% else %}
-          <p class="Datos">Comentarios del supervisor: <span class="DatosUsuario">{{ estado_solicitud.comentarios_admin }}</span></p>
+          <p class="Datos">No hay archivo adjunto. </p>
       {% endif %}
       
     </div>
-    <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:permisos' %}">Volver a permisos</a>
+
+
+      <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:incapacidades' %}">Volver a incapacidades</a>
+
+
+    
+
+
   </div>
 </body>
 {% endblock content %}

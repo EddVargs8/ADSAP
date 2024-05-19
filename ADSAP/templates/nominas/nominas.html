@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}Permisos filtro{% endblock title %}
+{% block title %}Nominas{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -63,7 +63,7 @@
   }
 
   .btn1 {
-    margin-left: 75%;
+    margin-left: 78%;
     margin-bottom: 15px;
   }
 
@@ -75,18 +75,28 @@
     height: 100px;
     width: 100%;
   }
+
+  .Dias {
+    text-align: left;
+    position: absolute;
+  }
+
+  .Motivo {
+    margin-left: 45%;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    font-family: 'ZCOOL QingKe HuangYou';
+  }
 </style>
 
-<body>
-  <div class="Contenedor">
-    <p class="Tittle">Permisos filtro</p>
-    
+<body class="background">
+  <div class=Contenedor>
+    <p class="Tittle">Nominas</p>
 
-    
     <div class="Filtro">
-      <form action="filtro" method="get">
+      <form action="filtro" method="get"> 
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Buscar permisos" name="busquedaPermisos">
+          <input type="text" class="form-control" placeholder="Buscar nominas" name="busquedaNominas">
           <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
             <i class="fas fa-search"></i>
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
@@ -98,22 +108,20 @@
         </div>
       </form>
     </div>
-    <div class="Respuestas">
-      {% for permiso in permisos %}
+    <div>
+      {% for nomina in nominas %}
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
-          <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
+          <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
           <div>
-            <p class="mb-0">Motivo: {{ solicitud.tipo }} </p>
-            <p class="mb-0 fecha">Periodo: {{ permiso.fecha_inicio }} al {{ permiso.fecha_fin }} </p>
-            <p class="mb-0 opacity-75 fecha"> Días solicitados: {{ permiso.dias_solicitados }} </p>
+            <p class="mb-0 fecha">Semana: {{ nomina.get_semana }}  </p>
+            <p class="mb-0 opacity-75 fecha Dias"> Salario Neto: {{ nomina.get_neto }} </p>
           </div>
         </a>
-        <a href="{% url 'core:permisos_estado' permiso.id %}" class="btn btn-primary py-2">Estado Solicitud</a>
+        <a href="{% url 'core:nomina_detalle' nomina.id %}" class="btn btn-primary py-2">Detalle Nomina</a>
       </div>
       {% endfor %}
     </div>
-    <br>
-    <a class="btn btn-primary py-2 Btn1" href="{% url 'core:permisos' %}">Volver a permisos</a>
+  </div>
 </body>
 {% endblock content %}

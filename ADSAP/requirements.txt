@@ -1,6 +1,7 @@
 asgiref==3.7.2
 Brotli==1.1.0
 certifi==2024.2.2
+chardet==5.2.0
 charset-normalizer==3.3.2
 click==8.1.7
 dj-database-url==2.1.0
@@ -14,6 +15,7 @@ packaging==24.0
 pillow==10.2.0
 psycopg2-binary==2.9.9
 pytz==2024.1
+reportlab==4.2.0
 requests==2.31.0
 sqlparse==0.4.4
 typing_extensions==4.10.0
