@@ -1,5 +1,4 @@
 {% extends 'base/base.html'%}
-
 {% block title %}Eliminar Noticia{% endblock title %}
 {% block content %}
 <style>
@@ -77,7 +76,7 @@
   <div class=Contenedor>
     <img src="https://cdn-icons-png.flaticon.com/256/2194/2194309.png">
     <p class="Tittle">¿Estás seguro de que deseas eliminar a esta noticia?</p>
-    <p class="Instrucciones">Esto eliminará automáticamente la información de la noticia y no podra ser recuperrada.</p>
+    <p class="Instrucciones">Esto eliminará automáticamente la información de la noticia y no podra ser recuperada.</p>
     <form method="post">
       {% csrf_token %}
       <div class="row">

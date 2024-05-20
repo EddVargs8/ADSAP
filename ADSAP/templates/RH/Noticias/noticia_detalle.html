@@ -1,18 +1,18 @@
 {% extends 'base/base.html'%}
-{% block title %}Editar Noticias{% endblock title %}
+{% block title %}Opciones{% endblock title %}
 {% block content %}
 <style>
-  body {
+  .background {
     background-color: #fff;
   }
 
   .Contenedor {
     background-color: #fff;
-    padding-top: 20px;
+    padding-top: 150px;
     padding-left: 25px;
     padding-right: 25px;
-    width: 1300px;
-    margin-left: 150px;
+    width: 900px;
+    margin-left: 400px;
     display: block;
   }
 
@@ -22,57 +22,14 @@
     font-family: 'ZCOOL QingKe HuangYou';
     font-weight: bold;
     text-align: center;
-    margin-bottom: 0;
+    margin-bottom: 10px;
   }
 
-  img {
-    margin-top: 20px;
-    height: 230px;
-    width: 230px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-
-  .Nombre {
-    font-size: 2em;
-    color: #003366;
-    font-family: 'ZCOOL QingKe HuangYou';
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 0;
-  }
-
-  .Area {
+  .Sub {
     font-size: 1.5em;
-    color: #003366;
     font-family: 'ZCOOL QingKe HuangYou';
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 0;
-  }
-
-  .Puesto {
-    font-size: 1.5em;
-    color: #003366;
-    font-family: 'ZCOOL QingKe HuangYou';
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10;
-  }
-
-  .Datos {
-    font-size: 1.8em;
-    color: #003366;
-    font-family: 'ZCOOL QingKe HuangYou';
-    font-weight: bold;
-  }
-
-  .DatosUsuario {
-    font-size: 24px;
-    color: #000000;
-    font-family: 'ZCOOL QingKe HuangYou';
-    font-weight: bold;
+    text-align: justify;
+    margin-bottom: 10px;
   }
 
   .BtnEditar {
@@ -116,14 +73,10 @@
 </style>
 
 <body>
- 
-    <p class="Tittle">Noticia</p>
-
-    <p class="Titulo: ">{{ noticia.titulo }} </p>
-    <p class="Contenido: ">{{ noticia.contenido }}</p>
-
-
-  
+  <div class="Contenedor">
+    <p class="Tittle">{{ noticia.titulo }}</p>
+    <p class="Sub">{{ noticia.contenido }}</p>
+    <br>
     <div class="row">
       <div class="col">
         <a href="{% url 'RH:editar_noticias' pk=noticia.id %}" class="btn BtnEditar form-control">Editar
@@ -137,6 +90,6 @@
         <a href="{% url 'RH:lista_noticias' %}" class="btn BtnCancelar form-control">Cancelar</a>
       </div>
     </div>
-
+  </div>
 </body>
 {% endblock content %}

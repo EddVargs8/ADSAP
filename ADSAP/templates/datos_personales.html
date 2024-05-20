@@ -25,7 +25,7 @@
     margin-bottom: 0;
   }
 
-  img {
+  .Foto {
     margin-top: 20px;
     height: 230px;
     width: 230px;
@@ -80,9 +80,9 @@
   <div class="Contenedor">
     <p class="Tittle">Datos personales</p>
     {% if empleado.sexo == "M" %}
-    <img src="https://cdn-icons-png.flaticon.com/256/1896/1896513.png">
+    <img class="Foto" src="https://cdn-icons-png.flaticon.com/256/1896/1896513.png">
     {% else %}
-    <img src="https://cdn-icons-png.flaticon.com/256/1896/1896516.png">
+    <img class="Foto" src="https://cdn-icons-png.flaticon.com/256/1896/1896516.png">
     {% endif %}
     <p class="Nombre">{{ empleado.nombre }} {{ empleado.apellido_paterno }} {{empleado.apellido_materno }}</p>
     <p class="Area">{{ empleado.area }}</p>
