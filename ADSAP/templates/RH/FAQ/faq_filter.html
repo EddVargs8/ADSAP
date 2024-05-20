@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}FAQS{% endblock title %}
+{% block title %}Preguntas{% endblock title %}
 {% block content %}
 <style>
   body {
@@ -12,6 +12,7 @@
     padding-left: 25px;
     padding-right: 25px;
     width: 1300px;
+    height: 900px;
     margin-left: 150px;
     display: block;
   }
@@ -49,6 +50,7 @@
   .accordion-body {
     font-size: 1.5em;
     text-align: justify;
+    display: inline-block;
   }
 
   .accordion-collapse {
@@ -58,7 +60,7 @@
   .btn {
     background-color: #003366;
     border-color: #003366;
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
 
   img {
@@ -71,7 +73,7 @@
     padding-bottom: 10px;
   }
 
-  .imgnoticia {
+  .imgpregunta {
     float: left;
     margin-right: 20px;
     height: 150px;
@@ -82,8 +84,7 @@
 <body>
   <div class="Contenedor">
     <p class="TittleADSAP">ADSAP</p>
-    <img src="https://cdn-icons-png.flaticon.com/256/1074/1074106.png">
-    <p class="Sub">Preguntas de la empresa</p>
+    <p class="Sub">Editar preguntas frecuentes</p>
     <div class="Filtro">
       <form action="" method="get">
         <div class="input-group">
@@ -100,34 +101,35 @@
       </form>
     </div>
     <div>
-        {% for pregunta in preguntas %}
-        <div class="accordion" id="accordionExample">
-          <div class="accordion-item mb-1">
-            <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-              <button class="accordion-button collapsed mb" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseThree">
-                {{ pregunta.pregunta }}
-              </button>
-            </h2>
-            <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
-              aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
-              <div class="accordion-body">
+      {% for pregunta in preguntas %}
+      <div class="accordion" id="accordionExample">
+        <div class="accordion-item mb-1">
+          <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+            <button class="accordion-button collapsed mb" type="button" data-bs-toggle="collapse"
+              data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseThree">
+              {{ pregunta.pregunta }}
+            </button>
+          </h2>
+          <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
+            aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+              <div>
                 {% if pregunta.imagen %}
-                <img class="imgpregunta" src="{{ pregunta.imagen.url }}">
-                {% else %}
-                {% endif %}
-                {{ pregunta.respuesta }}
-                <a href="{% url 'RH:detalles_faqs' pk=pregunta.id %}" class="btn btn-warning">Editar</a>
+              <img class="imgpregunta" src="{{ pregunta.imagen.url }}">
+              {% else %}
+              {% endif %}
+              {{ pregunta.respuesta }}
               </div>
+              <br>
+              <a href="{% url 'RH:detalles_faqs' pk=pregunta.id %}" class="btn btn-primary py-2">Más opciones</a>
             </div>
           </div>
         </div>
-        {% endfor %}
-        </div>
       </div>
+      {% endfor %}
     </div>
-    
+    <br>
     <a href="{% url 'RH:faqs' %}" class="btn btn-primary">Regresar</a>
-
+  </div>
 </body>
 {% endblock content %}

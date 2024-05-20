@@ -19,11 +19,13 @@
   }
 
   img {
-    margin-top: 10px;
     height: 50px;
     width: 50px;
-    display: block;
-    padding-bottom: 10px;
+  }
+
+  .btn1{
+    margin-top: -10px;
+    font-size: 1.1em;
   }
 
   .Tittle {
@@ -43,46 +45,21 @@
     position: absolute;
   }
 
-  .Dia {
-    font-size: 1em;
-    color: #000000;
-    font-family: 'ZCOOL QingKe HuangYou';
-    text-align: center;
-  }
-
-  .fecha {
-    font-size: 1.3em;
-    font-family: 'ZCOOL QingKe HuangYou';
-    text-align: justify;
-  }
-
   .btn {
     background-color: #003366;
     border-color: #003366;
     font-size: 1.5em;
   }
 
-  .btn1 {
-    margin-left: 75%;
-    margin-bottom: 15px;
-  }
-
   .Filtro {
     padding-bottom: 20px;
-  }
-
-  .vacaciones {
-    height: 100px;
-    width: 100%;
   }
 </style>
 
 <body>
   <div class="Contenedor">
     <p class="Tittle">Reportes enviados</p>
-    
 
-    
     <div class="Filtro">
       <form action="filtro" method="get">
         <div class="input-group">
@@ -102,13 +79,13 @@
       {% for reporte in reportes %}
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
-          <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
+          <img src="https://cdn-icons-png.flaticon.com/256/4673/4673277.png">
           <div>
             <p class="mb-0">Seccion: {{ reporte.seccion }} </p>
-            <p class="mb-0 fecha">Fecha envio reporte: {{ reporte.fecha_inicio }}  </p>
+            <p class="mb-0">Fecha envio reporte: {{ reporte.fecha_inicio }}  </p>
           </div>
         </a>
-        <a href="{% url 'core:reporte_detalle' pk=reporte.id %}" class="btn btn-primary py-2">Estado Reporte</a>
+        <a href="{% url 'core:reporte_detalle' pk=reporte.id %}" class="btn btn-primary py-2 btn1">Estado reporte</a>
       </div>
       {% endfor %}
     </div>

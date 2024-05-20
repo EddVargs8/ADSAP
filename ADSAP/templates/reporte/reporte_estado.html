@@ -1,5 +1,6 @@
 {% extends 'base/base.html'%}
-{% block title %}Reporte Estado{% endblock title %}
+{% load static %}
+{% block title %}Estado Solicitud{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -43,7 +44,6 @@
     font-family: 'ZCOOL QingKe HuangYou';
     text-align: left;
     font-weight: bold;
-    position: absolute;
   }
 
   .EstadoDato {
@@ -53,6 +53,13 @@
     text-align: left;
     font-weight: bold;
     margin-top: 30px;
+  }
+
+  img {
+    float: left;
+    margin-right: 10px;
+    height: 150px;
+    width: 150px;
   }
 
   .Datos {
@@ -70,42 +77,29 @@
     font-weight: bold;
   }
 
-  .BtnAtras{
+  .BtnAtras {
     background-color: #003366;
     border-color: #003366;
     font-size: 1.5em;
     margin-top: 30px;
-  }
-
-  .BtnCancelar {
-    background-color: red;
-    border-color: red;
-    color: #fff;
-    font-family: 'ZCOOL QingKe HuangYou';
-    font-weight: bold;
-    margin-left: 75%;
-    margin-bottom: 15px;
-  }
-  .BtnCancelar:hover {
-    background-color: rgb(141, 0, 0);
   }
 </style>
 
 <body class="background">
   <div class=Contenedor>
     <p class="Tittle">Estado del reporte</p>
-    <p class="mb-0">Seccion: {{ reporte.seccion }} </p>
-    <p class="mb-0 fecha">Fecha envio reporte: {{ reporte.fecha_inicio }}  </p>
-    <p class="mb-0 fecha">Fecha fin reporte: {{ reporte.fecha_fin }}  </p>
-    <p class="mb-0">Estado: {{ reporte.estado }} </p>
-    <p class="mb-0">Descripcion: {{ reporte.descripcion }} </p>
+    <p class="Estado">Estado: <span class="EstadoDato">{{ reporte.estado }}</span></p>
+    <p class="Sub">Datos del reporte</p>
+    <p class="Datos">Seccion: <span class="DatosUsuario">{{ reporte.seccion }} </span></p>
+    <p class="Datos">Fecha envio reporte: <span class="DatosUsuario">{{ reporte.fecha_inicio }}</span></p>
+    <p class="Datos">Fecha fin reporte: <span class="DatosUsuario">{{ reporte.fecha_fin }}</span></p>
+    <p class="Datos">Descripcion: <span class="DatosUsuario">{{ reporte.descripcion }}</span></p>
+    <p class="Datos">Imagen:</p>
     {% if reporte.img %}
-        <img src="{{ reporte.imagen.url }}" alt="Imagen de reporte">
+    <img src="{{ reporte.imagen.url }}" alt="Imagen de reporte">
     {% else %}
-        <p class="mb-0">No se ha subido una imagen</p>
+    <p class="DatosUsuario">No se ha subido una imagen para este reporte</p>
     {% endif %}
-  
-    </div>
     <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:reporte_lista' %}">Volver a reportes</a>
   </div>
 </body>

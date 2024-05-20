@@ -82,12 +82,16 @@
   .BtnRealizar:hover {
     background-color: #006909;
   }
+
+  .form{
+    font-size: 1.2em;
+  }
 </style>
 
 <body class="background">
   <div class=Contenedor>
     <p class="Tittle">Registrar Incapacidad</p>
-    <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
+    <img src="https://cdn-icons-png.flaticon.com/256/898/898681.png">
     <form action="" method="post" class="form" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form }}
