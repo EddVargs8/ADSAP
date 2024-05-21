@@ -77,7 +77,7 @@
     font-weight: bold;
   }
 
-  .BtnAtras{
+  .BtnAtras {
     background-color: #003366;
     border-color: #003366;
     font-size: 1.5em;
@@ -93,6 +93,7 @@
     margin-left: 75%;
     margin-bottom: 15px;
   }
+
   .BtnCancelar:hover {
     background-color: rgb(141, 0, 0);
   }
@@ -101,25 +102,20 @@
 <body class="background">
   <div class=Contenedor>
     <p class="Tittle"> Detalles de la incapacidad </p>
+    <p class="Datos">Datos del empleado: <span class="DatosUsuario">{{ solicitud.id_empleado }}</span></p>
     <p class="Datos">Fecha de creación: <span class="DatosUsuario">{{ solicitud.fecha_solicitud }}</span></p>
-    
     <div>
       <img src="https://cdn-icons-png.flaticon.com/256/2858/2858429.png">
-      <p class="Datos">Datos del empleado: <span class="DatosUsuario">{{ solicitud.id_empleado }}</span></p>
       <p class="Datos">Días de incapacidad: <span class="DatosUsuario">{{ solicitud.dias_solicitados }}</span></p>
       <p class="Datos">Fecha de inicio: <span class="DatosUsuario">{{ solicitud.fecha_inicio }}</span></p>
-      <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p>
+      <p class="Datos">Fecha de regreso: <span class="DatosUsuario">{{ solicitud.fecha_fin }}</span></p><br>
       {% if solicitud.archivo %}
-      <p>Archivo adjunto: <a href="{{ solicitud.archivo.url }} " target="_blank" >{{ solicitud.archivo.name }}</a></p>
+      <p class="Datos">Archivo adjunto: <a href="{{ solicitud.archivo.url }} " target="_blank">{{ solicitud.archivo.name}}</a></p>
       {% else %}
-          <p class="Datos">No hay archivo adjunto. </p>
+      <p class="DatosUsuario">No hay archivo adjunto. </p>
       {% endif %}
-      
     </div>
-
     <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'RH:incapacidades' %}">Volver a incapacidades</a>
-
-
   </div>
 </body>
 {% endblock content %}

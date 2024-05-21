@@ -89,7 +89,9 @@ class NoticiasForm(forms.ModelForm):
         fields = ['titulo' , 'imagen', 'contenido', 'id_area'] 
 
         widgets = {
-            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'titulo': forms.Textarea(attrs={'style': 'width: 850px; height: 30px;' }),
+            'contenido': forms.Textarea(attrs={'style': 'width: 950px; height: 200px;' }),
         }
 
 class PreguntasForm(forms.ModelForm):
@@ -98,5 +100,7 @@ class PreguntasForm(forms.ModelForm):
         fields = ['pregunta' , 'respuesta', 'imagen'] 
 
         widgets = {
-            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'pregunta': forms.Textarea(attrs={'style': 'width: 950px; height: 100px;' }),
+            'respuesta': forms.Textarea(attrs={'style': 'width: 950px; height: 300px;' }),
         }
