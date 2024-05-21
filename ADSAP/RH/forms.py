@@ -104,3 +104,29 @@ class PreguntasForm(forms.ModelForm):
             'pregunta': forms.Textarea(attrs={'style': 'width: 950px; height: 100px;' }),
             'respuesta': forms.Textarea(attrs={'style': 'width: 950px; height: 300px;' }),
         }
+
+class NominaForm(forms.Form):
+    salario_diario = forms.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Salario Diario'})
+    )
+    horas_trabajadas = forms.IntegerField(
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Horas Trabajadas'})
+    )
+    fecha_inicio = forms.DateField(
+        required=True, 
+        widget=forms.DateInput(attrs={'type': 'date'}),
+    )
+    horas_extra = forms.IntegerField(
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Horas Extra'})
+    )
+    deducciones = forms.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Deducciones'})
+    )
