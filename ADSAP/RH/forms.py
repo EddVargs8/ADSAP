@@ -100,3 +100,29 @@ class PreguntasForm(forms.ModelForm):
         widgets = {
             'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
         }
+
+class NominaForm(forms.Form):
+    salario_diario = forms.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Salario Diario'})
+    )
+    horas_trabajadas = forms.IntegerField(
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Horas Trabajadas'})
+    )
+    fecha_inicio = forms.DateField(
+        required=True, 
+        widget=forms.DateInput(attrs={'type': 'date'}),
+    )
+    horas_extra = forms.IntegerField(
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Horas Extra'})
+    )
+    deducciones = forms.DecimalField(
+        max_digits=10, 
+        decimal_places=2, 
+        required=True,
+        widget=forms.NumberInput(attrs={'placeholder': 'Deducciones'})
+    )

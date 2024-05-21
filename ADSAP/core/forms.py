@@ -150,3 +150,4 @@ class ReporteForm(forms.ModelForm):
             'seccion': forms.Select(choices=SECCION),
             'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
+
