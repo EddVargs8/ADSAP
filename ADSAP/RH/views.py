@@ -14,7 +14,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import Group
 from datetime import datetime
 from django.shortcuts import render, redirect
-
+from .forms import NominaForm
 # Create your views here.
 
 @method_decorator(login_required, name='dispatch')
@@ -81,8 +81,10 @@ class Edita_Empleados_Busqueda(LoginRequiredMixin, generic.View):
     context = {}
 
     def get(self, request):
+        grupo_emp = Group.objects.get(name='Empleados')
+        empleados = models.EMPLEADO.objects.filter(usuario__groups=grupo_emp)
         self.context = {
-            
+            "empleados" : empleados
         }
         return render(request, self.template_name, self.context)
 
@@ -116,9 +118,21 @@ class Edita_Empleados_List(LoginRequiredMixin, EmpleadoMixin, generic.View):
             usuario = None
             
         if empleado:
-            return render(request, "RH/Empleados/empleado_filter.html", {"empleado": empleado, "usuario": usuario})
+            return render(request, "RH/Empleados/empleado_busqueda.html", {"empleado": empleado, "usuario": usuario})
         else:
             return HttpResponse('Empleado no encontrado', status=404)
+
+class Empleado_Detalles(LoginRequiredMixin, generic.View):
+    template_name = "RH/Empleados/empleado_filter.html"
+    context = {}
+
+    def get(self, request, pk):
+        usuario = users_models.CustomUser.objects.get(numero_empleado=pk)
+        self.context = {
+            
+            "empleado" : models.EMPLEADO.objects.get(usuario=usuario)
+        }
+        return render(request, self.template_name, self.context)
 
 @method_decorator(login_required, name='dispatch')
 class Elimina_Empleados(LoginRequiredMixin, generic.DeleteView):
@@ -475,32 +489,40 @@ def crea_semana_nominas(request):
     empleados = models.EMPLEADO.objects.filter(usuario__groups=grupo_emp)
 
     if request.method == 'POST':
+        all_forms_valid = True
         for empleado in empleados:
-            fecha_inicio_str = request.POST.get(f"fecha_inicio_{empleado.id}")
-            salario_diario = request.POST.get(f"salario_diario_{empleado.id}")
-            horas_trabajadas = request.POST.get(f"horas_trabajadas_{empleado.id}")
-            horas_extra = request.POST.get(f"horas_extra_{empleado.id}")            
-            deducciones = request.POST.get(f"deducciones_{empleado.id}")
+            form = NominaForm(request.POST, prefix=str(empleado.id))
+            if not form.is_valid():
+                all_forms_valid = False
+                break
 
-            # Convertir fecha_inicio a un objeto date
-            fecha_inicio = datetime.strptime(fecha_inicio_str, '%Y-%m-%d').date()
+        if all_forms_valid:
+            for empleado in empleados:
+                form = NominaForm(request.POST, prefix=str(empleado.id))
+                if form.is_valid():
+                    data = form.cleaned_data
+                    fecha_inicio = data['fecha_inicio']
+                    salario_diario = data['salario_diario']
+                    horas_trabajadas = data['horas_trabajadas']
+                    horas_extra = data['horas_extra']
+                    deducciones = data['deducciones']
 
-            # Crear una nueva entrada en la tabla NOMINA para este empleado
-            nomina = models.NOMINA.objects.create(
-                fecha_inicio=fecha_inicio,
-                fecha_fin=models.NOMINA.get_fecha_fin(fecha_inicio),
-                salario_diario=salario_diario,
-                horas_trabajadas=horas_trabajadas,
-                horas_extra=horas_extra,
-                percepciones=models.NOMINA.get_percepciones(salario_diario, horas_trabajadas, horas_extra),
-                deducciones=deducciones,
-                id_empleado=empleado,
-            )
-            
+                    nomina = models.NOMINA.objects.create(
+                        fecha_inicio=fecha_inicio,
+                        fecha_fin=models.NOMINA.get_fecha_fin(fecha_inicio),
+                        salario_diario=salario_diario,
+                        horas_trabajadas=horas_trabajadas,
+                        horas_extra=horas_extra,
+                        percepciones=models.NOMINA.get_percepciones(salario_diario, horas_trabajadas, horas_extra),
+                        deducciones=deducciones,
+                        id_empleado=empleado,
+                    )
+                    nomina.save()
+            return redirect(reverse_lazy('home:home'))
+    else:
+        forms = []
+        for empleado in empleados:
+            forms.append((empleado, NominaForm(prefix=str(empleado.id))))
 
-            nomina.save()
-        return redirect(reverse_lazy('home:home'))
-    
-    context = {'empleados': empleados}
+    context = {'forms': forms}
     return render(request, 'RH/Nominas/crea_semana.html', context)
-

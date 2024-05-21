@@ -81,7 +81,7 @@
   <div class="Contenedor">
     <p class="Tittle">ADSAP</p>
     <p class="Sub">Busqueda de empleado a editar</p>
-    <form action="filtro" method="get">
+    <form action="" method="get">
       <div class="input-group">
         <input type="text" class="form-control" placeholder="Buscar empleado" name="busquedaEmpleado">
         <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
@@ -95,7 +95,7 @@
       </div>
     </form> 
 
-    {% for empleado in empleados %}
+    
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
           <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
@@ -108,7 +108,7 @@
         </a>
         <a href="{% url 'RH:editar_empleados_list' empleado.usuario.numero_empleado %}" class="btn btn-primary py-2">Abrir empleado</a>
       </div>
-      {% endfor %}
+      
 
 
     <a class="btn btn-primary py-2 btn2" href="{% url 'home:home' %}">Volver al menú</a>
