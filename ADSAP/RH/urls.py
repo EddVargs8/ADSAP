@@ -36,5 +36,5 @@ urlpatterns = [
     path('administra_incapacidades/detalle/<int:pk>/', views.Incapacidades_Detalles.as_view(), name="incapacidad_detalle"),
     path('administra_incapacidades/filtro/', views.searchIncapacidades, name="busqueda_incapacidades"),
     path('tabla_nominas/', views.crea_semana_nominas, name='crea_semana'),
-
+    path('reportes/actualiza/<int:pk>/', views.Edita_Reportes.as_view(), name='reportes_actualiza'),
 ]
