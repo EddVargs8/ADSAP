@@ -70,7 +70,7 @@
     font-weight: bold;
   }
 
-  .BtnAtras{
+  .BtnAtras {
     background-color: #003366;
     border-color: #003366;
     font-size: 1.5em;
@@ -86,32 +86,38 @@
     margin-left: 75%;
     margin-bottom: 15px;
   }
+
   .BtnCancelar:hover {
     background-color: rgb(141, 0, 0);
+  }
+
+  .report{
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-size: 1.3em;
   }
 </style>
 
 <body class="background">
   <div class=Contenedor>
     <p class="Tittle">Estado del reporte</p>
-    <p class="mb-0">Seccion: {{ reporte.seccion }} </p>
-    <p class="mb-0 fecha">Fecha envio reporte: {{ reporte.fecha_inicio }}  </p>
-    <p class="mb-0 fecha">Fecha fin reporte: {{ reporte.fecha_fin }}  </p>
-    <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      {{ form }}
-            <button type="submit" class="btn">Actualizar</button>
-  </form>
-    <p class="mb-0">Descripcion: {{ reporte.descripcion }} </p>
-    {% if reporte.imagen %}
-        <img src="{{ reporte.imagen.url }}" alt="Imagen de reporte">
-    {% else %}
-        <p class="mb-0">No se ha subido una imagen</p>
-    {% endif %}
-  
+    <div class="report">
+      <p class="mb-0">Seccion: {{ reporte.seccion }} </p>
+      <p class="mb-0 fecha">Fecha envio reporte: {{ reporte.fecha_inicio }} </p>
+      <p class="mb-0 fecha">Fecha fin reporte: {{ reporte.fecha_fin }} </p>
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+        <button type="submit" class="btn">Actualizar</button>
+      </form>
+      <p class="mb-0">Descripcion: {{ reporte.descripcion }} </p>
+      {% if reporte.imagen %}
+      <img src="{{ reporte.imagen.url }}" alt="Imagen de reporte">
+      {% else %}
+      <p class="mb-0">No se ha subido una imagen</p>
+      {% endif %}
     </div>
     <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:reporte_error' %}">Volver a reportes</a>
   </div>
-  
+
 </body>
 {% endblock content %}
