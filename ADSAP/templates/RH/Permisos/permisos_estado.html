@@ -1,25 +1,125 @@
-{% extends 'base/base.html'%}
-{% load static %}
-{% block title %}Estado Solicitud{% endblock title %}
+{% extends 'base/base.html' %}
+{% block title %}Estado de la solicitud{% endblock title %}
 {% block content %}
+<style>
+  .background {
+    background-color: #fff;
+  }
 
-  
-  <body class="background">
-      <form method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit">Actualizar</button>
-      </form>
+  .Contenedor {
+    background-color: #fff;
+    padding-top: 50px;
+    padding-left: 25px;
+    padding-right: 25px;
+    height: 700px;
+    width: 1000px;
+    border-radius: 20px;
+    margin-left: 300px;
+    display: block;
+    font-family: 'ZCOOL QingKe HuangYou';
+  }
+
+  .Tittle {
+    font-size: 3em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 0;
+  }
+
+  .Sub {
+    font-size: 2.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+  }
+
+  .Dg {
+    font-size: 1.5em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    text-align: justify;
+    margin-bottom: 2px;
+  }
+
+  .datos {
+    font-size: 1.3em;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: justify;
+  }
+
+  .Editstatus {
+    margin-top: 10px;
+    font-size: 1.3em;
+  }
+
+  .CampoMotivo {
+    width: 950px;
+    height: 100px;
+    margin-bottom: 15px;
+  }
+
+  .BtnActualizar {
+    width: 300px;
+    font-size: 1.2em;
+    background-color: orange;
+    border-color: orange;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    margin-left: 10px;
+  }
+
+  .BtnActualizar:hover {
+    background-color: rgb(146, 95, 0);
+    color: #fff;
+  }
+
+  .BtnAtras {
+    width: 300px;
+    font-size: 1.2em;
+    background-color: #003366;
+    border-color: #003366;
+    color: #fff;
+    font-family: 'ZCOOL QingKe HuangYou';
+    font-weight: bold;
+    margin-left: 150px;
+  }
+</style>
+
+<body class="background">
+  <div class="Contenedor">
+    <p class="Tittle">ADSAP</p>
+    <p class="Sub">Administrar solicitud de permiso</p>
+    <p class="Dg">Datos generales</p>
+    <p class="mb-0 datos"> Datos del Empleado: {{ object.id_vacaciones.id_empleado }} </p>
+    <p class="mb-0 datos"> Periodo: {{ object.id_vacaciones.fecha_inicio }} al {{object.id_vacaciones.fecha_fin}}</p>
+    <p class="mb-0 datos"> Dias solicitados: {{ object.id_vacaciones.dias_solicitados }} </p>
+    <p class="mb-0 datos"> Motivo: {{object.id_vacaciones.motivo }} </p><br>
+    <p class="Dg">Edición de estado</p>
+    <form class="Editstatus" method="post">
+      {% csrf_token %}
+      {{ form }}
       {% if object.id_permiso.archivo %}
-        <p>Archivo adjunto: <a href="{{ object.id_permiso.archivo.url }} " target="_blank" >{{ object.id_permiso.archivo.name }}</a></p>
+      <p>Archivo adjunto: <a href="{{ object.id_permiso.archivo.url }} " target="_blank">{{ object.id_permiso.archivo.name }}</a></p>
       {% else %}
-        <p>No hay archivo adjunto.</p>
+      <p>No hay archivo adjunto.</p>
       {% endif %}
-      <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'RH:permisos_busqueda' %}">Volver a permisos</a>
-    </div>
-  </body>
-
-
-   
-
-{% endblock content %}
+      <div class="Botones">
+        <div class="row">
+          <div class="col">
+            <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'RH:permisos_busqueda' %}">Volver a
+              permisos</a>
+          </div>
+          <div class="col">
+            <button type="submit" class="btn btn-primary py-2 BtnActualizar">Actualizar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  </div>
+</body>
+{% endblock %}

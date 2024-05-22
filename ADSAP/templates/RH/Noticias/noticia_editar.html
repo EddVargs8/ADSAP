@@ -1,6 +1,5 @@
 {% extends 'base/base.html'%}
-
-{% block title %}Editar noticia{% endblock title %}
+{% block title %}Menú de edicion{% endblock title %}
 {% block content %}
 <style>
   .background {
@@ -9,12 +8,11 @@
 
   .Contenedor {
     background-color: #fff;
-    padding-top: 50px;
+    padding-top: 70px;
     padding-left: 25px;
     padding-right: 25px;
-    height: 1750px;
+    height: 700px;
     width: 1000px;
-    border-radius: 20px;
     margin-left: 300px;
     display: block;
   }
@@ -28,16 +26,25 @@
     margin-bottom: 10px;
   }
 
+  .Sub {
+    font-size: 2em;
+    color: #003366;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .Form{
+    font-size: 1.3em;
+    font-family: 'ZCOOL QingKe HuangYou';
+  }
+
   .BtnRealizar {
     background-color: #009c0d;
     border-color: #009c0d;
     color: #fff;
     font-family: 'ZCOOL QingKe HuangYou';
     font-weight: bold;
-  }
-
-  .btn{
-    margin-top: 35px;
   }
 
   .BtnRealizar:hover {
@@ -52,27 +59,31 @@
     font-family: 'ZCOOL QingKe HuangYou';
     font-weight: bold;
   }
+
   .BtnCancelar:hover {
     background-color: rgb(141, 0, 0);
     color: #fff;
   }
 </style>
 
-<body class="background">
+<body>
   <div class="Contenedor">
-    <p class="Tittle">Edición de Noticia</p>
-    <form method="post" enctype="multipart/form-data">
+    <p class="Tittle">ADSAP</p>
+    <p class="Sub">Editor de noticias</p>
+    <div class="Form">
+      <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <div class="row">
-            <div class="col">
-              <button type="submit" class="btn BtnRealizar form-control">Actualizar</button>
-            </div>
-            <div class="col">
-              <a href="{% url 'RH:lista_noticias' %}" class="btn BtnCancelar form-control">Cancelar</a>
-            </div>
+          <div class="col">
+            <button type="submit" class="btn BtnRealizar form-control">Actualizar</button>
           </div>
-    </form>
+          <div class="col">
+            <a href="{% url 'RH:lista_noticias' %}" class="btn BtnCancelar form-control">Cancelar</a>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </body>
 {% endblock content %}

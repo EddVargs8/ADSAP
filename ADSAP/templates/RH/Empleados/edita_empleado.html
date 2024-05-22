@@ -35,7 +35,7 @@
     font-weight: bold;
   }
 
-  .btn{
+  .btn {
     margin-top: 35px;
   }
 
@@ -51,6 +51,7 @@
     font-family: 'ZCOOL QingKe HuangYou';
     font-weight: bold;
   }
+
   .BtnCancelar:hover {
     background-color: rgb(141, 0, 0);
     color: #fff;
@@ -61,16 +62,16 @@
   <div class="Contenedor">
     <p class="Tittle">Edición de empleado</p>
     <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <div class="row">
-            <div class="col">
-              <button type="submit" class="btn BtnRealizar form-control">Actualizar</button>
-            </div>
-            <div class="col">
-              <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn BtnCancelar form-control">Cancelar</a>
-            </div>
-          </div>
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="row">
+        <div class="col">
+          <button type="submit" class="btn BtnRealizar form-control">Actualizar</button>
+        </div>
+        <div class="col">
+          <a href="{% url 'RH:editar_empleado_busqueda' %}" class="btn BtnCancelar form-control">Cancelar</a>
+        </div>
+      </div>
     </form>
   </div>
 </body>

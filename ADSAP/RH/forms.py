@@ -80,7 +80,7 @@ class EstadoSolicitudForm(forms.ModelForm):
 
         widgets = {
             'estado': forms.Select(attrs={'class': 'form-control'}),
-            'comentarios_admin': forms.Textarea(attrs={'class': 'form-control'}),
+            'comentarios_admin': forms.Textarea(attrs={'class': 'form-control CampoMotivo'}),
         }
 
 class NoticiasForm(forms.ModelForm):
@@ -89,7 +89,9 @@ class NoticiasForm(forms.ModelForm):
         fields = ['titulo' , 'imagen', 'contenido', 'id_area'] 
 
         widgets = {
-            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'titulo': forms.Textarea(attrs={'style': 'width: 850px; height: 30px;' }),
+            'contenido': forms.Textarea(attrs={'style': 'width: 950px; height: 200px;' }),
         }
 
 class PreguntasForm(forms.ModelForm):
@@ -98,7 +100,9 @@ class PreguntasForm(forms.ModelForm):
         fields = ['pregunta' , 'respuesta', 'imagen'] 
 
         widgets = {
-            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'})
+            'imagen': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+            'pregunta': forms.Textarea(attrs={'style': 'width: 950px; height: 100px;' }),
+            'respuesta': forms.Textarea(attrs={'style': 'width: 950px; height: 300px;' }),
         }
 
 class NominaForm(forms.Form):
@@ -126,7 +130,6 @@ class NominaForm(forms.Form):
         required=True,
         widget=forms.NumberInput(attrs={'placeholder': 'Deducciones'})
     )
-
 REPORTE = (
     ("Enviado", "Enviado"),
     ("Corregido", "Corregido"),

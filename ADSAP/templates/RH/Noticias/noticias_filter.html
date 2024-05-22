@@ -58,7 +58,7 @@
   .btn {
     background-color: #003366;
     border-color: #003366;
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
 
   img {
@@ -82,8 +82,7 @@
 <body>
   <div class="Contenedor">
     <p class="TittleADSAP">ADSAP</p>
-    <img src="https://cdn-icons-png.flaticon.com/256/1074/1074106.png">
-    <p class="Sub">Noticias de la empresa</p>
+    <p class="Sub">Editar noticias de la empresa</p>
     <div class="Filtro">
       <form action="" method="get">
         <div class="input-group">
@@ -112,19 +111,22 @@
           <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-              {% if noticia.imagen %}
-              <img class="imgnoticia" src="{{ noticia.imagen.url }}">
-              {% else %}
-              {% endif %} 
-              {{ noticia.contenido }}
-                <a href="{% url 'RH:detalles_noticias' pk=noticia.id %}" class="btn btn-warning">Editar</a>
+              <div>
+                {% if noticia.imagen %}
+                <img class="imgnoticia" src="{{ noticia.imagen.url }}">
+                {% else %}
+                {% endif %}
+                {{ noticia.contenido }}
+              </div>
+              <br>
+              <a href="{% url 'RH:detalles_noticias' pk=noticia.id  %}" class="btn btn-primary py-2">Más opciones</a>
             </div>
           </div>
-          {% endfor %}
         </div>
       </div>
+      {% endfor %}
     </div>
-    
+    <br>
     <a href="{% url 'RH:noticias' %}" class="btn btn-primary">Regresar</a>
 
 </body>

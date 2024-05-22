@@ -63,7 +63,7 @@
   }
 
   .btn1 {
-    margin-left: 75%;
+    margin-left: 72%;
     margin-bottom: 15px;
   }
 
@@ -79,10 +79,7 @@
 
 <body>
   <div class="Contenedor">
-    <p class="Tittle">Incapacidades filtro</p>
-    
-
-    
+    <p class="Tittle">Incapacidades</p>
     <div class="Filtro">
       <form action="" method="get">
         <div class="input-group">
@@ -102,7 +99,7 @@
         {% for solicitud in solicitudes %}
         <div class="list-group">
           <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
-            <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
+            <img src="https://cdn-icons-png.flaticon.com/256/898/898681.png">
             <div>
               <p class="mb-0 fecha">Periodo: {{ solicitud.fecha_inicio }} al {{ solicitud.fecha_fin }} </p>
               <p class="mb-0 opacity-75 fecha Dias"> Días de incapacidad: {{ solicitud.dias_solicitados }} </p>

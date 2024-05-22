@@ -1,20 +1,9 @@
 {% extends 'base/base.html'%}
-{% block title %} Busqueda de Incapacidades {% endblock title %}
+{% block title %}Incapacidades{% endblock title %}
 {% block content %}
 <style>
-  body {
+  .background {
     background-color: #fff;
-  }
-
-  .btn2 {
-    background-color: #003366;
-    border-color: #003366;
-    font-size: 1.5em;
-    width: 750px;
-    margin-top: 550px;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
   }
 
   .Contenedor {
@@ -29,7 +18,15 @@
     display: block;
   }
 
-  .TittleADSAP {
+  img {
+    margin-top: 10px;
+    height: 50px;
+    width: 50px;
+    display: block;
+    padding-bottom: 10px;
+  }
+
+  .Tittle {
     font-size: 3em;
     color: #003366;
     font-family: 'ZCOOL QingKe HuangYou';
@@ -43,42 +40,87 @@
     color: #003366;
     font-family: 'ZCOOL QingKe HuangYou';
     text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .Dia {
+    font-size: 1em;
+    color: #000000;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: center;
+  }
+
+  .fecha {
+    font-size: 1.3em;
+    font-family: 'ZCOOL QingKe HuangYou';
+    text-align: justify;
+  }
+
+  .btn {
+    background-color: #003366;
+    border-color: #003366;
+    font-size: 1.5em;
+  }
+
+  .btn1 {
+    margin-left: 72%;
+    margin-bottom: 15px;
+  }
+
+  .Filtro {
+    padding-bottom: 20px;
+  }
+
+  .vacaciones {
+    height: 100px;
+    width: 100%;
+  }
+
+  .Dias {
+    text-align: left;
+    position: absolute;
+  }
+
+  .Motivo {
+    margin-left: 45%;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    font-family: 'ZCOOL QingKe HuangYou';
   }
 </style>
 
-<body>
-  <div class="Contenedor">
-    <p class="TittleADSAP">ADSAP</p>
+<body class="background">
+  <div class=Contenedor>
+    <p class="Tittle">Incapacidades</p>
     <p class="Sub">Busqueda de Incapacidades</p>
-    <form action="filtro" method="get">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar incapacidad" name="busquedaIncapacidad">
-        <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
-          <i class="fas fa-search"></i>
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
-            viewBox="0 0 16 16">
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-          </svg>
-        </button>
-      </div>
-    </form> 
+    <div class="Filtro">
+      <form action="filtro" method="get">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar incapacidad" name="busquedaIncapacidad">
+          <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+            <i class="fas fa-search"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </button>
+        </div>
+      </form>
+    </div>
 
     {% for incapacidad in incapacidades %}
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
-          <img src="https://cdn-icons-png.flaticon.com/256/2284/2284211.png">
-          <div>
-            <p class="mb-0 fecha">Periodo: {{ incapacidad.fecha_inicio }} al {{ incapacidad.fecha_fin }} </p>
-            <p class="mb-0 opacity-75 fecha Dias"> Días de incapacidad: {{ incapacidad.dias_solicitados }} </p>
-          </div>
-        </a>
-        <a href="{% url 'RH:incapacidad_detalle' incapacidad.id %}" class="btn btn-primary py-2">Ver detalles</a>
-      </div>
-      {% endfor %}
-
-    <a class="btn btn-primary py-2 btn2" href="{% url 'home:home' %}">Volver al menú</a>
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
+        <img src="https://cdn-icons-png.flaticon.com/256/898/898681.png">
+        <div>
+          <p class="mb-0 fecha">Periodo: {{ incapacidad.fecha_inicio }} al {{ incapacidad.fecha_fin }} </p>
+          <p class="mb-0 opacity-75 fecha Dias"> Días de incapacidad: {{ incapacidad.dias_solicitados }} </p>
+        </div>
+      </a>
+      <a href="{% url 'RH:incapacidad_detalle' incapacidad.id %}" class="btn btn-primary py-2">Ver detalles</a>
+    </div>
+    {% endfor %}
   </div>
-  
 </body>
 {% endblock content %}

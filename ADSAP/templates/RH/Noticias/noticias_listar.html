@@ -1,5 +1,5 @@
 {% extends 'base/base.html'%}
-{% block title %}Noticias{% endblock title %}
+{% block title %}Editar noticias{% endblock title %}
 {% block content %}
 <style>
   body {
@@ -12,6 +12,7 @@
     padding-left: 25px;
     padding-right: 25px;
     width: 1300px;
+    height: 900px;
     margin-left: 150px;
     display: block;
   }
@@ -49,6 +50,7 @@
   .accordion-body {
     font-size: 1.5em;
     text-align: justify;
+    display: inline-block;
   }
 
   .accordion-collapse {
@@ -58,7 +60,7 @@
   .btn {
     background-color: #003366;
     border-color: #003366;
-    font-size: 1.5em;
+    font-size: 1.3em;
   }
 
   img {
@@ -82,8 +84,7 @@
 <body>
   <div class="Contenedor">
     <p class="TittleADSAP">ADSAP</p>
-    <img src="https://cdn-icons-png.flaticon.com/256/1074/1074106.png">
-    <p class="Sub">Noticias de la empresa</p>
+    <p class="Sub">Editar noticias de la empresa</p>
     <div class="Filtro">
       <form action="filtro" method="get">
         <div class="input-group">
@@ -102,9 +103,9 @@
     <div>
       {% for noticia in noticias %}
       <div class="accordion" id="accordionExample">
-        <div class="accordion-item">
+        <div class="accordion-item mb-1">
           <h2 class="accordion-header" id="heading{{ forloop.counter }}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            <button class="accordion-button collapsed mb" type="button" data-bs-toggle="collapse"
               data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapseThree">
               {{ noticia.titulo }}
             </button>
@@ -112,20 +113,21 @@
           <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse"
             aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#accordionExample">
             <div class="accordion-body">
-              {% if noticia.imagen %}
-              <img class="imgnoticia" src="{{ noticia.imagen.url }}">
-              {% else %}
-              {% endif %} 
-              {{ noticia.contenido }}
-                <a href="{% url 'RH:detalles_noticias' pk=noticia.id %}" class="btn btn-warning">Editar</a>
+              <div>
+                {% if noticia.imagen %}
+                <img class="imgnoticia" src="{{ noticia.imagen.url }}">
+                {% else %}
+                {% endif %}
+                {{ noticia.contenido }}
+              </div>
+              <br>
+              <a href="{% url 'RH:detalles_noticias' pk=noticia.id  %}" class="btn btn-primary py-2">Más opciones</a>
             </div>
           </div>
-          {% endfor %}
         </div>
       </div>
+      {% endfor %}
     </div>
-    
-    <a href="{% url 'RH:noticias' %}" class="btn btn-primary">Regresar</a>
-
+  </div>
 </body>
 {% endblock content %}
