@@ -526,3 +526,16 @@ def crea_semana_nominas(request):
 
     context = {'forms': forms}
     return render(request, 'RH/Nominas/crea_semana.html', context)
+
+@method_decorator(login_required, name='dispatch')
+class Edita_Reportes(LoginRequiredMixin, generic.UpdateView):
+    model = models.REPORTE
+    form_class = forms.ReporteForm
+    template_name = "RH/Reportes/reporte_detalle.html"
+    success_url = reverse_lazy("core:reporte_error")
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.groups.filter(name='Personal RH').exists():
+            return HttpResponseForbidden("No estás autorizado para ver esta página.")
+        return super().dispatch(request, *args, **kwargs)
+        

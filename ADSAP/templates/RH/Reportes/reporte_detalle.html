@@ -97,7 +97,11 @@
     <p class="mb-0">Seccion: {{ reporte.seccion }} </p>
     <p class="mb-0 fecha">Fecha envio reporte: {{ reporte.fecha_inicio }}  </p>
     <p class="mb-0 fecha">Fecha fin reporte: {{ reporte.fecha_fin }}  </p>
-    <p class="mb-0">Estado: {{ reporte.estado }} </p>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form }}
+            <button type="submit" class="btn">Actualizar</button>
+  </form>
     <p class="mb-0">Descripcion: {{ reporte.descripcion }} </p>
     {% if reporte.imagen %}
         <img src="{{ reporte.imagen.url }}" alt="Imagen de reporte">
@@ -106,7 +110,8 @@
     {% endif %}
   
     </div>
-    <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:reporte_lista' %}">Volver a reportes</a>
+    <a class="btn btn-primary py-2 BtnAtras" type="" href="{% url 'core:reporte_error' %}">Volver a reportes</a>
   </div>
+  
 </body>
 {% endblock content %}

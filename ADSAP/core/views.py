@@ -15,6 +15,7 @@ from datetime import date
 from django.http import HttpResponse
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from django.core.exceptions import ObjectDoesNotExist
 
 @method_decorator(login_required, name='dispatch')
 class Preguntas(LoginRequiredMixin, generic.View):
@@ -346,9 +347,22 @@ def searchIncapacidades(request, *args, **kwargs):
 
 @method_decorator(login_required, name='dispatch')
 class Reportes(LoginRequiredMixin, generic.View):
-
+ 
     def get(self, request):
-        return render(request, "reporte/reporte_error.html", {})
+        self.context = {
+            "reportes" : models.REPORTE.objects.filter(estado="Enviado"),
+        }
+
+        try:
+            if request.user.groups.filter(name='Empleados').exists():
+                template_name = "reporte/reporte_error.html" 
+            elif request.user.groups.filter(name='Personal RH').exists():
+                template_name = "RH/Reportes/reporte_error.html" 
+            else:  # Lógica de Administrador
+                template_name = "RH/Reportes/reporte_error.html" 
+            return render(request, template_name, self.context)
+        except ObjectDoesNotExist:
+            pass
 
 @method_decorator(login_required, name='dispatch')
 class Genera_Reporte(LoginRequiredMixin, generic.CreateView):

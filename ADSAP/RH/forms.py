@@ -126,3 +126,17 @@ class NominaForm(forms.Form):
         required=True,
         widget=forms.NumberInput(attrs={'placeholder': 'Deducciones'})
     )
+
+REPORTE = (
+    ("Enviado", "Enviado"),
+    ("Corregido", "Corregido"),
+)
+
+class ReporteForm(forms.ModelForm):
+    class Meta:
+        model = models.REPORTE
+        fields = ['estado']
+        widgets = {
+            'estado': forms.Select(choices=REPORTE),
+
+        }

@@ -2,8 +2,9 @@ from django.db import models
 from users.models import CustomUser
 from django.db.models.signals import post_save, post_delete
 from django.dispatch import receiver
-from datetime import date
+from datetime import date, datetime
 from datetime import timedelta
+from django.utils import timezone
 
 # Create your models here.
 
@@ -225,7 +226,6 @@ def vacaciones_canceladas(sender, instance, **kwargs):
 
 REPORTE = (
     ("Enviado", "Enviado"),
-    ("En revision", "En revision"),
     ("Corregido", "Corregido"),
 )
 SECCION = (
@@ -252,3 +252,15 @@ class REPORTE(models.Model):
 
     def __str__(self):
         return self.descripcion
+
+    
+@receiver(post_save, sender=REPORTE)
+def update_fecha_fin(sender, instance, **kwargs):
+    if not hasattr(instance, '_dirty'):
+        if instance.estado == 'Corregido':  
+            instance.fecha_fin = date.today()
+            instance._dirty = True  
+            instance.save(update_fields=['fecha_fin'])
+            del instance._dirty  
+
+
