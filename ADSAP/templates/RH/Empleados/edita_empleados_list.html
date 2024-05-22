@@ -20,8 +20,8 @@
 
   img {
     margin-top: 10px;
-    height: 50px;
-    width: 50px;
+    height: 90px;
+    width: 90px;
     display: block;
     padding-bottom: 10px;
   }
@@ -39,19 +39,15 @@
     font-size: 2.5em;
     color: #003366;
     font-family: 'ZCOOL QingKe HuangYou';
-    text-align: left;
-    position: absolute;
-  }
-
-  .Dia {
-    font-size: 1em;
-    color: #000000;
-    font-family: 'ZCOOL QingKe HuangYou';
     text-align: center;
   }
 
+  .Filtro {
+    padding-bottom: 20px;
+  }
+
   .fecha {
-    font-size: 1.3em;
+    font-size: 1em;
     font-family: 'ZCOOL QingKe HuangYou';
     text-align: justify;
   }
@@ -61,19 +57,10 @@
     border-color: #003366;
     font-size: 1.5em;
   }
-
-  .btn1 {
-    margin-left: 75%;
-    margin-bottom: 15px;
-  }
-
-  .Filtro {
-    padding-bottom: 20px;
-  }
-
-  .vacaciones {
-    height: 100px;
-    width: 100%;
+  
+  .btn2{
+    margin-top: 20px;
+    width: 150px;
   }
 </style>
 
@@ -81,24 +68,26 @@
   <div class="Contenedor">
     <p class="Tittle">ADSAP</p>
     <p class="Sub">Busqueda de empleado a editar</p>
-    <form action="filtro" method="get">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Buscar empleado" name="busquedaEmpleado">
-        <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
-          <i class="fas fa-search"></i>
-          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
-            viewBox="0 0 16 16">
-            <path
-              d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-          </svg>
-        </button>
-      </div>
-    </form> 
+    <div class="Filtro">
+      <form action="filtro" method="get">
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Buscar empleado" name="busquedaEmpleado">
+          <button type="submit" class="btn btn-primary" data-mdb-ripple-init>
+            <i class="fas fa-search"></i>
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-search"
+              viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+            </svg>
+          </button>
+        </div>
+      </form> 
+    </div>
 
     {% for empleado in empleados %}
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action d-flex gap-3 py-3 vacaciones" aria-current="true">
-          <img src="https://cdn-icons-png.flaticon.com/256/4343/4343430.png">
+          <img src="https://cdn-icons-png.flaticon.com/256/2572/2572970.png">
           <div>
             <p class="mb-0 fecha">Nombre: {{ empleado.nombre }} {{ empleado.apellido_paterno }} {{ empleado.apellido_materno }} </p>
             <p class="mb-0 fecha">Numero de empleado: {{ empleado.usuario.numero_empleado }} </p>
@@ -111,7 +100,7 @@
       {% endfor %}
 
 
-    <a class="btn btn-primary py-2 btn2" href="{% url 'home:home' %}">Volver al menú</a>
+    <a class="btn btn-primary py-2 btn2" href="{% url 'home:home' %}">Volver</a>
   </div>
 </body>
 {% endblock content %}

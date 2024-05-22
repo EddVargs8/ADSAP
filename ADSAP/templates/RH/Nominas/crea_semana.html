@@ -1,23 +1,110 @@
 {% extends 'base/base.html'%}
-{% block title %}Crea Semana Nomina{% endblock title %}
+{% block title %}Crear nomina{% endblock title %}
 {% block content %}
-<body>
-    <form method="post">
-        {% csrf_token %}
-        <table>
-            {% for empleado, form in forms %}
-                <tr>
-                    <td>{{ empleado.nombre }}</td>
-                    <td>{{ form.salario_diario }}</td>
-                    <td>{{ form.horas_trabajadas }}</td>
-                    <td>{{ form.fecha_inicio }}</td>
-                    <td>{{ form.horas_extra }}</td>
-                    <td>{{ form.deducciones }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        <button type="submit">Enviar</button>
-    </form>
-    
+<style>
+    .background {
+        background-color: #fff;
+    }
+
+    .Contenedor {
+        background-color: #fff;
+        padding-top: 20px;
+        padding-left: 25px;
+        padding-right: 25px;
+        width: 1300px;
+        margin-left: 150px;
+        display: block;
+    }
+
+    img {
+        margin-top: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        height: 150px;
+        width: 150px;
+        display: block;
+        padding-bottom: 10px;
+    }
+
+    .Tittle {
+        font-size: 3em;
+        color: #003366;
+        font-family: 'ZCOOL QingKe HuangYou';
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 0;
+    }
+
+    .Sub {
+        font-size: 2.5em;
+        color: #003366;
+        font-family: 'ZCOOL QingKe HuangYou';
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .btn {
+        background-color: #003366;
+        border-color: #003366;
+        font-size: 1.5em;
+        width: 400px;
+        margin-top: 50px;
+        display: block;
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #f2f2f2;
+        font-weight: bold;
+    }
+</style>
+
+<body class="background">
+    <div class=Contenedor>
+        <p class="Tittle">ADSAP</p>
+        <img src="https://cdn-icons-png.flaticon.com/256/1390/1390454.png">
+        <p class="Sub">Crear una nueva semana de nomina</p>
+        <div class="Nomina">
+            <form method="post">
+                {% csrf_token %}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Salario Diario</th>
+                            <th>Horas Trabajadas</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Horas Extra</th>
+                            <th>Deducciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for empleado, form in forms %}
+                            <tr>
+                                <td>{{ empleado.nombre }}</td>
+                                <td>{{ form.salario_diario }}</td>
+                                <td>{{ form.horas_trabajadas }}</td>
+                                <td>{{ form.fecha_inicio }}</td>
+                                <td>{{ form.horas_extra }}</td>
+                                <td>{{ form.deducciones }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <button type="submit" class="btn btn-primary py-2">Crear semana</button>
+            </form>
+        </div>
 </body>
 {% endblock content %}
